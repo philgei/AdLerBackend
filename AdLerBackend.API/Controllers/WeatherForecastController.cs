@@ -1,4 +1,3 @@
-using AdLerBackend.Application;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdLerBackend.Controllers;
@@ -7,7 +6,7 @@ namespace AdLerBackend.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
+    private static readonly string[] Summaries =
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
@@ -19,11 +18,10 @@ public class WeatherForecastController : ControllerBase
         _logger = logger;
     }
 
+
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
-        Class1 test = new();
-        test.test();
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
