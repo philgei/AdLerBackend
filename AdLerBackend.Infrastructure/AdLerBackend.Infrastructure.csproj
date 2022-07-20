@@ -7,4 +7,8 @@
         <RootNamespace>Infrastructure</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Moodle" />
+    </ItemGroup>
+
 </Project>
