@@ -19,7 +19,7 @@ public class MoodleLoginController
     [HttpPost]
     public async Task<ActionResult<MoodleUserDataDTO>> Login([FromBody] APIMoodleLoginRequestDTO request)
     {
-        MoodleUserDataDTO returnVal = await _mediator.Send(new MoodleLoginCommand
+        var returnVal = await _mediator.Send(new MoodleLoginCommand
         {
             Password = request.Password,
             UserName = request.Username

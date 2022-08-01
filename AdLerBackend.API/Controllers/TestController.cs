@@ -14,6 +14,7 @@ public class TestController : Controller
     {
         _mediator = mediator;
     }
+
     // GET
     [HttpGet(Name = "GetTest")]
     public async Task<string> TestRoute()

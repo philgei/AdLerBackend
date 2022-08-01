@@ -2,4 +2,4 @@
 
 namespace AdLerBackend.Application.Test;
 
-public record TestQuery() : IRequest<string>;
+public record TestQuery : IRequest<string>;
