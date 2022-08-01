@@ -7,7 +7,7 @@ namespace AdLerBackend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class MoodleLoginController
+public class MoodleLoginController : ControllerBase
 {
     private readonly IMediator _mediator;
 
