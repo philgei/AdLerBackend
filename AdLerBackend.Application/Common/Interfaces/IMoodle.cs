@@ -2,9 +2,12 @@
 
 public interface IMoodle
 {
-    public MoodleTokenDTO GetToken(string username, string password);
+    Task<MoodleUserDataDTO> LogInUserAsync(string userName, string password);
 }
 
-public class MoodleTokenDTO
+public class MoodleUserDataDTO
 {
+    public string moodleToken { get; set; }
+    public string moodleUserName { get; set; }
+    public bool isAdmin { get; set; }
 }

@@ -16,6 +16,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\AdLerBackend.Application\AdLerBackend.Application.csproj" />
+        <ProjectReference Include="..\AdLerBackend.Infrastructure\AdLerBackend.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

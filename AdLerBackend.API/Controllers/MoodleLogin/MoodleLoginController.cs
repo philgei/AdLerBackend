@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AdLerBackend.Application.Common.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection.Moodle.Commands;
 
@@ -16,12 +17,13 @@ public class MoodleLoginController
     }
 
     [HttpPost]
-    public async Task<ActionResult<string>> Login([FromBody] APIMoodleLoginRequestDTO request)
+    public async Task<ActionResult<MoodleUserDataDTO>> Login([FromBody] APIMoodleLoginRequestDTO request)
     {
-        return await _mediator.Send(new MoodleLoginCommand
+        MoodleUserDataDTO returnVal = await _mediator.Send(new MoodleLoginCommand
         {
             Password = request.Password,
             UserName = request.Username
         });
+        return returnVal;
     }
 }

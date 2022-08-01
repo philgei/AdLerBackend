@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Moodle" />
+      <ProjectReference Include="..\AdLerBackend.Application\AdLerBackend.Application.csproj" />
     </ItemGroup>
 
 </Project>
