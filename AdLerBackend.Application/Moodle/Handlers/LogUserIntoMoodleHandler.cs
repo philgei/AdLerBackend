@@ -1,6 +1,6 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
+using AdLerBackend.Application.Moodle.Commands;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection.Moodle.Commands;
 
 namespace Microsoft.Extensions.DependencyInjection.Moodle.Handlers;
 

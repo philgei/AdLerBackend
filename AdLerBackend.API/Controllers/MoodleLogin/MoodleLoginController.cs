@@ -1,7 +1,7 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
+using AdLerBackend.Application.Moodle.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection.Moodle.Commands;
 
 namespace AdLerBackend.Controllers.MoodleLogin;
 

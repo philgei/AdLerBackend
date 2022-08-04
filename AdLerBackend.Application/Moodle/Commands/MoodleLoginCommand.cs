@@ -1,7 +1,7 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using MediatR;
 
-namespace Microsoft.Extensions.DependencyInjection.Moodle.Commands;
+namespace AdLerBackend.Application.Moodle.Commands;
 
 public record MoodleLoginCommand : IRequest<MoodleUserDataDTO>
 {
