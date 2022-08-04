@@ -15,7 +15,15 @@ public class LogUserIntoMoodleHandler : IRequestHandler<MoodleLoginCommand, Mood
 
     public async Task<MoodleUserDataDTO> Handle(MoodleLoginCommand request, CancellationToken cancellationToken)
     {
-        //return Task.FromResult("[FAKE] " + request.UserName + " Logged in to Moodle");
-        return await _moodleContext.LogInUserAsync(request.UserName, request.Password);
+        try
+        {
+            var moodleUserDataDto = await _moodleContext.LogInUserAsync(request.UserName, request.Password);
+            return moodleUserDataDto;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

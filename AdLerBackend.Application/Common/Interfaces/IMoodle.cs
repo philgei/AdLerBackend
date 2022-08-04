@@ -2,6 +2,11 @@
 
 public interface IMoodle
 {
+    /// <summary>
+    /// </summary>
+    /// <param name="userName"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
     Task<MoodleUserDataDTO> LogInUserAsync(string userName, string password);
 }
 

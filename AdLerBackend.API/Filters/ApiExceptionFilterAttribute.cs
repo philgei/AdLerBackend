@@ -12,7 +12,8 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
         _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
         {
-            {typeof(ValidationException), HandleValidationException}
+            {typeof(ValidationException), HandleValidationException},
+            {typeof(InvalidMoodleLoginException), HandleMoodleLoginException}
         };
     }
 
@@ -37,7 +38,7 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
         {
             Title = "An unknown error occurred while processing your request.",
             Status = StatusCodes.Status500InternalServerError,
-            Detail = context.Exception.StackTrace
+            Detail = context.Exception.Message
         };
 
         context.Result = new ObjectResult(details)
@@ -55,6 +56,22 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
         var details = new ValidationProblemDetails(exception.Errors)
         {
             Type = "Validation Error"
+        };
+
+        context.Result = new BadRequestObjectResult(details);
+
+        context.ExceptionHandled = true;
+    }
+
+    private void HandleMoodleLoginException(ExceptionContext context)
+    {
+        var exception = (InvalidMoodleLoginException) context.Exception;
+
+        var details = new ProblemDetails
+        {
+            Title = "Invalid Moodle Login",
+            Detail = exception.Message,
+            Status = StatusCodes.Status400BadRequest
         };
 
         context.Result = new BadRequestObjectResult(details);
