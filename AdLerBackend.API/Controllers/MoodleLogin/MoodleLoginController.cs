@@ -1,5 +1,5 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
-using AdLerBackend.Application.Moodle.Commands;
+using AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
 using AdLerBackend.Application.Moodle.Commands.GetUserData;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +17,17 @@ public class MoodleLoginController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost]
+    [HttpPost("GetUserData")]
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<MoodleUserDataDTO>> GetMoodleUserData([FromBody] GetMoodleUserDataCommand command)
+    {
+        return await _mediator.Send(command);
+    }
+
+    [HttpPost("GetUserToken")]
+    public async Task<ActionResult<MoodleUserTokenDTO>> GetMoodleUserToken([FromBody] GetMoodleTokenCommand command)
     {
         return await _mediator.Send(command);
     }

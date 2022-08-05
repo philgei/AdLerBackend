@@ -1,5 +1,4 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
-using AdLerBackend.Application.Moodle.Commands;
 using AdLerBackend.Application.Moodle.Commands.GetUserData;
 using MediatR;
 
@@ -18,7 +17,7 @@ public class LogUserIntoMoodleHandler : IRequestHandler<GetMoodleUserDataCommand
     {
         try
         {
-            var moodleUserDataDto = await _moodleContext.GetMoodleTokenAsync(request.UserName, request.Password);
+            var moodleUserDataDto = await _moodleContext.GetMoodleUserDataAsync(request.WebServiceToken);
             return moodleUserDataDto;
         }
         catch (Exception e)

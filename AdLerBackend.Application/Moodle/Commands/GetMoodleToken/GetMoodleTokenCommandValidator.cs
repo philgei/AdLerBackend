@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace AdLerBackend.Application.Moodle.Commands.GetUserData;
+namespace AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
 
-public class GetMoodleUserDataCommandValidator : AbstractValidator<GetMoodleUserDataCommand>
+public class GetMoodleTokenCommandValidator : AbstractValidator<GetMoodleTokenCommand>
 {
-    public GetMoodleUserDataCommandValidator()
+    public GetMoodleTokenCommandValidator()
     {
         RuleFor(v => v.UserName)
             .NotEmpty().WithMessage("Username is required");

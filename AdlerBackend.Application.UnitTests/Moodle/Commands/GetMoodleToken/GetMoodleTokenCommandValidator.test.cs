@@ -1,23 +1,22 @@
-﻿using AdLerBackend.Application.Moodle.Commands;
-using AdLerBackend.Application.Moodle.Commands.GetUserData;
+﻿using AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
 using FluentValidation.TestHelper;
 
-namespace Application.UnitTests.Moodle.Commands;
+namespace Application.UnitTests.Moodle.Commands.GetMoodleToken;
 
-public class MoodleLoginCommandValidator_test
+public class MoodleLoginCommandValidatorTest
 {
-    private GetMoodleUserDataCommandValidator _validator;
+    private GetMoodleTokenCommandValidator _validator;
 
     [SetUp]
     public void Setup()
     {
-        _validator = new GetMoodleUserDataCommandValidator();
+        _validator = new GetMoodleTokenCommandValidator();
     }
 
     [Test]
     public void Should_have_error_when_username_is_null()
     {
-        var command = new GetMoodleUserDataCommand
+        var command = new GetMoodleTokenCommand
         {
             UserName = null,
             Password = "password"
@@ -33,7 +32,7 @@ public class MoodleLoginCommandValidator_test
     [Test]
     public void Should_have_error_when_username_is_empty()
     {
-        var command = new GetMoodleUserDataCommand
+        var command = new GetMoodleTokenCommand
         {
             UserName = "",
             Password = "password"
@@ -49,7 +48,7 @@ public class MoodleLoginCommandValidator_test
     [Test]
     public void Should_have_error_when_password_is_null()
     {
-        var command = new GetMoodleUserDataCommand
+        var command = new GetMoodleTokenCommand
         {
             UserName = "username",
             Password = null
@@ -65,7 +64,7 @@ public class MoodleLoginCommandValidator_test
     [Test]
     public void Should_have_error_when_password_is_empty()
     {
-        var command = new GetMoodleUserDataCommand
+        var command = new GetMoodleTokenCommand
         {
             UserName = "username",
             Password = ""

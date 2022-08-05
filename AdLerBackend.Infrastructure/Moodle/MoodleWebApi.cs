@@ -10,7 +10,8 @@ public class MoodleWebApi : IMoodle
     // Sollte injected werden
     private static readonly HttpClient Client = new();
 
-    public async Task<MoodleUserDataDTO> GetMoodleTokenAsync(string userName, string password)
+
+    public async Task<MoodleUserTokenDTO> GetMoodleUserTokenAsync(string userName, string password)
     {
         HttpResponseMessage loginResponse;
         try
@@ -35,7 +36,11 @@ public class MoodleWebApi : IMoodle
             throw new Exception("Das Ergebnis der Moodle Web Api konnte nicht gelesen werden", e);
         }
 
-        if (loginResponseData?.token == null)
+        if (loginResponseData?.token != null)
+            return new MoodleUserTokenDTO
+            {
+                moodleToken = loginResponseData.token
+            };
         {
             ErrorResponse errorResponse;
             try
@@ -52,7 +57,12 @@ public class MoodleWebApi : IMoodle
                 throw new InvalidMoodleLoginException("Invalid login credentials");
         }
 
+        throw new Exception("Das Ergebnis der Moodle Web Api konnte nicht gelesen werden");
+    }
 
+    public async Task<MoodleUserDataDTO> GetMoodleUserDataAsync(string token)
+    {
+        // TODO: Validate user Token
         HttpResponseMessage userResponse;
         try
         {
@@ -60,7 +70,7 @@ public class MoodleWebApi : IMoodle
                 new FormUrlEncodedContent(
                     new Dictionary<string, string>
                     {
-                        {"wstoken", loginResponseData!.token},
+                        {"wstoken", token},
                         {"wsfunction", "core_webservice_get_site_info"},
                         {"moodlewsrestformat", "json"}
                     }
@@ -86,15 +96,9 @@ public class MoodleWebApi : IMoodle
 
         return new MoodleUserDataDTO
         {
-            moodleToken = loginResponseData.token,
             moodleUserName = userDataResponse.username,
             isAdmin = userDataResponse.userissiteadmin
         };
-    }
-
-    public Task<MoodleUserDataDTO> GetMoodleUserDataAsync(string token)
-    {
-        throw new NotImplementedException();
     }
 }
 

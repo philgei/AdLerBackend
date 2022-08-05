@@ -7,15 +7,14 @@ public interface IMoodle
     /// <param name="userName"></param>
     /// <param name="password"></param>
     /// <returns>The Moodle Token</returns>
-    Task<MoodleUserDataDTO> GetMoodleTokenAsync(string userName, string password);
     Task<MoodleUserDataDTO> GetMoodleUserDataAsync(string token);
-}
 
+    Task<MoodleUserTokenDTO> GetMoodleUserTokenAsync(string userName, string password);
+}
 
 // TODO: DTOs should be in the Application layer.
 public class MoodleUserDataDTO
 {
-    public string moodleToken { get; set; }
     public string moodleUserName { get; set; }
     public bool isAdmin { get; set; }
 }

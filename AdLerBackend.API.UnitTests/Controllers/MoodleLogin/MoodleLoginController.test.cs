@@ -1,5 +1,5 @@
 ﻿using AdLerBackend.Application.Common.Exceptions;
-using AdLerBackend.Application.Moodle.Commands;
+using AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
 using AdLerBackend.Application.Moodle.Commands.GetUserData;
 using AdLerBackend.Controllers.MoodleLogin;
 using MediatR;
@@ -11,7 +11,7 @@ namespace AdLerBackend.API.Test.Controllers.MoodleLogin;
 public class MoodleLoginControllerTest
 {
     [Test]
-    public async Task Login_ShouldForwardCallToMoodleLoginService()
+    public async Task GetUserData_ShouldForwardCallToMoodleLoginService()
     {
         // Arrange
         var mediatorMock = Substitute.For<IMediator>();
@@ -20,17 +20,16 @@ public class MoodleLoginControllerTest
         // Act
         var result = await controller.GetMoodleUserData(new GetMoodleUserDataCommand
         {
-            Password = "test123",
-            UserName = "test123"
+            WebServiceToken = "TestToken"
         });
 
         // Assert
         await mediatorMock.Received(1).Send(
-            Arg.Is<GetMoodleUserDataCommand>(x => x.Password == "test123" && x.UserName == "test123"));
+            Arg.Is<GetMoodleUserDataCommand>(x => x.WebServiceToken == "TestToken"));
     }
 
-    [Test(Description = "Login returns bad request, when login fails")]
-    public async Task Login_ReturnsBadRequest_WhenLoginFails()
+    [Test]
+    public async Task GetUserData_ReturnsBadRequest_WhenLoginFails()
     {
         // Arrange
         var mediatorMock = Substitute.For<IMediator>();
@@ -43,8 +42,26 @@ public class MoodleLoginControllerTest
         // Expect exception to be thrown
         Assert.ThrowsAsync<InvalidMoodleLoginException>(() => controller.GetMoodleUserData(new GetMoodleUserDataCommand
         {
-            Password = "test123",
-            UserName = "test123"
+            WebServiceToken = "TestToken"
         }));
+    }
+
+    [Test]
+    public async Task Login_ShouldForwardCallToMoodleService()
+    {
+        // Arrange
+        var mediatorMock = Substitute.For<IMediator>();
+        var controller = new MoodleLoginController(mediatorMock);
+
+        // Act
+        var result = await controller.GetMoodleUserToken(new GetMoodleTokenCommand
+        {
+            Password = "TestPassword",
+            UserName = "TestUsername"
+        });
+
+        // Assert
+        await mediatorMock.Received(1).Send(
+            Arg.Is<GetMoodleTokenCommand>(x => x.Password == "TestPassword" && x.UserName == "TestUsername"));
     }
 }
