@@ -14,8 +14,4 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0-preview.6.22324.4" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Moodle\Queries" />
-    </ItemGroup>
-
 </Project>

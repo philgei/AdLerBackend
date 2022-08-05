@@ -2,8 +2,9 @@
 using AdLerBackend.Application.Common.Behaviours;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace AdLerBackend.Application;
 
 public static class ConfigureServices
 {

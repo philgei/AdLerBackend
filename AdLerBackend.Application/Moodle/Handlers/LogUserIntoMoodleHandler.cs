@@ -2,7 +2,7 @@
 using AdLerBackend.Application.Moodle.Commands;
 using MediatR;
 
-namespace Microsoft.Extensions.DependencyInjection.Moodle.Handlers;
+namespace AdLerBackend.Application.Moodle.Handlers;
 
 public class LogUserIntoMoodleHandler : IRequestHandler<MoodleLoginCommand, MoodleUserDataDTO>
 {
