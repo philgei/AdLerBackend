@@ -1,7 +1,8 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using Infrastructure.Moodle;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace Infrastructure;
 
 public static class ConfigureServices
 {

@@ -11,9 +11,6 @@ namespace AdLerBackend.API.Test.Filters;
 
 public class ApiExceptionFilterAttributeTest
 {
-    private ExceptionContext _context = null!;
-    private ApiExceptionFilterAttribute _filter = null!;
-
     [SetUp]
     public void Setup()
     {
@@ -24,10 +21,7 @@ public class ApiExceptionFilterAttributeTest
             ActionDescriptor = new ActionDescriptor()
         };
 
-        _context = new ExceptionContext(actionContext, new List<IFilterMetadata>())
-        {
-            Exception = new InvalidMoodleLoginException("______Invalid Login!")
-        };
+        _context = new ExceptionContext(actionContext, new List<IFilterMetadata>());
         _filter = new ApiExceptionFilterAttribute();
     }
 
@@ -57,10 +51,12 @@ public class ApiExceptionFilterAttributeTest
         _filter.OnException(_context);
 
         // Assert
-        var result = _context.Result as BadRequestObjectResult;
-        var resultValue = result.Value as ValidationProblemDetails;
+        Assert.That(_context.Result, Is.InstanceOf<BadRequestObjectResult>());
+        var result = (BadRequestObjectResult) _context.Result!;
 
-        Assert.IsInstanceOf<ValidationProblemDetails>(resultValue);
+        Assert.That(result.Value, Is.InstanceOf<ValidationProblemDetails>());
+        var resultValue = (ValidationProblemDetails) result.Value!;
+
         Assert.That(resultValue.Type, Is.EqualTo("Validation Error"));
     }
 
@@ -80,4 +76,8 @@ public class ApiExceptionFilterAttributeTest
         Assert.IsInstanceOf<ProblemDetails>(resultValue);
         Assert.That(resultValue.Title, Is.EqualTo("An unknown error occurred while processing your request."));
     }
+#pragma warning disable CS8618
+    private ExceptionContext _context;
+    private ApiExceptionFilterAttribute _filter;
+#pragma warning restore CS8618
 }

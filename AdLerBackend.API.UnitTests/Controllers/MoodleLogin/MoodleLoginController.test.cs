@@ -28,7 +28,7 @@ public class MoodleLoginControllerTest
             Arg.Is<MoodleLoginCommand>(x => x.Password == "test123" && x.UserName == "test123"));
     }
 
-    [Test]
+    [Test(Description = "Login returns bad request, when login fails")]
     public async Task Login_ReturnsBadRequest_WhenLoginFails()
     {
         // Arrange
