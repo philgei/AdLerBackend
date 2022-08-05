@@ -1,4 +1,5 @@
 ﻿using AdLerBackend.Application.Common.Exceptions;
+using AdLerBackend.Common.ProblemDetails;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -67,11 +68,9 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
         var exception = (InvalidMoodleLoginException) context.Exception;
 
-        var details = new ProblemDetails
+        var details = new MoodleLoginProblemDetails
         {
-            Title = "Invalid Moodle Login",
-            Detail = exception.Message,
-            Status = StatusCodes.Status400BadRequest
+            Detail = exception.Message
         };
 
         context.Result = new BadRequestObjectResult(details);

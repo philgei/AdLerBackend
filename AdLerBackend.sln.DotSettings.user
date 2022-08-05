@@ -5,13 +5,19 @@
     &lt;TestId&gt;NUnit3x::5ABD61D7-B430-443B-A5D9-903345EC8D34::net6.0::Application.UnitTests.Tests.Test1&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cee20b9c_002D0b08_002D4985_002Dae87_002D82dfaf0fc12c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1 #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cee20b9c_002D0b08_002D4985_002Dae87_002D82dfaf0fc12c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1 #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::8756498E-20DA-43AB-959C-97BD1FD50CDA::net6.0::AdLerBackend.API.Test.Tests.Test1&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::8756498E-20DA-43AB-959C-97BD1FD50CDA::net6.0::AdLerBackend.API.Test.Controllers.MoodleLogin.MoodleLoginController_test.Login_ShouldForwardCallToMoodleLoginService&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::8756498E-20DA-43AB-959C-97BD1FD50CDA::net6.0::AdLerBackend.API.Test.Controllers.MoodleLogin.MoodleLoginController_test.Login_ReturnsBadRequest_WhenLoginFails&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::8756498E-20DA-43AB-959C-97BD1FD50CDA::net6.0::AdLerBackend.API.Test.Filters.ApiExceptionFilterAttributeTest.ApiExceptionFilterAttribute_test_test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::8756498E-20DA-43AB-959C-97BD1FD50CDA::net6.0::AdLerBackend.API.Test.Filters.ApiExceptionFilterAttributeTest.ApiExceptionFilterAttribute_test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::8756498E-20DA-43AB-959C-97BD1FD50CDA::net6.0::AdLerBackend.API.Test.Filters.ApiExceptionFilterAttributeTest.ApiExceptionFilterAttribute_Should_Handle_InvalidMoodleLogin&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::8756498E-20DA-43AB-959C-97BD1FD50CDA::net6.0::AdLerBackend.API.Test.Filters.ApiExceptionFilterAttributeTest.ApiExceptionFilterAttribute_Should_Handle_ValidationException&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::8756498E-20DA-43AB-959C-97BD1FD50CDA::net6.0::AdLerBackend.API.Test.Filters.ApiExceptionFilterAttributeTest.ApiExceptionFilterAttribute_Should_Handle_UnknownException&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d6c53216_002D09f2_002D4d5a_002D8fd0_002D4ad026a18ffe/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1 #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d6c53216_002D09f2_002D4d5a_002D8fd0_002D4ad026a18ffe/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1 #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::5ABD61D7-B430-443B-A5D9-903345EC8D34::net6.0::Application.UnitTests.Tests.Test1&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::8756498E-20DA-43AB-959C-97BD1FD50CDA::net6.0::AdLerBackend.API.Test.Controllers.MoodleLogin.MoodleLoginController_test.Login_ShouldForwardCallToMoodleLoginService&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
