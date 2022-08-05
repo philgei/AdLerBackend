@@ -1,5 +1,6 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Moodle.Commands;
+using AdLerBackend.Application.Moodle.Commands.GetUserData;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +21,7 @@ public class MoodleLoginController : ControllerBase
     [ProducesResponseType(200)]
     [ProducesResponseType(400)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult<MoodleUserDataDTO>> Login([FromBody] MoodleLoginCommand command)
+    public async Task<ActionResult<MoodleUserDataDTO>> GetMoodleUserData([FromBody] GetMoodleUserDataCommand command)
     {
         return await _mediator.Send(command);
     }

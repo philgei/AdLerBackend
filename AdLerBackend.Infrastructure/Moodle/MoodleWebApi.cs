@@ -10,7 +10,7 @@ public class MoodleWebApi : IMoodle
     // Sollte injected werden
     private static readonly HttpClient Client = new();
 
-    public async Task<MoodleUserDataDTO> LogInUserAsync(string userName, string password)
+    public async Task<MoodleUserDataDTO> GetMoodleTokenAsync(string userName, string password)
     {
         HttpResponseMessage loginResponse;
         try
@@ -90,6 +90,11 @@ public class MoodleWebApi : IMoodle
             moodleUserName = userDataResponse.username,
             isAdmin = userDataResponse.userissiteadmin
         };
+    }
+
+    public Task<MoodleUserDataDTO> GetMoodleUserDataAsync(string token)
+    {
+        throw new NotImplementedException();
     }
 }
 

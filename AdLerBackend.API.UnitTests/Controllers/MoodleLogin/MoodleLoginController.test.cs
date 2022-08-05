@@ -1,5 +1,6 @@
 ﻿using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Moodle.Commands;
+using AdLerBackend.Application.Moodle.Commands.GetUserData;
 using AdLerBackend.Controllers.MoodleLogin;
 using MediatR;
 using NSubstitute;
@@ -17,7 +18,7 @@ public class MoodleLoginControllerTest
         var controller = new MoodleLoginController(mediatorMock);
 
         // Act
-        var result = await controller.Login(new MoodleLoginCommand
+        var result = await controller.GetMoodleUserData(new GetMoodleUserDataCommand
         {
             Password = "test123",
             UserName = "test123"
@@ -25,7 +26,7 @@ public class MoodleLoginControllerTest
 
         // Assert
         await mediatorMock.Received(1).Send(
-            Arg.Is<MoodleLoginCommand>(x => x.Password == "test123" && x.UserName == "test123"));
+            Arg.Is<GetMoodleUserDataCommand>(x => x.Password == "test123" && x.UserName == "test123"));
     }
 
     [Test(Description = "Login returns bad request, when login fails")]
@@ -33,14 +34,14 @@ public class MoodleLoginControllerTest
     {
         // Arrange
         var mediatorMock = Substitute.For<IMediator>();
-        mediatorMock.Send(Arg.Any<MoodleLoginCommand>()).Throws(
+        mediatorMock.Send(Arg.Any<GetMoodleUserDataCommand>()).Throws(
             new InvalidMoodleLoginException());
 
 
         var controller = new MoodleLoginController(mediatorMock);
 
         // Expect exception to be thrown
-        Assert.ThrowsAsync<InvalidMoodleLoginException>(() => controller.Login(new MoodleLoginCommand
+        Assert.ThrowsAsync<InvalidMoodleLoginException>(() => controller.GetMoodleUserData(new GetMoodleUserDataCommand
         {
             Password = "test123",
             UserName = "test123"
