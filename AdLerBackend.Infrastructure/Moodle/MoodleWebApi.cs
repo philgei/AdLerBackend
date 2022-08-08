@@ -92,24 +92,27 @@ public class MoodleWebApi : IMoodle
     private async Task<HttpResponseMessage> PostToMoodleAsync(Dictionary<string, string> wsParams,
         PostToMoodleOptions? options = null)
     {
+        var url = "";
+
         try
         {
             options ??= new PostToMoodleOptions();
             switch (options.Endpoint)
             {
                 case PostToMoodleOptions.Endpoints.Webservice:
-                    return await _client.PostAsync("https://moodle.cluuub.xyz/webservice/rest/server.php",
-                        new FormUrlEncodedContent(wsParams));
+                    url = "https://moodle.cluuub.xyz/webservice/rest/server.php";
+                    break;
                 case PostToMoodleOptions.Endpoints.Login:
-                    return await _client.PostAsync("https://moodle.cluuub.xyz/login/token.php",
-                        new FormUrlEncodedContent(wsParams));
-                default:
-                    throw new Exception("Unbekannter Endpunkt");
+                    url = "https://moodle.cluuub.xyz/login/token.php";
+                    break;
             }
+
+            return await _client.PostAsync(url,
+                new FormUrlEncodedContent(wsParams));
         }
         catch (Exception e)
         {
-            throw new Exception("Die Moodle Web Api ist nicht erreichbar", e);
+            throw new Exception("Die Moodle Web Api ist nicht erreichbar: URL: " + url, e);
         }
     }
 }
@@ -123,15 +126,6 @@ public class UserDataResponse
 {
     public string username { get; set; }
     public bool userissiteadmin { get; set; }
-}
-
-public class MoodleTokenErrorResponse
-{
-    public string error { get; set; }
-    public string errorcode { get; set; }
-    public object stacktrace { get; set; }
-    public object debuginfo { get; set; }
-    public object reproductionlink { get; set; }
 }
 
 public class MoodleWSErrorResponse
