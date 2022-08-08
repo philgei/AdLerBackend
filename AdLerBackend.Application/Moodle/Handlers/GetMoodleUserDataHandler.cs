@@ -4,11 +4,11 @@ using MediatR;
 
 namespace AdLerBackend.Application.Moodle.Handlers;
 
-public class LogUserIntoMoodleHandler : IRequestHandler<GetMoodleUserDataCommand, MoodleUserDataDTO>
+public class GetMoodleUserDataHandler : IRequestHandler<GetMoodleUserDataCommand, MoodleUserDataDTO>
 {
     private readonly IMoodle _moodleContext;
 
-    public LogUserIntoMoodleHandler(IMoodle moodleContext)
+    public GetMoodleUserDataHandler(IMoodle moodleContext)
     {
         _moodleContext = moodleContext;
     }
