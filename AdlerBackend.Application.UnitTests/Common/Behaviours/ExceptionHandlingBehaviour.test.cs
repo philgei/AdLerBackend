@@ -2,6 +2,7 @@
 using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Exceptions.LMSAdapter;
 using AdLerBackend.Application.Common.Interfaces;
+using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
 using AdLerBackend.Application.Moodle.Commands.GetUserData;
 using MediatR;
@@ -16,7 +17,7 @@ public class ExceptionHandlingBehaviour_test
     {
         // Arrange
         var systemUnderTest =
-            new ExceptionHandlingBehaviour<IRequest<MoodleUserDataDTO>, MoodleUserDataDTO, LmsException>();
+            new ExceptionHandlingBehaviour<IRequest<MoodleUserDataResponse>, MoodleUserDataResponse, LmsException>();
 
         // Act
         Assert.ThrowsAsync<InvalidTokenException>(() =>
@@ -24,7 +25,7 @@ public class ExceptionHandlingBehaviour_test
                 {
                     LmsErrorCode = "invalidtoken"
                 },
-                new RequestExceptionHandlerState<MoodleUserDataDTO>(), CancellationToken.None));
+                new RequestExceptionHandlerState<MoodleUserDataResponse>(), CancellationToken.None));
     }
 
     [Test]
@@ -32,7 +33,7 @@ public class ExceptionHandlingBehaviour_test
     {
         // Arrange
         var systemUnderTest =
-            new ExceptionHandlingBehaviour<IRequest<MoodleUserTokenDTO>, MoodleUserTokenDTO, LmsException>();
+            new ExceptionHandlingBehaviour<IRequest<MoodleUserTokenResponse>, MoodleUserTokenResponse, LmsException>();
 
         // Act
         Assert.ThrowsAsync<InvalidMoodleLoginException>(() =>
@@ -40,7 +41,7 @@ public class ExceptionHandlingBehaviour_test
                 {
                     LmsErrorCode = "invalidlogin"
                 },
-                new RequestExceptionHandlerState<MoodleUserTokenDTO>(), CancellationToken.None));
+                new RequestExceptionHandlerState<MoodleUserTokenResponse>(), CancellationToken.None));
     }
 
     [Test]
@@ -48,7 +49,7 @@ public class ExceptionHandlingBehaviour_test
     {
         // Arrange
         var systemUnderTest =
-            new ExceptionHandlingBehaviour<IRequest<MoodleUserTokenDTO>, MoodleUserTokenDTO, LmsException>();
+            new ExceptionHandlingBehaviour<IRequest<MoodleUserTokenResponse>, MoodleUserTokenResponse, LmsException>();
 
         // Act
         Assert.ThrowsAsync<LmsException>(() =>
@@ -56,6 +57,6 @@ public class ExceptionHandlingBehaviour_test
                 {
                     LmsErrorCode = "invalidErrorCode"
                 },
-                new RequestExceptionHandlerState<MoodleUserTokenDTO>(), CancellationToken.None));
+                new RequestExceptionHandlerState<MoodleUserTokenResponse>(), CancellationToken.None));
     }
 }

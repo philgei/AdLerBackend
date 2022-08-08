@@ -1,4 +1,5 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
+using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Moodle.Commands.GetUserData;
 using AdLerBackend.Application.Moodle.Handlers;
 using NSubstitute;
@@ -25,7 +26,7 @@ public class GetMoodleUserDataHandler_test
         {
             WebServiceToken = "testToken"
         };
-        _moodleMock.GetMoodleUserDataAsync(request.WebServiceToken).Returns(new MoodleUserDataDTO
+        _moodleMock.GetMoodleUserDataAsync(request.WebServiceToken).Returns(new MoodleUserDataResponse
         {
             isAdmin = true,
             moodleUserName = "TestNutzer"

@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using AdLerBackend.Application.Common.Exceptions.LMSAdapter;
 using AdLerBackend.Application.Common.Interfaces;
+using AdLerBackend.Application.Common.Responses;
 
 namespace Infrastructure.Moodle;
 
@@ -14,7 +15,7 @@ public class MoodleWebApi : IMoodle
         _client = client;
     }
 
-    public async Task<MoodleUserTokenDTO> GetMoodleUserTokenAsync(string userName, string password)
+    public async Task<MoodleUserTokenResponse> GetMoodleUserTokenAsync(string userName, string password)
     {
         var resp = await MoodleCallAsync<UserTokenResponse>(new Dictionary<string, string>
         {
@@ -26,14 +27,14 @@ public class MoodleWebApi : IMoodle
             Endpoint = PostToMoodleOptions.Endpoints.Login
         });
 
-        return new MoodleUserTokenDTO
+        return new MoodleUserTokenResponse
         {
             moodleToken = resp.token
         };
     }
 
 
-    public async Task<MoodleUserDataDTO> GetMoodleUserDataAsync(string token)
+    public async Task<MoodleUserDataResponse> GetMoodleUserDataAsync(string token)
     {
         var resp = await MoodleCallAsync<UserDataResponse>(new Dictionary<string, string>
         {
@@ -42,7 +43,7 @@ public class MoodleWebApi : IMoodle
             {"moodlewsrestformat", "json"}
         });
 
-        return new MoodleUserDataDTO
+        return new MoodleUserDataResponse
         {
             moodleUserName = resp.username,
             isAdmin = resp.userissiteadmin

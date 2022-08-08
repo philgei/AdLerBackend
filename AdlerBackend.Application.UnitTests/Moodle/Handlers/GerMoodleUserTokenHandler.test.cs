@@ -1,4 +1,5 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
+using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
 using AdLerBackend.Application.Moodle.Handlers;
 using NSubstitute;
@@ -26,7 +27,7 @@ public class GerMoodleUserTokenHandler_test
             UserName = "username",
             Password = "password"
         };
-        _moodleMock.GetMoodleUserTokenAsync(request.UserName, request.Password).Returns(new MoodleUserTokenDTO
+        _moodleMock.GetMoodleUserTokenAsync(request.UserName, request.Password).Returns(new MoodleUserTokenResponse
         {
             moodleToken = "token"
         });
