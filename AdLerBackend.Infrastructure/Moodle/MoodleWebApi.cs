@@ -8,15 +8,20 @@ namespace Infrastructure.Moodle;
 public class MoodleWebApi : IMoodle
 {
     // TODO: Sollte injected werden
-    private static readonly HttpClient Client = new();
+    private readonly HttpClient _client;
 
+
+    public MoodleWebApi(HttpClient client)
+    {
+        _client = client;
+    }
 
     public async Task<MoodleUserTokenDTO> GetMoodleUserTokenAsync(string userName, string password)
     {
         HttpResponseMessage loginResponse;
         try
         {
-            loginResponse = await Client.GetAsync(
+            loginResponse = await _client.GetAsync(
                 $"https://moodle.cluuub.xyz/login/token.php?username={userName}&password={password}&service=moodle_mobile_app");
         }
         catch (Exception e)
@@ -60,7 +65,7 @@ public class MoodleWebApi : IMoodle
         throw new Exception("Das Ergebnis der Moodle Web Api konnte nicht gelesen werden");
     }
 
-    
+
     public async Task<MoodleUserDataDTO> GetMoodleUserDataAsync(string token)
     {
         var resp = await MoodleCallAsync<UserDataResponse>(new Dictionary<string, string>
@@ -122,7 +127,7 @@ public class MoodleWebApi : IMoodle
         try
         {
             response =
-                await Client.PostAsync("https://moodle.cluuub.xyz/webservice/rest/server.php",
+                await _client.PostAsync("https://moodle.cluuub.xyz/webservice/rest/server.php",
                     new FormUrlEncodedContent(wsParams));
         }
         catch (Exception e)
