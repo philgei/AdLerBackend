@@ -7,7 +7,6 @@ namespace Infrastructure.Moodle;
 
 public class MoodleWebApi : IMoodle
 {
-    // TODO: Sollte injected werden
     private readonly HttpClient _client;
 
 
