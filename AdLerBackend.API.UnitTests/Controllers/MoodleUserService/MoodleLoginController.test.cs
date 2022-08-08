@@ -1,12 +1,12 @@
 ﻿using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
 using AdLerBackend.Application.Moodle.Commands.GetUserData;
-using AdLerBackend.Controllers.MoodleLogin;
+using AdLerBackend.Controllers.MoodleUserService;
 using MediatR;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 
-namespace AdLerBackend.API.Test.Controllers.MoodleLogin;
+namespace AdLerBackend.API.Test.Controllers.MoodleUserService;
 
 public class MoodleLoginControllerTest
 {
@@ -18,7 +18,7 @@ public class MoodleLoginControllerTest
         var controller = new MoodleLoginController(mediatorMock);
 
         // Act
-        var result = await controller.GetMoodleUserData(new GetMoodleUserDataCommand
+        await controller.GetMoodleUserData(new GetMoodleUserDataCommand
         {
             WebServiceToken = "TestToken"
         });
@@ -29,7 +29,7 @@ public class MoodleLoginControllerTest
     }
 
     [Test]
-    public async Task GetUserData_ReturnsBadRequest_WhenLoginFails()
+    public Task GetUserData_ReturnsBadRequest_WhenLoginFails()
     {
         // Arrange
         var mediatorMock = Substitute.For<IMediator>();
@@ -44,6 +44,7 @@ public class MoodleLoginControllerTest
         {
             WebServiceToken = "TestToken"
         }));
+        return Task.CompletedTask;
     }
 
     [Test]
@@ -54,7 +55,7 @@ public class MoodleLoginControllerTest
         var controller = new MoodleLoginController(mediatorMock);
 
         // Act
-        var result = await controller.GetMoodleUserToken(new GetMoodleTokenCommand
+        await controller.GetMoodleUserToken(new GetMoodleTokenCommand
         {
             Password = "TestPassword",
             UserName = "TestUsername"

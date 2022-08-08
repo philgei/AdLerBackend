@@ -28,4 +28,8 @@
       <ProjectReference Include="..\AdLerBackend.API\AdLerBackend.API.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\LearningWorld" />
+    </ItemGroup>
+
 </Project>
