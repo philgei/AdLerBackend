@@ -35,7 +35,7 @@ public class ApiExceptionFilterAttributeTest
         _filter.OnException(_context);
 
         // Assert
-        var result = _context.Result as BadRequestObjectResult;
+        var result = _context.Result as UnauthorizedObjectResult;
         var resultValue = result!.Value;
 
         Assert.IsInstanceOf<MoodleLoginProblemDetails>(resultValue);
@@ -71,11 +71,28 @@ public class ApiExceptionFilterAttributeTest
 
         // Assert
         var result = _context.Result as ObjectResult;
-        var resultValue = result.Value as ProblemDetails;
+        var resultValue = result!.Value as ProblemDetails;
 
         Assert.IsInstanceOf<ProblemDetails>(resultValue);
-        Assert.That(resultValue.Title, Is.EqualTo("An unknown error occurred while processing your request."));
+        Assert.That(resultValue!.Title, Is.EqualTo("An unknown error occurred while processing your request."));
     }
+
+    [Test]
+    public void ApiExceptionFilterAttributeShouldHandleTokenException()
+    {
+        // Arrange
+        _context.Exception = new InvalidTokenException();
+
+        // Act
+        _filter.OnException(_context);
+
+        // Assert
+        var result = _context.Result as UnauthorizedObjectResult;
+        var resultValue = result!.Value;
+
+        Assert.IsInstanceOf<MoodleTokenProblemDetails>(resultValue);
+    }
+
 #pragma warning disable CS8618
     private ExceptionContext _context;
     private ApiExceptionFilterAttribute _filter;
