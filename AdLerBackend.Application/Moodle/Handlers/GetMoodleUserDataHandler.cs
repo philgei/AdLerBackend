@@ -15,15 +15,7 @@ public class LogUserIntoMoodleHandler : IRequestHandler<GetMoodleUserDataCommand
 
     public async Task<MoodleUserDataDTO> Handle(GetMoodleUserDataCommand request, CancellationToken cancellationToken)
     {
-        try
-        {
-            var moodleUserDataDto = await _moodleContext.GetMoodleUserDataAsync(request.WebServiceToken);
-            return moodleUserDataDto;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        var moodleUserDataDto = await _moodleContext.GetMoodleUserDataAsync(request.WebServiceToken);
+        return moodleUserDataDto;
     }
 }

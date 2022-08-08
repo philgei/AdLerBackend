@@ -14,7 +14,8 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
         _exceptionHandlers = new Dictionary<Type, Action<ExceptionContext>>
         {
             {typeof(ValidationException), HandleValidationException},
-            {typeof(InvalidMoodleLoginException), HandleMoodleLoginException}
+            {typeof(InvalidMoodleLoginException), HandleMoodleLoginException},
+            {typeof(InvalidTokenException), HandleInvalidTokenException}
         };
     }
 
@@ -22,6 +23,15 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
         HandleException(context);
         base.OnException(context);
+    }
+
+    private void HandleInvalidTokenException(ExceptionContext context)
+    {
+        var details = new MoodleTokenProblemDetails();
+
+        context.Result = new UnauthorizedObjectResult(details);
+
+        context.ExceptionHandled = true;
     }
 
     private void HandleException(ExceptionContext context)
@@ -73,7 +83,7 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
             Detail = exception.Message
         };
 
-        context.Result = new BadRequestObjectResult(details);
+        context.Result = new UnauthorizedObjectResult(details);
 
         context.ExceptionHandled = true;
     }
