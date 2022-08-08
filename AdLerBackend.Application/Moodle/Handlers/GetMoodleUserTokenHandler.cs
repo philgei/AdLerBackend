@@ -15,15 +15,7 @@ public class GetMoodleUserTokenHandler : IRequestHandler<GetMoodleTokenCommand, 
 
     public async Task<MoodleUserTokenDTO> Handle(GetMoodleTokenCommand request, CancellationToken cancellationToken)
     {
-        try
-        {
-            var moodleTokenDto = await _moodle.GetMoodleUserTokenAsync(request.UserName, request.Password);
-            return moodleTokenDto;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+        var moodleTokenDto = await _moodle.GetMoodleUserTokenAsync(request.UserName, request.Password);
+        return moodleTokenDto;
     }
 }

@@ -17,6 +17,8 @@ public class
             {
                 case "invalidtoken":
                     throw new InvalidTokenException();
+                case "invalidlogin":
+                    throw new InvalidMoodleLoginException();
             }
 
         throw exception;

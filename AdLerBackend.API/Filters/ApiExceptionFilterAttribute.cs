@@ -76,11 +76,9 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 
     private void HandleMoodleLoginException(ExceptionContext context)
     {
-        var exception = (InvalidMoodleLoginException) context.Exception;
-
         var details = new MoodleLoginProblemDetails
         {
-            Detail = exception.Message
+            Detail = "The Moodle Login Data Provided is wrong"
         };
 
         context.Result = new UnauthorizedObjectResult(details);

@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Exceptions.LMSAdapter;
 using AdLerBackend.Application.Common.Interfaces;
 
@@ -17,51 +16,20 @@ public class MoodleWebApi : IMoodle
 
     public async Task<MoodleUserTokenDTO> GetMoodleUserTokenAsync(string userName, string password)
     {
-        HttpResponseMessage loginResponse;
-        try
+        var resp = await MoodleCallAsync<UserTokenResponse>(new Dictionary<string, string>
         {
-            loginResponse = await _client.GetAsync(
-                $"https://moodle.cluuub.xyz/login/token.php?username={userName}&password={password}&service=moodle_mobile_app");
-        }
-        catch (Exception e)
+            {"username", userName},
+            {"password", password},
+            {"service", "moodle_mobile_app"}
+        }, new PostToMoodleOptions
         {
-            throw new Exception("Die Moodle Web Api ist nicht erreichbar", e);
-        }
+            Endpoint = PostToMoodleOptions.Endpoints.Login
+        });
 
-        var responseString = await loginResponse.Content.ReadAsStringAsync();
-        UserTokenResponse loginResponseData;
-        try
+        return new MoodleUserTokenDTO
         {
-            // Response cant be null, it will throw an exception if it is
-            loginResponseData = JsonSerializer.Deserialize<UserTokenResponse>(responseString)!;
-        }
-        catch (Exception e)
-        {
-            throw new Exception("Das Ergebnis der Moodle Web Api konnte nicht gelesen werden", e);
-        }
-
-        if (loginResponseData?.token != null)
-            return new MoodleUserTokenDTO
-            {
-                moodleToken = loginResponseData.token
-            };
-        {
-            MoodleTokenErrorResponse moodleTokenErrorResponse;
-            try
-            {
-                // Response cant be null, it will throw an exception if it is - PG
-                moodleTokenErrorResponse = JsonSerializer.Deserialize<MoodleTokenErrorResponse>(responseString)!;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Das Ergebnis der Moodle Web Api konnte nicht gelesen werden", e);
-            }
-
-            if (moodleTokenErrorResponse.errorcode == "invalidlogin")
-                throw new InvalidMoodleLoginException("Invalid login credentials");
-        }
-
-        throw new Exception("Das Ergebnis der Moodle Web Api konnte nicht gelesen werden");
+            moodleToken = resp.token
+        };
     }
 
 
@@ -81,9 +49,10 @@ public class MoodleWebApi : IMoodle
         };
     }
 
-    private async Task<TDtoType> MoodleCallAsync<TDtoType>(Dictionary<string, string> wsParams)
+    private async Task<TDtoType> MoodleCallAsync<TDtoType>(Dictionary<string, string> wsParams,
+        PostToMoodleOptions? options = null)
     {
-        var moodleApiResponse = await PostToMoodleAsync(wsParams);
+        var moodleApiResponse = await PostToMoodleAsync(wsParams, options);
         var responseString = await moodleApiResponse.Content.ReadAsStringAsync();
 
         return ParseResponseFromString<TDtoType>(responseString);
@@ -96,6 +65,7 @@ public class MoodleWebApi : IMoodle
 
         return TryRead<TResponseType>(responseString);
     }
+
 
     private static TResponse TryRead<TResponse>(string responseString)
     {
@@ -111,30 +81,36 @@ public class MoodleWebApi : IMoodle
 
     private void ThrowIfMoodleError(string responseString)
     {
-        var errorData = TryRead<MoodleWSErrorResponse>(responseString);
-        if (errorData.exception != null)
+        var wsErrorData = TryRead<MoodleWSErrorResponse>(responseString);
+        if (wsErrorData.errorcode != null)
             throw new LmsException
             {
-                LmsMessage = errorData.message,
-                LmsErrorCode = errorData.errorcode
+                LmsErrorCode = wsErrorData.errorcode
             };
     }
 
-    private async Task<HttpResponseMessage> PostToMoodleAsync(Dictionary<string, string> wsParams)
+    private async Task<HttpResponseMessage> PostToMoodleAsync(Dictionary<string, string> wsParams,
+        PostToMoodleOptions? options = null)
     {
-        HttpResponseMessage response;
         try
         {
-            response =
-                await _client.PostAsync("https://moodle.cluuub.xyz/webservice/rest/server.php",
-                    new FormUrlEncodedContent(wsParams));
+            options ??= new PostToMoodleOptions();
+            switch (options.Endpoint)
+            {
+                case PostToMoodleOptions.Endpoints.Webservice:
+                    return await _client.PostAsync("https://moodle.cluuub.xyz/webservice/rest/server.php",
+                        new FormUrlEncodedContent(wsParams));
+                case PostToMoodleOptions.Endpoints.Login:
+                    return await _client.PostAsync("https://moodle.cluuub.xyz/login/token.php",
+                        new FormUrlEncodedContent(wsParams));
+                default:
+                    throw new Exception("Unbekannter Endpunkt");
+            }
         }
         catch (Exception e)
         {
             throw new Exception("Die Moodle Web Api ist nicht erreichbar", e);
         }
-
-        return response;
     }
 }
 
@@ -160,7 +136,16 @@ public class MoodleTokenErrorResponse
 
 public class MoodleWSErrorResponse
 {
-    public string exception { get; set; }
     public string errorcode { get; set; }
-    public string message { get; set; }
+}
+
+public class PostToMoodleOptions
+{
+    public enum Endpoints
+    {
+        Webservice,
+        Login
+    }
+
+    public Endpoints Endpoint { get; set; } = Endpoints.Webservice;
 }
