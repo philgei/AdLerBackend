@@ -11,6 +11,7 @@ public static class ConfigureServices
         var httpClient = new HttpClient();
         // Add Moodle to DI
         services.AddSingleton<IMoodle, MoodleWebApi>();
+        services.AddSingleton<ILmsBackupProcessor, LmsBackupProcessor.LmsBackupProcessor>();
         services.AddSingleton(httpClient);
         return services;
     }
