@@ -15,7 +15,8 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
         {
             {typeof(ValidationException), HandleValidationException},
             {typeof(InvalidMoodleLoginException), HandleMoodleLoginException},
-            {typeof(InvalidTokenException), HandleInvalidTokenException}
+            {typeof(InvalidTokenException), HandleInvalidTokenException},
+            {typeof(NotFoundException), HandleNotFoundException}
         };
     }
 
@@ -23,6 +24,22 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
         HandleException(context);
         base.OnException(context);
+    }
+
+    private void HandleNotFoundException(ExceptionContext context)
+    {
+        var exception = (NotFoundException) context.Exception;
+        var details = new MoodleTokenProblemDetails
+        {
+            Title = "The requestet Resource was not found",
+            Detail = exception.Message,
+            Status = StatusCodes.Status404NotFound
+        };
+
+
+        context.Result = new NotFoundObjectResult(details);
+
+        context.ExceptionHandled = true;
     }
 
     private void HandleInvalidTokenException(ExceptionContext context)

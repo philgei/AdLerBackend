@@ -33,6 +33,32 @@ public class MoodleWebApi : IMoodle
         };
     }
 
+    public async Task<MoodleSearchCoursesResponse> SearchCoursesAsync(string token, string searchString)
+    {
+        var resp = await MoodleCallAsync<MoodleSearchCoursesResponse>(new Dictionary<string, string>
+        {
+            {"wstoken", token},
+            {"moodlewsrestformat", "json"},
+            {"wsfunction", "core_course_search_courses"},
+            {"criterianame", "search"},
+            {"criteriavalue", searchString}
+        });
+
+        return resp;
+    }
+
+    public async Task<CourseContent[]> GetCourseContentAsync(string token, int courseId)
+    {
+        var resp = await MoodleCallAsync<CourseContent[]>(new Dictionary<string, string>
+        {
+            {"wstoken", token},
+            {"moodlewsrestformat", "json"},
+            {"wsfunction", "core_course_get_contents"},
+            {"courseid", courseId.ToString()}
+        });
+        return resp;
+    }
+
 
     public async Task<MoodleUserDataResponse> GetMoodleUserDataAsync(string token)
     {
@@ -72,7 +98,12 @@ public class MoodleWebApi : IMoodle
     {
         try
         {
-            return JsonSerializer.Deserialize<TResponse>(responseString)!;
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            return JsonSerializer.Deserialize<TResponse>(responseString, options)!;
         }
         catch (Exception e)
         {
@@ -82,8 +113,17 @@ public class MoodleWebApi : IMoodle
 
     private void ThrowIfMoodleError(string responseString)
     {
-        var wsErrorData = TryRead<MoodleWSErrorResponse>(responseString);
-        if (wsErrorData.errorcode != null)
+        MoodleWSErrorResponse wsErrorData = null!;
+        try
+        {
+            wsErrorData = TryRead<MoodleWSErrorResponse>(responseString);
+        }
+        catch (Exception e)
+        {
+            // ignored
+        }
+
+        if (wsErrorData?.errorcode != null)
             throw new LmsException
             {
                 LmsErrorCode = wsErrorData.errorcode
