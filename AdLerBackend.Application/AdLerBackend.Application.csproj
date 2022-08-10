@@ -20,4 +20,8 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\AdLerBackend.Domain\AdLerBackend.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
