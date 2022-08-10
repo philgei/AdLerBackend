@@ -1,4 +1,6 @@
-﻿using AdLerBackend.Application.Common.Interfaces;
+﻿using AdLerBackend.Application.Common.Exceptions;
+using AdLerBackend.Application.Common.Interfaces;
+using AdLerBackend.Application.Moodle.Commands.GetUserData;
 using MediatR;
 
 namespace AdLerBackend.Application.Course.UploadCourse;
@@ -6,23 +8,25 @@ namespace AdLerBackend.Application.Course.UploadCourse;
 public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, bool>
 {
     private readonly ILmsBackupProcessor _lmsBackupProcessor;
+    private readonly IMediator _mediator;
 
-    public UploadCourseCommandHandler(ILmsBackupProcessor lmsBackupProcessor)
+    public UploadCourseCommandHandler(ILmsBackupProcessor lmsBackupProcessor, IMediator mediator)
     {
         _lmsBackupProcessor = lmsBackupProcessor;
+        _mediator = mediator;
     }
 
-    public Task<bool> Handle(UploadCourseCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(UploadCourseCommand request, CancellationToken cancellationToken)
     {
-        try
+        var userData = await _mediator.Send(new GetMoodleUserDataCommand
         {
-            var h5pFilesInBackup = _lmsBackupProcessor.GetH5PFilesFromBackup(request.Content);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
+            WebServiceToken = request.WebServiceToken
+        });
+
+        if (!userData.isAdmin) throw new ForbiddenAccessException("You are not an admin");
+
+        var h5PFilesInBackup = _lmsBackupProcessor.GetH5PFilesFromBackup(request.Content);
+
 
         throw new NotImplementedException("Gagag");
     }

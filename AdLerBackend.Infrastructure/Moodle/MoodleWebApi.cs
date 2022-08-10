@@ -72,7 +72,8 @@ public class MoodleWebApi : IMoodle
         return new MoodleUserDataResponse
         {
             moodleUserName = resp.username,
-            isAdmin = resp.userissiteadmin
+            isAdmin = resp.userissiteadmin,
+            userId = resp.userid
         };
     }
 
@@ -167,6 +168,7 @@ public class UserDataResponse
 {
     public string username { get; set; }
     public bool userissiteadmin { get; set; }
+    public int userid { get; set; }
 }
 
 public class MoodleWSErrorResponse

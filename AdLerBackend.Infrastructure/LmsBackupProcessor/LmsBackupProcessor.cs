@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Text;
+using System.Xml.Serialization;
 using AdLerBackend.Application.Common.DTOs;
 using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
@@ -7,49 +8,75 @@ using ICSharpCode.SharpZipLib.Tar;
 
 namespace Infrastructure.LmsBackupProcessor;
 
+// TODO: Implement n Task-Queue for parallel processing of the backup files
 public class LmsBackupProcessor : ILmsBackupProcessor
 {
-    public Task<IList<H5PDto>> GetH5PFilesFromBackup(Stream backupFile)
+    public IList<H5PDto> GetH5PFilesFromBackup(Stream backupFile)
     {
-        var filesDescription = GetFilesDescription(backupFile);
+        var filesDescriptionStream = getFileFromTarStream(backupFile, "files.xml");
 
-        throw new NotImplementedException();
+        var filesDescription = DeserializeToObject<Files>(filesDescriptionStream);
+
+        List<string> h5pHashes = new();
+        foreach (var file in filesDescription.File)
+            if (file.Mimetype == "application/zip.h5p")
+                h5pHashes.Add(file.Contenthash);
+
+        // remove duplicates from h5pHashes since files are represented twice in the backup
+        h5pHashes = h5pHashes.Distinct().ToList();
+        if (h5pHashes.Count == 0)
+            return new List<H5PDto>();
+
+        var h5PFiles = h5pHashes
+            .Select(h5pHash => getFileFromTarStream(backupFile, "files/" + h5pHash.Substring(0, 2) + "/" + h5pHash))
+            .ToList();
+
+        return h5PFiles.Select(h5PFile => new H5PDto
+        {
+            H5PFile = h5PFile
+        }).ToList();
     }
 
-    private Files GetFilesDescription(Stream backupFile)
-    {
-        var fileDescriptionString = getFileDescriptionString(backupFile);
 
-        var serializer = new XmlSerializer(typeof(Files));
-        using (var reader = new StringReader(fileDescriptionString))
-        {
-#pragma warning disable CS8600
-            var retVal = (Files) serializer.Deserialize(reader);
-#pragma warning restore CS8600
-            if (retVal != null) return retVal;
-            throw new Exception("Could not Parse File Description");
-        }
-    }
-
-    private string getFileDescriptionString(Stream backupFile)
+    private T DeserializeToObject<T>(Stream file) where T : class
     {
-        using (Stream source = new GZipInputStream(backupFile))
+        try
         {
-            using (var tarStream = new TarInputStream(source))
+            var ser = new XmlSerializer(typeof(T));
+
+            using (var sr = new StreamReader(file))
             {
-                TarEntry te;
-                while ((te = tarStream.GetNextEntry()) != null)
-                    if (te.Name == "files.xml")
-                        using (Stream fs = new MemoryStream())
-                        {
-                            tarStream.CopyEntryContents(fs);
-                            fs.Position = 0;
-                            var retVal = new StreamReader(fs).ReadToEnd();
-                            return retVal;
-                        }
-
-                throw new NotFoundException("files.xml not found in backup");
+                return (T) ser.Deserialize(sr);
             }
         }
+        catch (Exception e)
+        {
+            throw new Exception("Could not deserialize file for " + nameof(T), e);
+        }
+    }
+
+
+    private Stream getFileFromTarStream(Stream backupFile, string fileName)
+    {
+        var tarStream = getTarInputStream(backupFile);
+        TarEntry te;
+        while ((te = tarStream.GetNextEntry()) != null)
+            if (te.Name == fileName)
+            {
+                Stream fs = new MemoryStream();
+                tarStream.CopyEntryContents(fs);
+                fs.Position = 0;
+                return fs;
+            }
+
+        throw new NotFoundException(fileName + " not found in backup");
+    }
+
+    private TarInputStream getTarInputStream(Stream backupFile)
+    {
+        backupFile.Position = 0;
+        Stream source = new GZipInputStream(backupFile);
+
+        return new TarInputStream(source, Encoding.Default);
     }
 }
