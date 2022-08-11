@@ -7,11 +7,8 @@ public class AdLerBackendDbContext : DbContext
 {
     public AdLerBackendDbContext(DbContextOptions options) : base(options)
     {
-        Courses.Add(new CourseEntity
-        {
-            Id = 1337
-        });
     }
 
     public DbSet<CourseEntity> Courses { get; set; }
+    //public DbSet<H5PLocationEntity> H5PLocations { get; set; }
 }

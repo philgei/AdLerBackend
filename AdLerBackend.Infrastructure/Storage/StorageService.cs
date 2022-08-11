@@ -6,12 +6,12 @@ namespace Infrastructure.Storage;
 
 public class StorageService : IFileAccess
 {
-    public List<string> StoreH5pFilesForCourse(CourseStoreDto courseToStore)
+    public List<string> StoreH5PFilesForCourse(CourseStoreDto courseToStore)
     {
         var workingDir = Path.Join("wwwroot", "h5p", courseToStore.AuthorId.ToString(),
             courseToStore.CourseInforamtion.LearningWorld.Identifier.Value);
 
-        var bla = courseToStore.H5PFiles.Select(item =>
+        var h5PFilePaths = courseToStore.H5PFiles.Select(item =>
         {
             var zipStream = new ZipArchive(item.H5PFile!, ZipArchiveMode.Read);
             zipStream.ExtractToDirectory(Path.Combine(workingDir, item.H5PFileName!));
@@ -20,6 +20,6 @@ public class StorageService : IFileAccess
         }).ToList();
 
 
-        return bla;
+        return h5PFilePaths;
     }
 }

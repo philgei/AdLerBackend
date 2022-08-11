@@ -3,22 +3,25 @@ using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Moodle.Commands.GetUserData;
+using Domain.Entities;
 using MediatR;
 
 namespace AdLerBackend.Application.Course.UploadCourse;
 
 public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, bool>
 {
+    private readonly ICourseRepository _courseRepository;
     private readonly IFileAccess _fileAccess;
     private readonly ILmsBackupProcessor _lmsBackupProcessor;
     private readonly IMediator _mediator;
 
     public UploadCourseCommandHandler(ILmsBackupProcessor lmsBackupProcessor, IMediator mediator,
-        IFileAccess fileAccess)
+        IFileAccess fileAccess, ICourseRepository courseRepository)
     {
         _lmsBackupProcessor = lmsBackupProcessor;
         _mediator = mediator;
         _fileAccess = fileAccess;
+        _courseRepository = courseRepository;
     }
 
     public async Task<bool> Handle(UploadCourseCommand request, CancellationToken cancellationToken)
@@ -32,12 +35,26 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
         if (courseInformation.LearningWorld.LearningElements.Any(x => x.ElementType == "h5p"))
             h5PFilesInBackup = _lmsBackupProcessor.GetH5PFilesFromBackup(request.H5PFileSteam);
 
-        var test = _fileAccess.StoreH5pFilesForCourse(new CourseStoreDto
+        var storedH5PFilePaths = _fileAccess.StoreH5PFilesForCourse(new CourseStoreDto
         {
             AuthorId = userInformation.userId,
             CourseInforamtion = courseInformation,
             H5PFiles = h5PFilesInBackup
         });
+
+        // TODO: Add The List of H5P Files to the Course Information and store them in the Database
+
+        var courseEntity = new CourseEntity
+        {
+            Name = courseInformation.LearningWorld.Identifier.Value,
+            AuthorId = userInformation.userId
+            // H5PFilesInCourse = storedH5PFilePaths.Select(x => new H5PLocationEntity
+            // {
+            //     Path = x
+            // }).ToList()
+        };
+
+        var storedEntity = await _courseRepository.CreateCourse(courseEntity);
 
 
         throw new NotImplementedException("Gagag");

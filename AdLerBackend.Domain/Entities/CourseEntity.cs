@@ -1,9 +1,11 @@
-﻿namespace Domain.Entities;
+﻿using Domain.Entities.Common;
 
-public class CourseEntity
+namespace Domain.Entities;
+
+public class CourseEntity : BaseEntity
 {
-    public int Id { get; set; }
     public string Name { get; set; }
-    public List<string> H5PFilesInCourse { get; set; }
+
+    //public List<H5PLocationEntity> H5PFilesInCourse { get; set; }
     public int AuthorId { get; set; }
 }

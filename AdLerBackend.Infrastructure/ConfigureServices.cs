@@ -18,10 +18,11 @@ public static class ConfigureServices
         services.AddSingleton<IMoodle, MoodleWebApi>();
         services.AddSingleton<ILmsBackupProcessor, LmsBackupProcessor.LmsBackupProcessor>();
         services.AddSingleton<IFileAccess, StorageService>();
+        services.AddSingleton<ICourseRepository, CourseRepository>();
         services.AddSingleton(httpClient);
 
         var connectionString = configuration.GetConnectionString("DefaultConnection");
-        services.AddDbContext<AdLerBackendDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddDbContextFactory<AdLerBackendDbContext>(options => options.UseSqlServer(connectionString));
         return services;
     }
 }
