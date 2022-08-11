@@ -4,3 +4,4 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 AdLerBackend.sln.DotSettings.user
+/AdLerBackend.API/wwwroot/
