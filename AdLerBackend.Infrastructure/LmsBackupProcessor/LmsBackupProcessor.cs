@@ -13,27 +13,35 @@ public class LmsBackupProcessor : ILmsBackupProcessor
 {
     public IList<H5PDto> GetH5PFilesFromBackup(Stream backupFile)
     {
-        var filesDescriptionStream = getFileFromTarStream(backupFile, "files.xml");
+        var filesDescriptionStream = GetFileFromTarStream(backupFile, "files.xml");
 
         var filesDescription = DeserializeToObject<Files>(filesDescriptionStream);
 
-        List<string> h5pHashes = new();
+        List<H5PWorkingStorage> h5PHashes = new();
         foreach (var file in filesDescription.File)
             if (file.Mimetype == "application/zip.h5p")
-                h5pHashes.Add(file.Contenthash);
+                h5PHashes.Add(new H5PWorkingStorage
+                {
+                    H5PFileName = file.Filename,
+                    H5PContentHash = file.Contenthash
+                });
 
-        // remove duplicates from h5pHashes since files are represented twice in the backup
-        h5pHashes = h5pHashes.Distinct().ToList();
-        if (h5pHashes.Count == 0)
+        // remove duplicates from h5pHashes by Contenthash since files are represented twice in the backup
+        h5PHashes = h5PHashes.GroupBy(x => x.H5PContentHash).Select(x => x.First()).ToList();
+
+        if (h5PHashes.Count == 0)
             return new List<H5PDto>();
 
-        var h5PFiles = h5pHashes
-            .Select(h5pHash => getFileFromTarStream(backupFile, "files/" + h5pHash.Substring(0, 2) + "/" + h5pHash))
-            .ToList();
+        foreach (var h5PWorkingStorage in h5PHashes)
+            h5PWorkingStorage.H5PFile = GetFileFromTarStream(backupFile,
+                string.Concat("files/", h5PWorkingStorage.H5PContentHash!.AsSpan(0, 2), "/",
+                    h5PWorkingStorage.H5PContentHash));
 
-        return h5PFiles.Select(h5PFile => new H5PDto
+
+        return h5PHashes.Select(h5PFile => new H5PDto
         {
-            H5PFile = h5PFile
+            H5PFile = h5PFile.H5PFile,
+            H5PFileName = h5PFile.H5PFileName
         }).ToList();
     }
 
@@ -44,10 +52,9 @@ public class LmsBackupProcessor : ILmsBackupProcessor
         {
             var ser = new XmlSerializer(typeof(T));
 
-            using (var sr = new StreamReader(file))
-            {
-                return (T) ser.Deserialize(sr);
-            }
+            var obj = (T) ser.Deserialize(file)! ?? throw new Exception();
+
+            return obj;
         }
         catch (Exception e)
         {
@@ -56,11 +63,10 @@ public class LmsBackupProcessor : ILmsBackupProcessor
     }
 
 
-    private Stream getFileFromTarStream(Stream backupFile, string fileName)
+    private Stream GetFileFromTarStream(Stream backupFile, string fileName)
     {
-        var tarStream = getTarInputStream(backupFile);
-        TarEntry te;
-        while ((te = tarStream.GetNextEntry()) != null)
+        var tarStream = GetTarInputStream(backupFile);
+        while (tarStream.GetNextEntry() is { } te)
             if (te.Name == fileName)
             {
                 Stream fs = new MemoryStream();
@@ -72,11 +78,18 @@ public class LmsBackupProcessor : ILmsBackupProcessor
         throw new NotFoundException(fileName + " not found in backup");
     }
 
-    private TarInputStream getTarInputStream(Stream backupFile)
+    private static TarInputStream GetTarInputStream(Stream backupFile)
     {
         backupFile.Position = 0;
         Stream source = new GZipInputStream(backupFile);
 
         return new TarInputStream(source, Encoding.Default);
+    }
+
+    private class H5PWorkingStorage
+    {
+        public Stream? H5PFile { get; set; }
+        public string? H5PFileName { get; init; }
+        public string? H5PContentHash { get; init; }
     }
 }
