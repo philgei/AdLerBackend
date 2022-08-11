@@ -1,6 +1,7 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using Infrastructure.Moodle;
 using Infrastructure.Repositories;
+using Infrastructure.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ public static class ConfigureServices
         // Add Moodle to DI
         services.AddSingleton<IMoodle, MoodleWebApi>();
         services.AddSingleton<ILmsBackupProcessor, LmsBackupProcessor.LmsBackupProcessor>();
+        services.AddSingleton<IFileAccess, StorageService>();
         services.AddSingleton(httpClient);
 
         var connectionString = configuration.GetConnectionString("DefaultConnection");

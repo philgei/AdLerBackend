@@ -9,13 +9,16 @@ namespace AdLerBackend.Application.Course.UploadCourse;
 
 public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, bool>
 {
+    private readonly IFileAccess _fileAccess;
     private readonly ILmsBackupProcessor _lmsBackupProcessor;
     private readonly IMediator _mediator;
 
-    public UploadCourseCommandHandler(ILmsBackupProcessor lmsBackupProcessor, IMediator mediator)
+    public UploadCourseCommandHandler(ILmsBackupProcessor lmsBackupProcessor, IMediator mediator,
+        IFileAccess fileAccess)
     {
         _lmsBackupProcessor = lmsBackupProcessor;
         _mediator = mediator;
+        _fileAccess = fileAccess;
     }
 
     public async Task<bool> Handle(UploadCourseCommand request, CancellationToken cancellationToken)
@@ -25,9 +28,16 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
 
         var courseInformation = _lmsBackupProcessor.GetLevelDescriptionFromBackup(request.DslFileStream);
 
-        IList<H5PDto> h5PFilesInBackup;
+        IList<H5PDto> h5PFilesInBackup = new List<H5PDto>();
         if (courseInformation.LearningWorld.LearningElements.Any(x => x.ElementType == "h5p"))
             h5PFilesInBackup = _lmsBackupProcessor.GetH5PFilesFromBackup(request.H5PFileSteam);
+
+        var test = _fileAccess.StoreH5pFilesForCourse(new CourseStoreDto
+        {
+            AuthorId = userInformation.userId,
+            CourseInforamtion = courseInformation,
+            H5PFiles = h5PFilesInBackup
+        });
 
 
         throw new NotImplementedException("Gagag");
