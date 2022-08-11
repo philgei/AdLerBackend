@@ -1,5 +1,7 @@
-﻿using AdLerBackend.Application.Common.Exceptions;
+﻿using AdLerBackend.Application.Common.DTOs;
+using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
+using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Moodle.Commands.GetUserData;
 using MediatR;
 
@@ -18,16 +20,26 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
 
     public async Task<bool> Handle(UploadCourseCommand request, CancellationToken cancellationToken)
     {
+        var userInformation = await GetUserInformation(request);
+        if (!userInformation.isAdmin) throw new ForbiddenAccessException("You are not an admin");
+
+        var courseInformation = _lmsBackupProcessor.GetLevelDescriptionFromBackup(request.DslFileStream);
+
+        IList<H5PDto> h5PFilesInBackup;
+        if (courseInformation.LearningWorld.LearningElements.Any(x => x.ElementType == "h5p"))
+            h5PFilesInBackup = _lmsBackupProcessor.GetH5PFilesFromBackup(request.H5PFileSteam);
+
+
+        throw new NotImplementedException("Gagag");
+    }
+
+    private async Task<MoodleUserDataResponse> GetUserInformation(UploadCourseCommand request)
+    {
         var userData = await _mediator.Send(new GetMoodleUserDataCommand
         {
             WebServiceToken = request.WebServiceToken
         });
 
-        if (!userData.isAdmin) throw new ForbiddenAccessException("You are not an admin");
-
-        var h5PFilesInBackup = _lmsBackupProcessor.GetH5PFilesFromBackup(request.Content);
-
-
-        throw new NotImplementedException("Gagag");
+        return userData;
     }
 }

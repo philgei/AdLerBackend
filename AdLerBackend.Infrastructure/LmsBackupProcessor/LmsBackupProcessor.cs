@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json;
 using System.Xml.Serialization;
 using AdLerBackend.Application.Common.DTOs;
 using AdLerBackend.Application.Common.Exceptions;
@@ -43,6 +44,23 @@ public class LmsBackupProcessor : ILmsBackupProcessor
             H5PFile = h5PFile.H5PFile,
             H5PFileName = h5PFile.H5PFileName
         }).ToList();
+    }
+
+    public DslFileDto GetLevelDescriptionFromBackup(Stream dslStream)
+    {
+        dslStream.Position = 0;
+        try
+        {
+            var retVal = JsonSerializer.Deserialize<DslFileDto>(dslStream, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            }) ?? throw new Exception();
+            return retVal;
+        }
+        catch (Exception e)
+        {
+            throw new Exception("Could not deserialize DSL File", e);
+        }
     }
 
 

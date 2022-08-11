@@ -16,13 +16,12 @@ public class CoursesController : ControllerBase
     }
 
     [HttpPost("CreateCourse")]
-    public async Task<bool> CreateCourse(IFormFile formFile, [FromQuery] string token)
+    public async Task<bool> CreateCourse(IFormFile backupFile, IFormFile dslFile, [FromQuery] string token)
     {
         return await _mediator.Send(new UploadCourseCommand
         {
-            Content = formFile.OpenReadStream(),
-            Name = formFile.FileName,
-            ContentType = formFile.ContentType,
+            H5PFileSteam = backupFile.OpenReadStream(),
+            DslFileStream = dslFile.OpenReadStream(),
             WebServiceToken = token
         });
     }
