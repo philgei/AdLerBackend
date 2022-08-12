@@ -10,5 +10,11 @@ public class AdLerBackendDbContext : DbContext
     }
 
     public DbSet<CourseEntity> Courses { get; set; }
-    //public DbSet<H5PLocationEntity> H5PLocations { get; set; }
+    private DbSet<H5PLocationEntity> H5PLocations { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<CourseEntity>()
+            .HasMany(x => x.H5PFilesInCourse);
+    }
 }

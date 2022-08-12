@@ -20,7 +20,7 @@ public class CoursesController : ControllerBase
     {
         return await _mediator.Send(new UploadCourseCommand
         {
-            H5PFileSteam = backupFile.OpenReadStream(),
+            BackupFileStream = backupFile.OpenReadStream(),
             DslFileStream = dslFile.OpenReadStream(),
             WebServiceToken = token
         });

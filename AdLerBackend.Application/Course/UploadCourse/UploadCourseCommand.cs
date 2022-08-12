@@ -5,8 +5,7 @@ namespace AdLerBackend.Application.Course.UploadCourse;
 
 public record UploadCourseCommand : CommandWithToken<bool>
 {
-    public Stream H5PFileSteam { get; set; }
+    public Stream BackupFileStream { get; set; }
     public Stream DslFileStream { get; set; }
-
 }
 #pragma warning restore CS8618

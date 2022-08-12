@@ -31,33 +31,50 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
 
         var courseInformation = _lmsBackupProcessor.GetLevelDescriptionFromBackup(request.DslFileStream);
 
-        IList<H5PDto> h5PFilesInBackup = new List<H5PDto>();
-        if (courseInformation.LearningWorld.LearningElements.Any(x => x.ElementType == "h5p"))
-            h5PFilesInBackup = _lmsBackupProcessor.GetH5PFilesFromBackup(request.H5PFileSteam);
+        // TODO: Check, if course already exists
+        var test = await _courseRepository.ExistsCourseForUser(userInformation.userId,
+            courseInformation.LearningWorld.Identifier.Value);
 
-        var storedH5PFilePaths = _fileAccess.StoreH5PFilesForCourse(new CourseStoreDto
+        if (test) throw new Exception("Course already exists");
+
+        var dslLocation = _fileAccess.StoreDSLFileForCourse(new StoreCourseDslDto
         {
             AuthorId = userInformation.userId,
-            CourseInforamtion = courseInformation,
-            H5PFiles = h5PFilesInBackup
+            DslFile = request.DslFileStream,
+            CourseInforamtion = courseInformation
         });
 
-        // TODO: Add The List of H5P Files to the Course Information and store them in the Database
+        var storedH5PFilePaths = StoreH5PFiles(courseInformation, userInformation, request.BackupFileStream);
 
         var courseEntity = new CourseEntity
         {
             Name = courseInformation.LearningWorld.Identifier.Value,
-            AuthorId = userInformation.userId
-            // H5PFilesInCourse = storedH5PFilePaths.Select(x => new H5PLocationEntity
-            // {
-            //     Path = x
-            // }).ToList()
+            AuthorId = userInformation.userId,
+            H5PFilesInCourse = GetH5PLocationEntities(storedH5PFilePaths!),
+            DslLocation = dslLocation
         };
 
         var storedEntity = await _courseRepository.CreateCourse(courseEntity);
 
 
-        throw new NotImplementedException("Gagag");
+        return true;
+    }
+
+    private List<string> StoreH5PFiles(DslFileDto courseInformation, MoodleUserDataResponse userData, Stream backupFile)
+    {
+        var storedH5PFilePaths = new List<string>();
+        if (courseInformation.LearningWorld.LearningElements.Any(x => x.ElementType == "h5p"))
+        {
+            var h5PFilesInBackup = _lmsBackupProcessor.GetH5PFilesFromBackup(backupFile);
+            storedH5PFilePaths = _fileAccess.StoreH5PFilesForCourse(new CourseStoreH5pDto
+            {
+                AuthorId = userData.userId,
+                CourseInforamtion = courseInformation,
+                H5PFiles = h5PFilesInBackup
+            });
+        }
+
+        return storedH5PFilePaths!;
     }
 
     private async Task<MoodleUserDataResponse> GetUserInformation(UploadCourseCommand request)
@@ -68,5 +85,14 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
         });
 
         return userData;
+    }
+
+    private List<H5PLocationEntity> GetH5PLocationEntities(List<string> storedH5PFilePaths)
+    {
+        if (storedH5PFilePaths.Count == 0) return new List<H5PLocationEntity>();
+        return storedH5PFilePaths.Select(x => new H5PLocationEntity
+        {
+            Path = x
+        }).ToList();
     }
 }
