@@ -6,7 +6,7 @@ using AdLerBackend.Application.Moodle.Commands.GetUserData;
 using Domain.Entities;
 using MediatR;
 
-namespace AdLerBackend.Application.Course.UploadCourse;
+namespace AdLerBackend.Application.Course.CourseManagement.UploadCourse;
 
 public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, bool>
 {

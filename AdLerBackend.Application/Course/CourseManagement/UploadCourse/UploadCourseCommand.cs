@@ -1,7 +1,7 @@
 ﻿#pragma warning disable CS8618
 using AdLerBackend.Application.Common;
 
-namespace AdLerBackend.Application.Course.UploadCourse;
+namespace AdLerBackend.Application.Course.CourseManagement.UploadCourse;
 
 public record UploadCourseCommand : CommandWithToken<bool>
 {

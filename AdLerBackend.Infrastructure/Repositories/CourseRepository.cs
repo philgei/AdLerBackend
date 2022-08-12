@@ -32,6 +32,15 @@ public class CourseRepository : ICourseRepository
         return test ?? throw new InvalidOperationException("Der Kurs wurde nicht gefunden");
     }
 
+    public async Task<IList<CourseEntity>> GetAllCoursesForAuthor(int authorId)
+    {
+        await using var db = await _dbContextFactory.CreateDbContextAsync();
+
+        var allCoursesForAuthor = await db.Courses.Where(x => x.AuthorId == authorId).ToListAsync();
+
+        return allCoursesForAuthor;
+    }
+
     public async Task<bool> ExistsCourseForUser(int authorId, string courseName)
     {
         await using var db = await _dbContextFactory.CreateDbContextAsync();

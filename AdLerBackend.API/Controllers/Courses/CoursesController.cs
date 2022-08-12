@@ -1,4 +1,5 @@
-﻿using AdLerBackend.Application.Course.UploadCourse;
+﻿using AdLerBackend.Application.Course.CourseManagement.GetCoursesForAuthor;
+using AdLerBackend.Application.Course.CourseManagement.UploadCourse;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,5 +25,11 @@ public class CoursesController : ControllerBase
             DslFileStream = dslFile.OpenReadStream(),
             WebServiceToken = token
         });
+    }
+
+    [HttpGet("GetCoursesForAuthor")]
+    public async Task<IActionResult> GetCoursesForAuthor([FromQuery] GetCoursesForAuthorCommand command)
+    {
+        return Ok(await _mediator.Send(command));
     }
 }
