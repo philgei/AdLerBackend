@@ -6,15 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AdLerBackend.Controllers.MoodleUserService;
 
-[ApiController]
-[Route("api/[controller]")]
-public class MoodleLoginController : ControllerBase
+public class MoodleLoginController : BaseApiController
 {
-    private readonly IMediator _mediator;
-
-    public MoodleLoginController(IMediator mediator)
+    public MoodleLoginController(IMediator mediator) : base(mediator)
     {
-        _mediator = mediator;
     }
 
     [HttpGet("UserData")]
@@ -24,13 +19,13 @@ public class MoodleLoginController : ControllerBase
     public async Task<ActionResult<MoodleUserDataResponse>> GetMoodleUserData(
         [FromQuery] GetMoodleUserDataCommand command)
     {
-        return await _mediator.Send(command);
+        return await Mediator.Send(command);
     }
 
     [HttpGet("Login")]
     public async Task<ActionResult<MoodleUserTokenResponse>> GetMoodleUserToken(
         [FromQuery] GetMoodleTokenCommand command)
     {
-        return await _mediator.Send(command);
+        return await Mediator.Send(command);
     }
 }

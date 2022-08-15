@@ -5,21 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AdLerBackend.Controllers.LearningWorld;
 
-[ApiController]
-[Route("api/LearningWorld")]
-public class LearningWorldController : ControllerBase
+public class LearningWorldController : BaseApiController
 {
-    private readonly IMediator _mediator;
-
-    public LearningWorldController(IMediator mediator)
+    public LearningWorldController(IMediator mediator) : base(mediator)
     {
-        _mediator = mediator;
     }
 
     [HttpGet("WorldDSL")]
     public async Task<ActionResult<LearningWorldDtoResponse>> GetWorldDsl(
         [FromQuery] GetLearningWorldDslCommand command)
     {
-        return await _mediator.Send(command);
+        return await Mediator.Send(command);
     }
 }
