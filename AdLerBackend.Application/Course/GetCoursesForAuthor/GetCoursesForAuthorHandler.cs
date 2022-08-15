@@ -1,12 +1,13 @@
 ﻿using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
+using AdLerBackend.Application.Common.Responses.Course;
 using AdLerBackend.Application.Moodle.GetUserData;
 using MediatR;
 
 namespace AdLerBackend.Application.Course.GetCoursesForAuthor;
 
-public class GetCoursesForAuthorHandler : IRequestHandler<GetCoursesForAuthorCommand, GetCoursesResponse>
+public class GetCoursesForAuthorHandler : IRequestHandler<GetCoursesForAuthorCommand, GetCourseOverviewResponse>
 {
     private readonly ICourseRepository _courseRepository;
     private readonly IMediator _mediator;
@@ -17,7 +18,7 @@ public class GetCoursesForAuthorHandler : IRequestHandler<GetCoursesForAuthorCom
         _mediator = mediator;
     }
 
-    public async Task<GetCoursesResponse> Handle(GetCoursesForAuthorCommand request,
+    public async Task<GetCourseOverviewResponse> Handle(GetCoursesForAuthorCommand request,
         CancellationToken cancellationToken)
     {
         // Authenticate the user
@@ -30,7 +31,7 @@ public class GetCoursesForAuthorHandler : IRequestHandler<GetCoursesForAuthorCom
 
         var courses = await _courseRepository.GetAllCoursesForAuthor(request.AuthorId);
 
-        return new GetCoursesResponse
+        return new GetCourseOverviewResponse
         {
             CourseNames = courses.Select(c => c.Name).ToList()
         };

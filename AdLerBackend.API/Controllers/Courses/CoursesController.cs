@@ -1,4 +1,5 @@
 ﻿using AdLerBackend.Application.Common.Responses;
+using AdLerBackend.Application.Common.Responses.Course;
 using AdLerBackend.Application.Course.CourseManagement.UploadCourse;
 using AdLerBackend.Application.Course.GetCoursesForAuthor;
 using AdLerBackend.Application.Course.GetLearningWorldDSL;
