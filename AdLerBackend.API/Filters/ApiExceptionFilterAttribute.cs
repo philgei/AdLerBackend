@@ -16,7 +16,8 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
             {typeof(ValidationException), HandleValidationException},
             {typeof(InvalidMoodleLoginException), HandleMoodleLoginException},
             {typeof(InvalidTokenException), HandleInvalidTokenException},
-            {typeof(NotFoundException), HandleNotFoundException}
+            {typeof(NotFoundException), HandleNotFoundException},
+            {typeof(ForbiddenAccessException), HandleForbiddenAccessException}
         };
     }
 
@@ -24,6 +25,22 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
         HandleException(context);
         base.OnException(context);
+    }
+
+    private void HandleForbiddenAccessException(ExceptionContext context)
+    {
+        var exception = context.Exception as ForbiddenAccessException;
+        var problemDetails = new ProblemDetails
+        {
+            Instance = context.HttpContext.Request.Path,
+            Detail = exception!.Message,
+            Title = "Forbidden Access"
+        };
+
+        context.Result = new UnauthorizedObjectResult(problemDetails)
+        {
+            StatusCode = StatusCodes.Status403Forbidden
+        };
     }
 
     private void HandleNotFoundException(ExceptionContext context)
