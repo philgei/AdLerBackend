@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Xml.Serialization;
 using AdLerBackend.Application.Common.DTOs;
 using AdLerBackend.Application.Common.Exceptions;
+using AdLerBackend.Application.Common.Exceptions.LMSBAckupProcessor;
 using AdLerBackend.Application.Common.Interfaces;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
@@ -49,18 +50,12 @@ public class LmsBackupProcessor : ILmsBackupProcessor
     public DslFileDto GetLevelDescriptionFromBackup(Stream dslStream)
     {
         dslStream.Position = 0;
-        try
+
+        var retVal = JsonSerializer.Deserialize<DslFileDto>(dslStream, new JsonSerializerOptions
         {
-            var retVal = JsonSerializer.Deserialize<DslFileDto>(dslStream, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            }) ?? throw new Exception();
-            return retVal;
-        }
-        catch (Exception e)
-        {
-            throw new Exception("Could not deserialize DSL File", e);
-        }
+            PropertyNameCaseInsensitive = true
+        }) ?? throw new LmsBackupProcessorException("Could not deserialize DSL file");
+        return retVal;
     }
 
 
@@ -68,15 +63,15 @@ public class LmsBackupProcessor : ILmsBackupProcessor
     {
         try
         {
-            var ser = new XmlSerializer(typeof(T));
+            var xmlSerializer = new XmlSerializer(typeof(T));
 
-            var obj = (T) ser.Deserialize(file)! ?? throw new Exception();
+            var obj = (T) xmlSerializer.Deserialize(file)! ?? throw new LmsBackupProcessorException();
 
             return obj;
         }
         catch (Exception e)
         {
-            throw new Exception("Could not deserialize file for " + nameof(T), e);
+            throw new LmsBackupProcessorException("Could not deserialize file for " + nameof(T), e);
         }
     }
 
