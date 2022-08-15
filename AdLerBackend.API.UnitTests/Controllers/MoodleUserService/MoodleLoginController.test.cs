@@ -1,6 +1,6 @@
 ﻿using AdLerBackend.Application.Common.Exceptions;
-using AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
-using AdLerBackend.Application.Moodle.Commands.GetUserData;
+using AdLerBackend.Application.Moodle.GetMoodleToken;
+using AdLerBackend.Application.Moodle.GetUserData;
 using AdLerBackend.Controllers.MoodleUserService;
 using MediatR;
 using NSubstitute;

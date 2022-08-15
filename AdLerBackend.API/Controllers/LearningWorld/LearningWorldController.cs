@@ -1,5 +1,5 @@
 ﻿using AdLerBackend.Application.Common.Responses;
-using AdLerBackend.Application.Moodle.Commands.GetLearningWorldDSL;
+using AdLerBackend.Application.Moodle.GetLearningWorldDSL;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

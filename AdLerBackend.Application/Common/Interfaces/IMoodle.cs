@@ -1,4 +1,5 @@
 ﻿using AdLerBackend.Application.Common.Responses;
+using AdLerBackend.Application.Common.Responses.LMSAdapter;
 
 namespace AdLerBackend.Application.Common.Interfaces;
 

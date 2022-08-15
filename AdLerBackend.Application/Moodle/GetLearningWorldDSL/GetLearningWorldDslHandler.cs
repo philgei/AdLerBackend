@@ -1,10 +1,9 @@
 ﻿using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
-using AdLerBackend.Application.Moodle.Commands.GetLearningWorldDSL;
 using MediatR;
 
-namespace AdLerBackend.Application.Moodle.Handlers;
+namespace AdLerBackend.Application.Moodle.GetLearningWorldDSL;
 
 public class GetLearningWorldDslHandler : IRequestHandler<GetLearningWorldDslCommand, LearningWorldDtoResponse>
 {

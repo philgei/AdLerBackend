@@ -1,8 +1,8 @@
-﻿using AdLerBackend.Application.Common.Interfaces;
-using AdLerBackend.Application.Common.Responses;
+﻿using AdLerBackend.Application.Common.Responses;
+using AdLerBackend.Application.Common.Responses.LMSAdapter;
 using MediatR;
 
-namespace AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
+namespace AdLerBackend.Application.Moodle.GetMoodleToken;
 
 public record GetMoodleTokenCommand : IRequest<MoodleUserTokenResponse>
 {

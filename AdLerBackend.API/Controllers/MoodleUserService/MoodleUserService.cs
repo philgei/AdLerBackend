@@ -1,6 +1,7 @@
 ﻿using AdLerBackend.Application.Common.Responses;
-using AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
-using AdLerBackend.Application.Moodle.Commands.GetUserData;
+using AdLerBackend.Application.Common.Responses.LMSAdapter;
+using AdLerBackend.Application.Moodle.GetMoodleToken;
+using AdLerBackend.Application.Moodle.GetUserData;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

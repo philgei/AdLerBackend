@@ -1,4 +1,4 @@
-﻿namespace AdLerBackend.Application.Common.DTOs;
+﻿namespace AdLerBackend.Application.Common.DTOs.Storage;
 
 public class CourseStoreH5pDto : CourseBaseStorageDto
 {

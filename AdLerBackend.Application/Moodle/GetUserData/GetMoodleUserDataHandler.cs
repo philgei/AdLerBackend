@@ -1,9 +1,9 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
-using AdLerBackend.Application.Moodle.Commands.GetUserData;
+using AdLerBackend.Application.Common.Responses.LMSAdapter;
 using MediatR;
 
-namespace AdLerBackend.Application.Moodle.Handlers;
+namespace AdLerBackend.Application.Moodle.GetUserData;
 
 public class GetMoodleUserDataHandler : IRequestHandler<GetMoodleUserDataCommand, MoodleUserDataResponse>
 {

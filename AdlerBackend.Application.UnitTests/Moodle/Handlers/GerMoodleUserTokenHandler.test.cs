@@ -1,7 +1,7 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
-using AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
-using AdLerBackend.Application.Moodle.Handlers;
+using AdLerBackend.Application.Common.Responses.LMSAdapter;
+using AdLerBackend.Application.Moodle.GetMoodleToken;
 using NSubstitute;
 
 namespace Application.UnitTests.Moodle.Handlers;

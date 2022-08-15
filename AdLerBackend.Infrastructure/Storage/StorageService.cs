@@ -1,5 +1,6 @@
 ﻿using System.IO.Compression;
 using AdLerBackend.Application.Common.DTOs;
+using AdLerBackend.Application.Common.DTOs.Storage;
 using AdLerBackend.Application.Common.Interfaces;
 
 namespace Infrastructure.Storage;

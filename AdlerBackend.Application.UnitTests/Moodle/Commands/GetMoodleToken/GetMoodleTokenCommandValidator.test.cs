@@ -1,4 +1,4 @@
-﻿using AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
+﻿using AdLerBackend.Application.Moodle.GetMoodleToken;
 using FluentValidation.TestHelper;
 
 namespace Application.UnitTests.Moodle.Commands.GetMoodleToken;

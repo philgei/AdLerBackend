@@ -2,6 +2,7 @@
 using AdLerBackend.Application.Common.Exceptions.LMSAdapter;
 using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
+using AdLerBackend.Application.Common.Responses.LMSAdapter;
 
 namespace Infrastructure.Moodle;
 

@@ -1,4 +1,4 @@
-﻿using AdLerBackend.Application.Moodle.Commands.GetLearningWorldDSL;
+﻿using AdLerBackend.Application.Moodle.GetLearningWorldDSL;
 using AdLerBackend.Controllers.LearningWorld;
 using MediatR;
 using NSubstitute;

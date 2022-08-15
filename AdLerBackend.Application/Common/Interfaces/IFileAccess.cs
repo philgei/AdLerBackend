@@ -1,4 +1,5 @@
 using AdLerBackend.Application.Common.DTOs;
+using AdLerBackend.Application.Common.DTOs.Storage;
 
 namespace AdLerBackend.Application.Common.Interfaces;
 

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace AdLerBackend.Application.Moodle.Commands.GetMoodleToken;
+namespace AdLerBackend.Application.Moodle.GetMoodleToken;
 
 public class GetMoodleTokenCommandValidator : AbstractValidator<GetMoodleTokenCommand>
 {

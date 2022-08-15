@@ -1,8 +1,10 @@
 ﻿using AdLerBackend.Application.Common.DTOs;
+using AdLerBackend.Application.Common.DTOs.Storage;
 using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
-using AdLerBackend.Application.Moodle.Commands.GetUserData;
+using AdLerBackend.Application.Common.Responses.LMSAdapter;
+using AdLerBackend.Application.Moodle.GetUserData;
 using Domain.Entities;
 using MediatR;
 
