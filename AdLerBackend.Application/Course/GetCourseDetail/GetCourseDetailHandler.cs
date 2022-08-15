@@ -1,4 +1,5 @@
-﻿using AdLerBackend.Application.Common.Interfaces;
+﻿using AdLerBackend.Application.Common.Exceptions;
+using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses.Course;
 using MediatR;
 
@@ -20,23 +21,30 @@ public class GetCourseDetailHandler : IRequestHandler<GetCourseDetailCommand, Le
         _serialization = serialization;
     }
 
+    /// <summary>
+    ///     Get the course detail for a given course id
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotFoundException">Throws, if a course is not found either on the disc, the database or the moodle api</exception>
     public async Task<LearningWorldDtoResponse> Handle(GetCourseDetailCommand request,
         CancellationToken cancellationToken)
     {
-        //TODO: Add Error handling
-        // TODO: Currently there are 2 DSL DTOs
         // Get Course from Database
         var course = await _courseRepository.GetAsync(request.CourseId);
+        if (course == null)
+            throw new NotFoundException("Course with the Id " + request.CourseId + " not found");
 
         // Get Course from Moodle
         var searchedCourses = await _moodleService.SearchCoursesAsync(request.WebServiceToken, course.Name);
+        if (searchedCourses.Total == 0)
+            throw new NotFoundException("Course with the Id " + request.CourseId + " not found on Moodle");
 
         // Get Course DSL 
-
-        var dslFileStram = _fileAccess.GetFileStream(course.DslLocation);
+        await using var fileStream = _fileAccess.GetFileStream(course.DslLocation);
 
         // Parse DSL File
-        var dslFile = await _serialization.GetObjectFromJsonStreamAsync<LearningWorldDtoResponse>(dslFileStram);
+        var dslFile = await _serialization.GetObjectFromJsonStreamAsync<LearningWorldDtoResponse>(fileStream);
+
 
         return new LearningWorldDtoResponse
         {

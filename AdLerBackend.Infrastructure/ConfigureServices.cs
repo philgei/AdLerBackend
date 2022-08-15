@@ -19,7 +19,7 @@ public static class ConfigureServices
         // Add Moodle to DI
         services.AddSingleton<IMoodle, MoodleWebApi>();
         services.AddSingleton<ILmsBackupProcessor, LmsBackupProcessor.LmsBackupProcessor>();
-        services.AddSingleton<IFileAccess, StorageService>();
+        services.AddScoped<IFileAccess, StorageService>();
         services.AddSingleton<ISerialization, SerializationService>();
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
