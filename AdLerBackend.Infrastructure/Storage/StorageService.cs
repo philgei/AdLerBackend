@@ -1,6 +1,6 @@
 ﻿using System.IO.Compression;
-using AdLerBackend.Application.Common.DTOs;
 using AdLerBackend.Application.Common.DTOs.Storage;
+using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
 
 namespace Infrastructure.Storage;
@@ -42,5 +42,18 @@ public class StorageService : IFileAccess
         courseToStoreH5P.DslFile.CopyTo(fileStream);
         fileStream.Close();
         return dslFilePath;
+    }
+
+    public Stream GetFileStream(string filePath)
+    {
+        try
+        {
+            var fileStream = new FileStream(filePath, FileMode.Open);
+            return fileStream;
+        }
+        catch (Exception e)
+        {
+            throw new NotFoundException("File not found: " + filePath, e);
+        }
     }
 }

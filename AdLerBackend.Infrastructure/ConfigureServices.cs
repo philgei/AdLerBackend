@@ -2,6 +2,7 @@
 using Infrastructure.Moodle;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.Common;
+using Infrastructure.Services;
 using Infrastructure.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,7 @@ public static class ConfigureServices
         services.AddSingleton<IMoodle, MoodleWebApi>();
         services.AddSingleton<ILmsBackupProcessor, LmsBackupProcessor.LmsBackupProcessor>();
         services.AddSingleton<IFileAccess, StorageService>();
+        services.AddSingleton<ISerialization, SerializationService>();
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddSingleton(httpClient);
