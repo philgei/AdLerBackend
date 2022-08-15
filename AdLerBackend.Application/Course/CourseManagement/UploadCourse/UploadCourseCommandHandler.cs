@@ -54,7 +54,7 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
             DslLocation = dslLocation
         };
 
-        var storedEntity = await _courseRepository.CreateCourse(courseEntity);
+        var storedEntity = await _courseRepository.AddAsync(courseEntity);
 
 
         return true;

@@ -1,50 +1,27 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using Domain.Entities;
+using Infrastructure.Repositories.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 
-public class CourseRepository : ICourseRepository
+public class CourseRepository : GenericRepository<CourseEntity>, ICourseRepository
 {
-    private readonly IDbContextFactory<AdLerBackendDbContext> _dbContextFactory;
-
-    public CourseRepository(IDbContextFactory<AdLerBackendDbContext> dbContextFactory)
+    public CourseRepository(AdLerBackendDbContext dbContext) : base(dbContext)
     {
-        _dbContextFactory = dbContextFactory;
     }
 
-    public async Task<CourseEntity> CreateCourse(CourseEntity course)
-    {
-        await using var db = await _dbContextFactory.CreateDbContextAsync();
-
-        var test = await db.Courses.AddAsync(course);
-
-        await db.SaveChangesAsync();
-
-        return course;
-    }
-
-    public async Task<CourseEntity> GetCourse(int id)
-    {
-        await using var db = await _dbContextFactory.CreateDbContextAsync();
-        var test = await db.Courses.Include(x => x.H5PFilesInCourse)
-            .FirstOrDefaultAsync(x => x.Id == id);
-        return test ?? throw new InvalidOperationException("Der Kurs wurde nicht gefunden");
-    }
 
     public async Task<IList<CourseEntity>> GetAllCoursesForAuthor(int authorId)
     {
-        await using var db = await _dbContextFactory.CreateDbContextAsync();
-
-        var allCoursesForAuthor = await db.Courses.Where(x => x.AuthorId == authorId).ToListAsync();
+        var allCoursesForAuthor = await Context.Courses.Where(x => x.AuthorId == authorId).ToListAsync();
 
         return allCoursesForAuthor;
     }
 
     public async Task<bool> ExistsCourseForUser(int authorId, string courseName)
     {
-        await using var db = await _dbContextFactory.CreateDbContextAsync();
-        var test = await db.Courses.AnyAsync(x => x.AuthorId == authorId && x.Name == courseName);
+        var test = await Context.Courses.AnyAsync(x => x.AuthorId == authorId && x.Name == courseName);
         return test;
     }
 }
