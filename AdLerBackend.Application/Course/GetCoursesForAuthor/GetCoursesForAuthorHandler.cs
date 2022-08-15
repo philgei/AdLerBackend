@@ -4,7 +4,7 @@ using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Moodle.GetUserData;
 using MediatR;
 
-namespace AdLerBackend.Application.Course.CourseManagement.GetCoursesForAuthor;
+namespace AdLerBackend.Application.Course.GetCoursesForAuthor;
 
 public class GetCoursesForAuthorHandler : IRequestHandler<GetCoursesForAuthorCommand, GetCoursesResponse>
 {

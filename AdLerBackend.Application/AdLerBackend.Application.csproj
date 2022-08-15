@@ -24,4 +24,9 @@
       <ProjectReference Include="..\AdLerBackend.Domain\AdLerBackend.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Course\CourseManagement\GetCourse" />
+      <Folder Include="Course\CourseManagement\GetCoursesForAuthor" />
+    </ItemGroup>
+
 </Project>

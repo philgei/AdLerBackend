@@ -1,7 +1,7 @@
 ﻿using AdLerBackend.Application.Common;
 using AdLerBackend.Application.Common.Responses;
 
-namespace AdLerBackend.Application.Moodle.GetLearningWorldDSL;
+namespace AdLerBackend.Application.Course.GetLearningWorldDSL;
 
 public record GetLearningWorldDslCommand : CommandWithToken<LearningWorldDtoResponse>
 {

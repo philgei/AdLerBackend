@@ -1,7 +1,7 @@
 ﻿using AdLerBackend.Application.Common;
 using AdLerBackend.Application.Common.Responses;
 
-namespace AdLerBackend.Application.Course.CourseManagement.GetCourse;
+namespace AdLerBackend.Application.Course.GetCourse;
 
 public record GetCourseCommand : CommandWithToken<GetCoursesResponse>
 {

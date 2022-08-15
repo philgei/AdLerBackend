@@ -3,7 +3,7 @@ using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
 using MediatR;
 
-namespace AdLerBackend.Application.Moodle.GetLearningWorldDSL;
+namespace AdLerBackend.Application.Course.GetLearningWorldDSL;
 
 public class GetLearningWorldDslHandler : IRequestHandler<GetLearningWorldDslCommand, LearningWorldDtoResponse>
 {

@@ -1,5 +1,7 @@
-﻿using AdLerBackend.Application.Course.CourseManagement.GetCoursesForAuthor;
+﻿using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Course.CourseManagement.UploadCourse;
+using AdLerBackend.Application.Course.GetCoursesForAuthor;
+using AdLerBackend.Application.Course.GetLearningWorldDSL;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,5 +28,12 @@ public class CoursesController : BaseApiController
     public async Task<IActionResult> GetCoursesForAuthor([FromQuery] GetCoursesForAuthorCommand command)
     {
         return Ok(await Mediator.Send(command));
+    }
+
+    [HttpGet("GetLearningWorldDSL")]
+    public async Task<ActionResult<LearningWorldDtoResponse>> GetWorldDsl(
+        [FromQuery] GetLearningWorldDslCommand command)
+    {
+        return await Mediator.Send(command);
     }
 }
