@@ -2,5 +2,5 @@
 
 public class GetCourseOverviewResponse
 {
-    public IList<string> CourseNames { get; set; }
+    public IList<CourseResponse> Courses { get; set; }
 }

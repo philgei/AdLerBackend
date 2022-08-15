@@ -1,6 +1,5 @@
 ﻿using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
-using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Common.Responses.Course;
 using AdLerBackend.Application.Moodle.GetUserData;
 using MediatR;
@@ -33,7 +32,11 @@ public class GetCoursesForAuthorHandler : IRequestHandler<GetCoursesForAuthorCom
 
         return new GetCourseOverviewResponse
         {
-            CourseNames = courses.Select(c => c.Name).ToList()
+            Courses = courses.Select(c => new CourseResponse
+            {
+                CourseId = c.Id,
+                CourseName = c.Name
+            }).ToList()
         };
     }
 }
