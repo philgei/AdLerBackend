@@ -9,8 +9,8 @@ public class AdLerBackendDbContext : DbContext
     {
     }
 
-    public DbSet<CourseEntity> Courses { get; set; }
-    private DbSet<H5PLocationEntity> H5PLocations { get; set; }
+    public DbSet<CourseEntity> Courses { get; set; } = null!;
+    private DbSet<H5PLocationEntity> H5PLocations { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
