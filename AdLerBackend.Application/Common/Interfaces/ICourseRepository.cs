@@ -6,5 +6,5 @@ public interface ICourseRepository : IGenericRepository<CourseEntity>
 {
     Task<IList<CourseEntity>> GetAllCoursesForAuthor(int authorId);
 
-    Task<bool> ExistsCourseForUser(int authorId, string courseName);
+    Task<bool> ExistsCourseForAuthor(int authorId, string courseName);
 }

@@ -19,7 +19,7 @@ public class CourseRepository : GenericRepository<CourseEntity>, ICourseReposito
         return allCoursesForAuthor;
     }
 
-    public async Task<bool> ExistsCourseForUser(int authorId, string courseName)
+    public async Task<bool> ExistsCourseForAuthor(int authorId, string courseName)
     {
         var test = await Context.Courses.AnyAsync(x => x.AuthorId == authorId && x.Name == courseName);
         return test;

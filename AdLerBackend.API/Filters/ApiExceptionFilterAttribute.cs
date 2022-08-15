@@ -17,7 +17,8 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
             {typeof(InvalidMoodleLoginException), HandleMoodleLoginException},
             {typeof(InvalidTokenException), HandleInvalidTokenException},
             {typeof(NotFoundException), HandleNotFoundException},
-            {typeof(ForbiddenAccessException), HandleForbiddenAccessException}
+            {typeof(ForbiddenAccessException), HandleForbiddenAccessException},
+            {typeof(CourseCreationException), HandleCourseCreationException}
         };
     }
 
@@ -25,6 +26,20 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     {
         HandleException(context);
         base.OnException(context);
+    }
+
+    private void HandleCourseCreationException(ExceptionContext context)
+    {
+        var exception = context.Exception as CourseCreationException;
+        var problemDateils = new ProblemDetails
+        {
+            Detail = exception.Message,
+            Title = "Course creation failed",
+            Status = StatusCodes.Status409Conflict,
+            Instance = context.HttpContext.Request.Path
+        };
+
+        context.Result = new ConflictObjectResult(problemDateils);
     }
 
     private void HandleForbiddenAccessException(ExceptionContext context)

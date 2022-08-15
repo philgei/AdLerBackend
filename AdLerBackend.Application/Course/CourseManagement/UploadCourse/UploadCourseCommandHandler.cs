@@ -3,7 +3,6 @@ using AdLerBackend.Application.Common.DTOs.Storage;
 using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
-using AdLerBackend.Application.Common.Responses.LMSAdapter;
 using AdLerBackend.Application.Moodle.GetUserData;
 using Domain.Entities;
 using MediatR;
@@ -33,11 +32,11 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
 
         var courseInformation = _lmsBackupProcessor.GetLevelDescriptionFromBackup(request.DslFileStream);
 
-        // TODO: Check, if course already exists
-        var test = await _courseRepository.ExistsCourseForUser(userInformation.userId,
+
+        var existsCourseForUser = await _courseRepository.ExistsCourseForAuthor(userInformation.userId,
             courseInformation.LearningWorld.Identifier.Value);
 
-        if (test) throw new Exception("Course already exists");
+        if (existsCourseForUser) throw new CourseCreationException("Course already exists in Database");
 
         var dslLocation = _fileAccess.StoreDSLFileForCourse(new StoreCourseDslDto
         {
@@ -56,8 +55,7 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
             DslLocation = dslLocation
         };
 
-        var storedEntity = await _courseRepository.AddAsync(courseEntity);
-
+        await _courseRepository.AddAsync(courseEntity);
 
         return true;
     }
