@@ -28,19 +28,19 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
     public async Task<bool> Handle(UploadCourseCommand request, CancellationToken cancellationToken)
     {
         var userInformation = await GetUserInformation(request);
-        if (!userInformation.isAdmin) throw new ForbiddenAccessException("You are not an admin");
+        if (!userInformation.IsAdmin) throw new ForbiddenAccessException("You are not an admin");
 
         var courseInformation = _lmsBackupProcessor.GetLevelDescriptionFromBackup(request.DslFileStream);
 
 
-        var existsCourseForUser = await _courseRepository.ExistsCourseForAuthor(userInformation.userId,
+        var existsCourseForUser = await _courseRepository.ExistsCourseForAuthor(userInformation.UserId,
             courseInformation.LearningWorld.Identifier.Value);
 
         if (existsCourseForUser) throw new CourseCreationException("Course already exists in Database");
 
         var dslLocation = _fileAccess.StoreDSLFileForCourse(new StoreCourseDslDto
         {
-            AuthorId = userInformation.userId,
+            AuthorId = userInformation.UserId,
             DslFile = request.DslFileStream,
             CourseInforamtion = courseInformation
         });
@@ -50,7 +50,7 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
         var courseEntity = new CourseEntity
         {
             Name = courseInformation.LearningWorld.Identifier.Value,
-            AuthorId = userInformation.userId,
+            AuthorId = userInformation.UserId,
             H5PFilesInCourse = GetH5PLocationEntities(storedH5PFilePaths!),
             DslLocation = dslLocation
         };
@@ -68,7 +68,7 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
             var h5PFilesInBackup = _lmsBackupProcessor.GetH5PFilesFromBackup(backupFile);
             storedH5PFilePaths = _fileAccess.StoreH5PFilesForCourse(new CourseStoreH5pDto
             {
-                AuthorId = userData.userId,
+                AuthorId = userData.UserId,
                 CourseInforamtion = courseInformation,
                 H5PFiles = h5PFilesInBackup
             });

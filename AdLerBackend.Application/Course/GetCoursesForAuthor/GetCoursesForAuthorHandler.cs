@@ -27,7 +27,7 @@ public class GetCoursesForAuthorHandler : IRequestHandler<GetCoursesForAuthorCom
             WebServiceToken = request.WebServiceToken
         });
 
-        if (!userData.isAdmin) throw new ForbiddenAccessException("You are not an admin");
+        if (!userData.IsAdmin) throw new ForbiddenAccessException("You are not an admin");
 
         var courses = await _courseRepository.GetAllCoursesForAuthor(request.AuthorId);
 

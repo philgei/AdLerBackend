@@ -2,7 +2,7 @@
 
 public class MoodleUserDataResponse
 {
-    public string moodleUserName { get; set; }
-    public bool isAdmin { get; set; }
-    public int userId { get; set; }
+    public string MoodleUserName { get; set; }
+    public bool IsAdmin { get; set; }
+    public int UserId { get; set; }
 }

@@ -28,15 +28,15 @@ public class GetMoodleUserDataHandler_test
         };
         _moodleMock.GetMoodleUserDataAsync(request.WebServiceToken).Returns(new MoodleUserDataResponse
         {
-            isAdmin = true,
-            moodleUserName = "TestNutzer"
+            IsAdmin = true,
+            MoodleUserName = "TestNutzer"
         });
         // Act
         var result = await _systemUnderTest.Handle(request, new CancellationToken());
 
         // Assert
         await _moodleMock.Received(1).GetMoodleUserDataAsync(request.WebServiceToken);
-        Assert.That(result.isAdmin, Is.True);
-        Assert.That(result.moodleUserName, Is.EqualTo("TestNutzer"));
+        Assert.That(result.IsAdmin, Is.True);
+        Assert.That(result.MoodleUserName, Is.EqualTo("TestNutzer"));
     }
 }

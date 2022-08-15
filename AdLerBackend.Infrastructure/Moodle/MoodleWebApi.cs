@@ -72,9 +72,9 @@ public class MoodleWebApi : IMoodle
 
         return new MoodleUserDataResponse
         {
-            moodleUserName = resp.username,
-            isAdmin = resp.userissiteadmin,
-            userId = resp.userid
+            MoodleUserName = resp.username,
+            IsAdmin = resp.userissiteadmin,
+            UserId = resp.userid
         };
     }
 

@@ -86,7 +86,7 @@ public class MoodleWebApiTest
         var result = await _systemUnderTest.GetMoodleUserDataAsync("moodleToken");
 
         // Assert
-        Assert.That(result.isAdmin, Is.EqualTo(true));
+        Assert.That(result.IsAdmin, Is.EqualTo(true));
     }
 
     [Test]
