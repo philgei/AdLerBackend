@@ -36,6 +36,10 @@ public class CoursesController : BaseApiController
         }));
     }
 
+    /// <summary>
+    ///     Gets the World File of a Course
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("{courseId}")]
     public async Task<ActionResult<LearningWorldDtoResponse>> GetWorldDsl([FromHeader] string token,
         [FromRoute] int courseId)
@@ -48,6 +52,11 @@ public class CoursesController : BaseApiController
         });
     }
 
+    /// <summary>
+    ///     Gets All Courses a User is enrolled in
+    /// </summary>
+    /// <param name="token">The Users WebService Token</param>
+    /// <returns></returns>
     [HttpGet]
     public async Task<ActionResult<GetCourseOverviewResponse>> GetCoursesForUser([FromHeader] string token)
     {
