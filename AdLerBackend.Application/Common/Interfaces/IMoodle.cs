@@ -26,7 +26,7 @@ public interface IMoodle
     /// <param name="token">Token of the Moodle User</param>
     /// <param name="searchString">The Course to get Searched for</param>
     /// <returns>A List of all found Coruses</returns>
-    Task<MoodleSearchCoursesResponse> SearchCoursesAsync(string token, string searchString);
+    Task<MoodleCourseListResponse> SearchCoursesAsync(string token, string searchString);
 
     /// <summary>
     ///     Gets the Contents of a Course
@@ -35,4 +35,11 @@ public interface IMoodle
     /// <param name="courseId">ID of the Course</param>
     /// <returns>All User-Visible Contents of a Course as Array</returns>
     Task<CourseContent[]> GetCourseContentAsync(string token, int courseId);
+
+    /// <summary>
+    ///     Gets all Courses that the User is enrolled in
+    /// </summary>
+    /// <param name="token">The Users Webservice Token</param>
+    /// <returns></returns>
+    Task<MoodleCourseListResponse> GetCoursesForUserAsync(string token);
 }

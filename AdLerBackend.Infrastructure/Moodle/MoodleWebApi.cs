@@ -34,9 +34,9 @@ public class MoodleWebApi : IMoodle
         };
     }
 
-    public async Task<MoodleSearchCoursesResponse> SearchCoursesAsync(string token, string searchString)
+    public async Task<MoodleCourseListResponse> SearchCoursesAsync(string token, string searchString)
     {
-        var resp = await MoodleCallAsync<MoodleSearchCoursesResponse>(new Dictionary<string, string>
+        var resp = await MoodleCallAsync<MoodleCourseListResponse>(new Dictionary<string, string>
         {
             {"wstoken", token},
             {"moodlewsrestformat", "json"},
@@ -58,6 +58,19 @@ public class MoodleWebApi : IMoodle
             {"courseid", courseId.ToString()}
         });
         return resp;
+    }
+
+    public async Task<MoodleCourseListResponse> GetCoursesForUserAsync(string token)
+    {
+        return await MoodleCallAsync<MoodleCourseListResponse>(new Dictionary<string, string>
+        {
+            {"wstoken", token},
+            {"moodlewsrestformat", "json"},
+            {"wsfunction", "core_course_search_courses"},
+            {"criterianame", "search"},
+            {"criteriavalue", ""},
+            {"limittoenrolled", "1"}
+        });
     }
 
 
@@ -143,10 +156,10 @@ public class MoodleWebApi : IMoodle
             switch (options.Endpoint)
             {
                 case PostToMoodleOptions.Endpoints.Webservice:
-                    url = "https://moodle.cluuub.xyz/webservice/rest/server.php";
+                    url = "https://testmoodle.cluuub.xyz/webservice/rest/server.php";
                     break;
                 case PostToMoodleOptions.Endpoints.Login:
-                    url = "https://moodle.cluuub.xyz/login/token.php";
+                    url = "https://testmoodle.cluuub.xyz/login/token.php";
                     break;
             }
 

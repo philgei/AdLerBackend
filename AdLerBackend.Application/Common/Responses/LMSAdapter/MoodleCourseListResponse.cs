@@ -1,6 +1,6 @@
 ﻿namespace AdLerBackend.Application.Common.Responses.LMSAdapter;
 
-public class MoodleSearchCoursesResponse
+public class MoodleCourseListResponse
 {
     public int Total { get; set; }
     public List<MoodleCourse> Courses { get; set; }

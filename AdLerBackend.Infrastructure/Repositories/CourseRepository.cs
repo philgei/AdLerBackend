@@ -24,4 +24,10 @@ public class CourseRepository : GenericRepository<CourseEntity>, ICourseReposito
         var test = await Context.Courses.AnyAsync(x => x.AuthorId == authorId && x.Name == courseName);
         return test;
     }
+
+
+    public async Task<IList<CourseEntity>> GetAllCoursesByStrings(List<string> searchStrings)
+    {
+        return await Context.Courses.Where(c => searchStrings.Contains(c.Name)).ToListAsync();
+    }
 }
