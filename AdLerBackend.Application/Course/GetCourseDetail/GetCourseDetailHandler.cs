@@ -46,6 +46,27 @@ public class GetCourseDetailHandler : IRequestHandler<GetCourseDetailCommand, Le
         // Parse DSL File
         var dslFile = await _serialization.GetObjectFromJsonStreamAsync<LearningWorldDtoResponse>(fileStream);
 
+        // Hydrate H5P Files in dsl file with the actual H5P File paths
+        foreach (var h5PLocationEntity in course.H5PFilesInCourse)
+        {
+            var h5PFile = dslFile.LearningWorld.LearningElements.FirstOrDefault(x =>
+                x.ElementType == "h5p" && x.Identifier.Value == Path.GetFileName(h5PLocationEntity.Path));
+
+            if (h5PFile != null)
+            {
+                h5PFile.MetaData ??= new List<MetaData>();
+                h5PFile.MetaData.Add(new MetaData
+                {
+                    Key = "h5pFileName",
+                    Value = h5PLocationEntity.Path
+                });
+            }
+            else
+            {
+                throw new NotFoundException("H5P File with the Id " + h5PLocationEntity.Path + " not found");
+            }
+        }
+
 
         return new LearningWorldDtoResponse
         {

@@ -18,7 +18,7 @@ public class LearningElement
     public string ElementType { get; set; }
     public string LearningElementValue { get; set; }
     public string Requirements { get; set; }
-    public List<MetaData> MetaData { get; set; }
+    public List<MetaData>? MetaData { get; set; }
 }
 
 public class LearningSpace

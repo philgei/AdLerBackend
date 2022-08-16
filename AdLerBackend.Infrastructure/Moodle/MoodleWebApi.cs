@@ -34,20 +34,6 @@ public class MoodleWebApi : IMoodle
         };
     }
 
-    public async Task<MoodleCourseListResponse> SearchCoursesAsync(string token, string searchString)
-    {
-        var resp = await MoodleCallAsync<MoodleCourseListResponse>(new Dictionary<string, string>
-        {
-            {"wstoken", token},
-            {"moodlewsrestformat", "json"},
-            {"wsfunction", "core_course_search_courses"},
-            {"criterianame", "search"},
-            {"criteriavalue", searchString}
-        });
-
-        return resp;
-    }
-
     public async Task<CourseContent[]> GetCourseContentAsync(string token, int courseId)
     {
         var resp = await MoodleCallAsync<CourseContent[]>(new Dictionary<string, string>
@@ -89,6 +75,22 @@ public class MoodleWebApi : IMoodle
             IsAdmin = resp.userissiteadmin,
             UserId = resp.userid
         };
+    }
+
+    public async Task<MoodleCourseListResponse> SearchCoursesAsync(string token, string searchString,
+        bool limitToEnrolled = false)
+    {
+        var resp = await MoodleCallAsync<MoodleCourseListResponse>(new Dictionary<string, string>
+        {
+            {"wstoken", token},
+            {"moodlewsrestformat", "json"},
+            {"wsfunction", "core_course_search_courses"},
+            {"criterianame", "search"},
+            {"criteriavalue", searchString},
+            {"limittoenrolled", limitToEnrolled ? "1" : "0"}
+        });
+
+        return resp;
     }
 
     private async Task<TDtoType> MoodleCallAsync<TDtoType>(Dictionary<string, string> wsParams,

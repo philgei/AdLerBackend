@@ -26,7 +26,7 @@ public interface IMoodle
     /// <param name="token">Token of the Moodle User</param>
     /// <param name="searchString">The Course to get Searched for</param>
     /// <returns>A List of all found Coruses</returns>
-    Task<MoodleCourseListResponse> SearchCoursesAsync(string token, string searchString);
+    Task<MoodleCourseListResponse> SearchCoursesAsync(string token, string searchString, bool limitToEnrolled = false);
 
     /// <summary>
     ///     Gets the Contents of a Course
