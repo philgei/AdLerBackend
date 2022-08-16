@@ -1,6 +1,7 @@
 ﻿using AdLerBackend.Application.Common.Responses.Course;
 using AdLerBackend.Application.Course.CourseManagement.UploadCourse;
 using AdLerBackend.Application.Course.GetCoursesForAuthor;
+using AdLerBackend.Application.Course.GetCoursesForUser;
 using AdLerBackend.Application.Course.GetLearningWorldDSL;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,7 @@ public class CoursesController : BaseApiController
     {
     }
 
-    [HttpPost("CreateCourse")]
+    [HttpPost]
     public async Task<bool> CreateCourse(IFormFile backupFile, IFormFile dslFile, [FromQuery] string token)
     {
         return await Mediator.Send(new UploadCourseCommand
@@ -24,16 +25,35 @@ public class CoursesController : BaseApiController
         });
     }
 
-    [HttpGet("GetCoursesForAuthor")]
-    public async Task<IActionResult> GetCoursesForAuthor([FromQuery] GetCoursesForAuthorCommand command)
+    [HttpGet("author/{authorId}")]
+    public async Task<ActionResult<GetCourseOverviewResponse>> GetCoursesForAuthor([FromHeader] string token,
+        int authorId)
     {
-        return Ok(await Mediator.Send(command));
+        return Ok(await Mediator.Send(new GetCoursesForAuthorCommand
+        {
+            AuthorId = authorId,
+            WebServiceToken = token
+        }));
     }
 
-    [HttpGet("GetLearningWorldDSL")]
-    public async Task<ActionResult<LearningWorldDtoResponse>> GetWorldDsl(
-        [FromQuery] GetCourseDetailCommand command)
+    [HttpGet("{courseId}")]
+    public async Task<ActionResult<LearningWorldDtoResponse>> GetWorldDsl([FromHeader] string token,
+        [FromRoute] int courseId)
+
     {
-        return await Mediator.Send(command);
+        return await Mediator.Send(new GetCourseDetailCommand
+        {
+            CourseId = courseId,
+            WebServiceToken = token
+        });
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<GetCourseOverviewResponse>> GetCoursesForUser([FromHeader] string token)
+    {
+        return await Mediator.Send(new GetCoursesForUserCommand
+        {
+            WebServiceToken = token
+        });
     }
 }
