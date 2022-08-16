@@ -60,6 +60,11 @@ public class GetCourseDetailHandler : IRequestHandler<GetCourseDetailCommand, Le
                     Key = "h5pFileName",
                     Value = h5PLocationEntity.Path
                 });
+                h5PFile.MetaData.Add(new MetaData
+                {
+                    Key = "h5pContextId",
+                    Value = "1337"
+                });
             }
             else
             {

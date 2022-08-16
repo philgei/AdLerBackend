@@ -2,6 +2,7 @@ using System.Reflection;
 using AdLerBackend.Application;
 using AdLerBackend.Filters;
 using Infrastructure;
+using Microsoft.Net.Http.Headers;
 
 
 // This is needed, because wwwroot directory must be present in the beginning to serve files from it
@@ -26,6 +27,19 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("test",
+        policy =>
+        {
+            // policy.WithOrigins("http://example.com",
+            //                     "http://www.contoso.com",
+            //                     "http://localhost:3000");
+            policy.AllowAnyOrigin();
+            policy.WithHeaders(HeaderNames.AccessControlAllowHeaders, "*");
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,6 +49,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("test");
 
 app.UseHttpsRedirection();
 
