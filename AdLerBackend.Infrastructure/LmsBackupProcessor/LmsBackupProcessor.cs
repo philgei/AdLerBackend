@@ -15,13 +15,14 @@ public class LmsBackupProcessor : ILmsBackupProcessor
 {
     public IList<H5PDto> GetH5PFilesFromBackup(Stream backupFile)
     {
+        backupFile.Position = 0;
         var filesDescriptionStream = GetFileFromTarStream(backupFile, "files.xml");
 
         var filesDescription = DeserializeToObject<Files>(filesDescriptionStream);
 
         List<H5PWorkingStorage> h5PHashes = new();
         foreach (var file in filesDescription.File)
-            if (file.Mimetype == "application/zip.h5p")
+            if (file.Component == "mod_h5pactivity" && file.Filename != ".")
                 h5PHashes.Add(new H5PWorkingStorage
                 {
                     H5PFileName = file.Filename,
