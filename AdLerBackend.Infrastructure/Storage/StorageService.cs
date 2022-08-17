@@ -56,4 +56,16 @@ public class StorageService : IFileAccess
             throw new NotFoundException("File not found: " + filePath, e);
         }
     }
+
+    public string StoreH5PBase(Stream fileStream)
+    {
+        var workingPath = Path.Combine("wwwroot", "common", "h5pBase");
+
+        Directory.CreateDirectory(workingPath);
+        var zipStream = new ZipArchive(fileStream, ZipArchiveMode.Read);
+
+        zipStream.ExtractToDirectory(workingPath);
+
+        return workingPath;
+    }
 }

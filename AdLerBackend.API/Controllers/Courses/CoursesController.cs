@@ -1,5 +1,6 @@
 ﻿using AdLerBackend.Application.Common.Responses.Course;
 using AdLerBackend.Application.Course.CourseManagement.UploadCourse;
+using AdLerBackend.Application.Course.CourseManagement.UploadH5pBase;
 using AdLerBackend.Application.Course.GetCoursesForAuthor;
 using AdLerBackend.Application.Course.GetCoursesForUser;
 using AdLerBackend.Application.Course.GetLearningWorldDSL;
@@ -22,6 +23,16 @@ public class CoursesController : BaseApiController
             BackupFileStream = backupFile.OpenReadStream(),
             DslFileStream = dslFile.OpenReadStream(),
             WebServiceToken = token
+        });
+    }
+
+    [HttpPost("H5PBase")]
+    public async Task<bool> UploadBaseH5p(IFormFile h5pBaseFile, [FromHeader] string token)
+    {
+        return await Mediator.Send(new UploadH5PBaseCommand
+        {
+            WebServiceToken = token,
+            H5PBaseZipStream = h5pBaseFile.OpenReadStream()
         });
     }
 
