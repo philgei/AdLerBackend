@@ -58,7 +58,7 @@ public class GetCourseDetailHandler : IRequestHandler<GetCourseDetailCommand, Le
                 h5PFile.MetaData.Add(new MetaData
                 {
                     Key = "h5pFileName",
-                    Value = h5PLocationEntity.Path
+                    Value = h5PLocationEntity.Path.Replace("wwwroot\\", "")
                 });
                 h5PFile.MetaData.Add(new MetaData
                 {
