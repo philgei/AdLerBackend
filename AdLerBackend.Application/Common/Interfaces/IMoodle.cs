@@ -42,4 +42,6 @@ public interface IMoodle
     /// <param name="token">The Users Webservice Token</param>
     /// <returns></returns>
     Task<MoodleCourseListResponse> GetCoursesForUserAsync(string token);
+
+    Task<bool> IsMoodleAdminAsync(string token);
 }

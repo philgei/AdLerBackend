@@ -38,4 +38,11 @@ public class CourseRepository : GenericRepository<CourseEntity>, ICourseReposito
         // include h5pLocations in the query
         return Context.Courses.Where(c => c.Id == id).Include(c => c.H5PFilesInCourse).First();
     }
+
+    public new async Task DeleteAsync(int id)
+    {
+        var entity = await GetAsync(id);
+        Context.Remove(entity);
+        await Context.SaveChangesAsync();
+    }
 }

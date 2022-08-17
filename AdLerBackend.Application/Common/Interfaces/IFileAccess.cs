@@ -8,4 +8,5 @@ public interface IFileAccess
     public string StoreDSLFileForCourse(StoreCourseDslDto courseToStoreH5P);
     public Stream GetFileStream(string filePath);
     public string StoreH5PBase(Stream fileStream);
+    public bool deleteCourse(CourseDeleteDto courseToDelete);
 }

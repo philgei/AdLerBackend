@@ -59,6 +59,12 @@ public class MoodleWebApi : IMoodle
         });
     }
 
+    public async Task<bool> IsMoodleAdminAsync(string token)
+    {
+        var userData = await GetMoodleUserDataAsync(token);
+        return userData.IsAdmin;
+    }
+
 
     public async Task<MoodleUserDataResponse> GetMoodleUserDataAsync(string token)
     {

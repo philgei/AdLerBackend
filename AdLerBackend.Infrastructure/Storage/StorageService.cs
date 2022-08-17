@@ -68,4 +68,13 @@ public class StorageService : IFileAccess
 
         return workingPath;
     }
+
+    public bool deleteCourse(CourseDeleteDto courseToDelete)
+    {
+        var workingDir = Path.Join("wwwroot", "courses", courseToDelete.AuthorId.ToString(),
+            courseToDelete.CourseName);
+
+        Directory.Delete(workingDir, true);
+        return true;
+    }
 }

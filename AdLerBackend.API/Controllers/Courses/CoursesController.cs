@@ -1,4 +1,5 @@
 ﻿using AdLerBackend.Application.Common.Responses.Course;
+using AdLerBackend.Application.Course.CourseManagement.DeleteCourse;
 using AdLerBackend.Application.Course.CourseManagement.UploadCourse;
 using AdLerBackend.Application.Course.CourseManagement.UploadH5pBase;
 using AdLerBackend.Application.Course.GetCoursesForAuthor;
@@ -13,6 +14,16 @@ public class CoursesController : BaseApiController
 {
     public CoursesController(IMediator mediator) : base(mediator)
     {
+    }
+
+    [HttpDelete("{courseId}")]
+    public async Task<bool> DeleteCourse([FromHeader] string token, [FromRoute] int courseId)
+    {
+        return await Mediator.Send(new DeleteCourseCommand
+        {
+            courseId = courseId,
+            WebServiceToken = token
+        });
     }
 
     [HttpPost]
