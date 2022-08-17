@@ -15,7 +15,7 @@ public class CoursesController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<bool> CreateCourse(IFormFile backupFile, IFormFile dslFile, [FromQuery] string token)
+    public async Task<bool> CreateCourse(IFormFile backupFile, IFormFile dslFile, [FromHeader] string token)
     {
         return await Mediator.Send(new UploadCourseCommand
         {
