@@ -130,7 +130,7 @@ public class MoodleWebApi : IMoodle
         }
         catch (Exception e)
         {
-            throw new Exception("Das Ergebnis der Moodle Web Api konnte nicht gelesen werden", e);
+            throw new LmsException("Das Ergebnis der Moodle Web Api konnte nicht gelesen werden", e);
         }
     }
 
@@ -176,7 +176,7 @@ public class MoodleWebApi : IMoodle
         }
         catch (Exception e)
         {
-            throw new Exception("Die Moodle Web Api ist nicht erreichbar: URL: " + url, e);
+            throw new LmsException("Die Moodle Web Api ist nicht erreichbar: URL: " + url, e);
         }
     }
 }

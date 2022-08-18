@@ -20,7 +20,7 @@ public class MoodleWebApiTest
     public async Task GetMoodleToken_ValidResponse_ReturnsToken()
     {
         // Arrange
-        _mockHttp.When("https://moodle.cluuub.xyz/login/*")
+        _mockHttp.When("*")
             .Respond(
                 "application/json", "{\"token\":\"testToken\"}");
 
@@ -35,7 +35,7 @@ public class MoodleWebApiTest
     public async Task GetMoodleToken_InvalidResponse_ReturnsException()
     {
         // Arrange
-        _mockHttp.When("https://moodle.cluuub.xyz/login/*")
+        _mockHttp.When("*")
             .Respond(
                 "application/json",
                 "{\"error\":\"Invalidlogin,pleasetryagain\",\"errorcode\":\"invalidlogin\",\"stacktrace\":null,\"debuginfo\":null,\"reproductionlink\":null}");
@@ -48,26 +48,23 @@ public class MoodleWebApiTest
     public async Task MoodleAPI_WSNotAvaliblale_ReturnsException()
     {
         // Arrange
-        _mockHttp.When("https://moodle.cluuub.xyz/login/*")
+        _mockHttp.When("*")
             .Throw(new HttpRequestException());
 
-        var exception = Assert.ThrowsAsync<Exception>(async () =>
+        var exception = Assert.ThrowsAsync<LmsException>(async () =>
             await _systemUnderTest.GetMoodleUserTokenAsync("moodleUser", "moodlePassword"));
-
-        // check exception message
-        StringAssert.Contains("Die Moodle Web Api ist nicht erreichbar: URL:", exception.Message);
     }
 
     [Test]
     public async Task MoodleAPI_WSNotReadAble_Throws()
     {
         // Arrange
-        _mockHttp.When("https://moodle.cluuub.xyz/login/*")
+        _mockHttp.When("*")
             .Respond(
                 "application/json",
                 "<blablabla>");
 
-        var exception = Assert.ThrowsAsync<Exception>(async () =>
+        var exception = Assert.ThrowsAsync<LmsException>(async () =>
             await _systemUnderTest.GetMoodleUserTokenAsync("moodleUser", "moodlePassword"));
 
         // check exception message
@@ -78,7 +75,7 @@ public class MoodleWebApiTest
     public async Task GetMoodleUserData_ValidResponse_ReturnsUserData()
     {
         // Arrange
-        _mockHttp.When("https://moodle.cluuub.xyz/webservice/rest/server.php*")
+        _mockHttp.When("*")
             .Respond(
                 "application/json", "{\"username\":\"test\",\"userissiteadmin\":true}");
 
@@ -93,7 +90,7 @@ public class MoodleWebApiTest
     public async Task GetMoodleUserData_InvalidResponseWrongToken_ThrowsCorrectException()
     {
         // Arrange
-        _mockHttp.When("https://moodle.cluuub.xyz/webservice/rest/server.php*")
+        _mockHttp.When("*")
             .Respond(
                 "application/json",
                 "{\"exception\":\"moodle_exception\",\"errorcode\":\"invalidtoken\",\"message\":\"Invalidtoken-tokennotfound\"}");
