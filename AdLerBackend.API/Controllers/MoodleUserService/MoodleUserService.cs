@@ -1,9 +1,10 @@
 ﻿using AdLerBackend.Application.Common.Responses;
-using AdLerBackend.Application.Common.Responses.LMSAdapter;
 using AdLerBackend.Application.Moodle.GetMoodleToken;
 using AdLerBackend.Application.Moodle.GetUserData;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+
+#pragma warning disable CS1591
 
 namespace AdLerBackend.Controllers.MoodleUserService;
 

@@ -8,45 +8,28 @@ using AdLerBackend.Application.Course.GetLearningWorldDSL;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
+#pragma warning disable CS1591
+
+#pragma warning disable CS1573
+
 namespace AdLerBackend.Controllers.Courses;
 
+/// <summary>
+///     Manages all the Courses
+/// </summary>
 public class CoursesController : BaseApiController
 {
     public CoursesController(IMediator mediator) : base(mediator)
     {
     }
 
-    [HttpDelete("{courseId}")]
-    public async Task<bool> DeleteCourse([FromHeader] string token, [FromRoute] int courseId)
-    {
-        return await Mediator.Send(new DeleteCourseCommand
-        {
-            courseId = courseId,
-            WebServiceToken = token
-        });
-    }
 
-    [HttpPost]
-    public async Task<bool> CreateCourse(IFormFile backupFile, IFormFile dslFile, [FromHeader] string token)
-    {
-        return await Mediator.Send(new UploadCourseCommand
-        {
-            BackupFileStream = backupFile.OpenReadStream(),
-            DslFileStream = dslFile.OpenReadStream(),
-            WebServiceToken = token
-        });
-    }
-
-    [HttpPost("H5PBase")]
-    public async Task<bool> UploadBaseH5p(IFormFile h5pBaseFile, [FromHeader] string token)
-    {
-        return await Mediator.Send(new UploadH5PBaseCommand
-        {
-            WebServiceToken = token,
-            H5PBaseZipStream = h5pBaseFile.OpenReadStream()
-        });
-    }
-
+    /// <summary>
+    ///     Gets all Courses that a Author has created
+    /// </summary>
+    /// <param name="token"></param>
+    /// <param name="authorId"></param>
+    /// <returns></returns>
     [HttpGet("author/{authorId}")]
     public async Task<ActionResult<GetCourseOverviewResponse>> GetCoursesForAuthor([FromHeader] string token,
         int authorId)
@@ -84,6 +67,56 @@ public class CoursesController : BaseApiController
     {
         return await Mediator.Send(new GetCoursesForUserCommand
         {
+            WebServiceToken = token
+        });
+    }
+
+    /// <summary>
+    ///     Uploads a Course to the Backend
+    ///     Beware: The Course also has to be imported into moodle manually
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<bool> CreateCourse(IFormFile backupFile, IFormFile dslFile, [FromHeader] string token)
+    {
+        return await Mediator.Send(new UploadCourseCommand
+        {
+            BackupFileStream = backupFile.OpenReadStream(),
+            DslFileStream = dslFile.OpenReadStream(),
+            WebServiceToken = token
+        });
+    }
+
+
+    /// <summary>
+    ///     Uploads a base h5p file needed to render h5ps in the Frontend
+    /// </summary>
+    /// <param name="h5PBaseFile"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    [HttpPost("H5PBase")]
+    public async Task<bool> UploadBaseH5P(IFormFile h5PBaseFile, [FromHeader] string token)
+    {
+        return await Mediator.Send(new UploadH5PBaseCommand
+        {
+            WebServiceToken = token,
+            H5PBaseZipStream = h5PBaseFile.OpenReadStream()
+        });
+    }
+
+    /// <summary>
+    ///     Deletes a Course by Id
+    /// </summary>
+    /// <param name="token"></param>
+    /// <param name="courseId"></param>
+    /// <returns></returns>
+    [HttpDelete("{courseId}")]
+    public async Task<bool> DeleteCourse([FromHeader] string token, [FromRoute] int courseId)
+    {
+        return await Mediator.Send(new DeleteCourseCommand
+        {
+            courseId = courseId,
             WebServiceToken = token
         });
     }
