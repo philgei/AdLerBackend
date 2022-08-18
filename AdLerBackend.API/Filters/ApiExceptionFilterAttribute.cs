@@ -61,7 +61,7 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
     private void HandleNotFoundException(ExceptionContext context)
     {
         var exception = (NotFoundException) context.Exception;
-        var details = new MoodleTokenProblemDetails
+        var details = new ProblemDetails
         {
             Title = "The requestet Resource was not found",
             Detail = exception.Message,

@@ -93,6 +93,54 @@ public class ApiExceptionFilterAttributeTest
         Assert.IsInstanceOf<MoodleTokenProblemDetails>(resultValue);
     }
 
+    [Test]
+    public void ApiExceptionFilterAttribute_NotFoundException_ShouldReturnProblemDetails()
+    {
+        // Arrange
+        _context.Exception = new NotFoundException();
+
+        // Act
+        _filter.OnException(_context);
+
+        // Assert
+        var result = _context.Result as NotFoundObjectResult;
+        var resultValue = result!.Value;
+
+        Assert.IsInstanceOf<ProblemDetails>(resultValue);
+    }
+
+    [Test]
+    public void ApiExceptionFilterAttribute_ForbiddenAccessException_ShouldReturnNotFoundObjectResult()
+    {
+        // Arrange
+        _context.Exception = new ForbiddenAccessException("Test");
+
+        // Act
+        _filter.OnException(_context);
+
+        // Assert
+        var result = _context.Result as UnauthorizedObjectResult;
+        var resultValue = result!.Value;
+
+        Assert.IsInstanceOf<ProblemDetails>(resultValue);
+    }
+    
+    [Test]
+    public void ApiExceptionFilterAttribute_CourseCreationException()
+    {
+        // Arrange
+        _context.Exception = new CourseCreationException("Test");
+
+        // Act
+        _filter.OnException(_context);
+
+        // Assert
+        var result = _context.Result as ConflictObjectResult;
+        var resultValue = result!.Value;
+
+        Assert.IsInstanceOf<ProblemDetails>(resultValue);
+    }
+
 #pragma warning disable CS8618
     private ExceptionContext _context;
     private ApiExceptionFilterAttribute _filter;
