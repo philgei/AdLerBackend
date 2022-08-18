@@ -39,7 +39,8 @@ namespace Infrastructure.Migrations
                         name: "FK_H5PLocations_Courses_CourseEntityId",
                         column: x => x.CourseEntityId,
                         principalTable: "Courses",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

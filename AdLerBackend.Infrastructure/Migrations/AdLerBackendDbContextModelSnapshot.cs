@@ -72,7 +72,8 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.CourseEntity", null)
                         .WithMany("H5PFilesInCourse")
-                        .HasForeignKey("CourseEntityId");
+                        .HasForeignKey("CourseEntityId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Domain.Entities.CourseEntity", b =>

@@ -3,7 +3,7 @@ using Domain.Entities;
 using Infrastructure.Repositories.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories;
+namespace Infrastructure.Repositories.Courses;
 
 public class CourseRepository : GenericRepository<CourseEntity>, ICourseRepository
 {

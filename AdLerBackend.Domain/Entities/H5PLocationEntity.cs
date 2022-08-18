@@ -1,8 +1,8 @@
-﻿using Domain.Entities.Common;
+﻿namespace Domain.Entities;
 
-namespace Domain.Entities;
-
-public class H5PLocationEntity : BaseEntity
+public class H5PLocationEntity
 {
+    // ReSharper disable once UnusedMember.Local
+    private int Id { get; set; }
     public string Path { get; set; }
 }

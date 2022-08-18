@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AdLerBackendDbContext))]
-    [Migration("20220816144522_initialv6")]
-    partial class initialv6
+    [Migration("20220818131247_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,7 +74,8 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.CourseEntity", null)
                         .WithMany("H5PFilesInCourse")
-                        .HasForeignKey("CourseEntityId");
+                        .HasForeignKey("CourseEntityId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Domain.Entities.CourseEntity", b =>

@@ -15,6 +15,13 @@ public class AdLerBackendDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<CourseEntity>()
-            .HasMany(x => x.H5PFilesInCourse);
+            .HasMany(x => x.H5PFilesInCourse).WithOne().HasForeignKey("CourseEntityId")
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<H5PLocationEntity>()
+            .Property("Id").UseIdentityColumn();
+
+        modelBuilder.Entity<H5PLocationEntity>()
+            .HasKey("Id");
     }
 }

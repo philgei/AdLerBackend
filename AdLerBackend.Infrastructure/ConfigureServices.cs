@@ -2,6 +2,7 @@
 using Infrastructure.Moodle;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.Common;
+using Infrastructure.Repositories.Courses;
 using Infrastructure.Services;
 using Infrastructure.Storage;
 using Microsoft.EntityFrameworkCore;
