@@ -66,7 +66,7 @@ public class MoodleWebApi : IMoodle
     }
 
 
-    public async Task<MoodleUserDataResponse> GetMoodleUserDataAsync(string token)
+    public virtual async Task<MoodleUserDataResponse> GetMoodleUserDataAsync(string token)
     {
         var resp = await MoodleCallAsync<UserDataResponse>(new Dictionary<string, string>
         {
