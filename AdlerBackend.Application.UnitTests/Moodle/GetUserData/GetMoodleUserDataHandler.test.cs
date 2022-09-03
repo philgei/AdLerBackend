@@ -1,12 +1,13 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
-using AdLerBackend.Application.Common.Responses.LMSAdapter;
 using AdLerBackend.Application.Moodle.GetUserData;
 using NSubstitute;
 
-namespace Application.UnitTests.Moodle.Handlers;
+#pragma warning disable CS8618
 
-public class GetMoodleUserDataHandler_test
+namespace Application.UnitTests.Moodle.GetUserData;
+
+public class GetMoodleUserDataHandlerTest
 {
     private IMoodle _moodleMock;
     private GetMoodleUserDataHandler _systemUnderTest;
