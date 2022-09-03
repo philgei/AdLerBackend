@@ -1,7 +1,6 @@
 ﻿using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses.Course;
-using AdLerBackend.Application.Course.GetLearningWorldDSL;
 using MediatR;
 
 namespace AdLerBackend.Application.Course.GetCourseDetail;
