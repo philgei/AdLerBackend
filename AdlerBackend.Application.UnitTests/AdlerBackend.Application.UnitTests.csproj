@@ -29,8 +29,4 @@
         <ProjectReference Include="..\AdLerBackend.Application\AdLerBackend.Application.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Course\CourseManagement\DeleteCourse" />
-    </ItemGroup>
-
 </Project>
