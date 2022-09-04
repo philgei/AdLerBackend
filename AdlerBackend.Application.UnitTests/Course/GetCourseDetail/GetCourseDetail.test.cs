@@ -73,8 +73,8 @@ public class GetCourseDetailTest
         var stream = new MemoryStream();
         _fileAccess.GetFileStream(Arg.Any<string>()).Returns(stream);
 
-        var mockedDSL = AutoFaker.Generate<LearningWorldDtoResponse>();
-        mockedDSL.LearningWorld.LearningElements = new List<LearningElement>
+        var mockedDsl = AutoFaker.Generate<LearningWorldDtoResponse>();
+        mockedDsl.LearningWorld.LearningElements = new List<LearningElement>
         {
             new()
             {
@@ -97,7 +97,7 @@ public class GetCourseDetailTest
         };
 
         _serialization.GetObjectFromJsonStreamAsync<LearningWorldDtoResponse>(Arg.Any<Stream>())
-            .Returns(mockedDSL);
+            .Returns(mockedDsl);
 
         var systemUnderTest = new GetCourseDetailHandler(_moodle, _courseRepository, _fileAccess, _serialization);
 
@@ -222,8 +222,8 @@ public class GetCourseDetailTest
         var stream = new MemoryStream();
         _fileAccess.GetFileStream(Arg.Any<string>()).Returns(stream);
 
-        var mockedDSL = AutoFaker.Generate<LearningWorldDtoResponse>();
-        mockedDSL.LearningWorld.LearningElements = new List<LearningElement>
+        var mockedDsl = AutoFaker.Generate<LearningWorldDtoResponse>();
+        mockedDsl.LearningWorld.LearningElements = new List<LearningElement>
         {
             new()
             {
@@ -246,7 +246,7 @@ public class GetCourseDetailTest
         };
 
         _serialization.GetObjectFromJsonStreamAsync<LearningWorldDtoResponse>(Arg.Any<Stream>())
-            .Returns(mockedDSL);
+            .Returns(mockedDsl);
 
         var systemUnderTest = new GetCourseDetailHandler(_moodle, _courseRepository, _fileAccess, _serialization);
 

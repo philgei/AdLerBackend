@@ -27,7 +27,6 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
 
     public async Task<bool> Handle(UploadCourseCommand request, CancellationToken cancellationToken)
     {
-        //TODO: Some file stream gets not closed.
         var userInformation = await GetUserInformation(request);
         if (!userInformation.IsAdmin) throw new ForbiddenAccessException("You are not an admin");
 
