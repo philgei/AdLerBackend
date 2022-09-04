@@ -81,7 +81,7 @@ public class MoodleWebApiTest
         var result = await _systemUnderTest.GetMoodleUserTokenAsync("moodleUser", "moodlePassword");
 
         // Assert
-        Assert.That(result.moodleToken, Is.EqualTo("testToken"));
+        Assert.That(result.MoodleToken, Is.EqualTo("testToken"));
     }
 
     [Test]
@@ -149,9 +149,9 @@ public class MoodleWebApiTest
             .Respond(
                 "application/json", JsonSerializer.Serialize(new UserDataResponse
                 {
-                    userid = 1,
-                    userissiteadmin = true,
-                    username = "testUser"
+                    Userid = 1,
+                    Userissiteadmin = true,
+                    Username = "testUser"
                 }));
 
         // Act

@@ -4,9 +4,9 @@ namespace AdLerBackend.Application.Common.Interfaces;
 
 public interface IFileAccess
 {
-    public List<string>? StoreH5PFilesForCourse(CourseStoreH5pDto courseToStoreH5P);
-    public string StoreDSLFileForCourse(StoreCourseDslDto courseToStoreH5P);
+    public List<string>? StoreH5PFilesForCourse(CourseStoreH5PDto courseToStoreH5P);
+    public string StoreDslFileForCourse(StoreCourseDslDto courseToStoreH5P);
     public Stream GetFileStream(string filePath);
     public string StoreH5PBase(Stream fileStream);
-    public bool deleteCourse(CourseDeleteDto courseToDelete);
+    public bool DeleteCourse(CourseDeleteDto courseToDelete);
 }

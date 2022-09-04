@@ -2,5 +2,5 @@
 
 public class MoodleUserTokenResponse
 {
-    public string moodleToken { get; set; }
+    public string MoodleToken { get; set; }
 }

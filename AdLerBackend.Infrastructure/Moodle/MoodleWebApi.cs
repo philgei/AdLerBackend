@@ -30,7 +30,7 @@ public class MoodleWebApi : IMoodle
 
         return new MoodleUserTokenResponse
         {
-            moodleToken = resp.token
+            MoodleToken = resp.Token
         };
     }
 
@@ -77,9 +77,9 @@ public class MoodleWebApi : IMoodle
 
         return new MoodleUserDataResponse
         {
-            MoodleUserName = resp.username,
-            IsAdmin = resp.userissiteadmin,
-            UserId = resp.userid
+            MoodleUserName = resp.Username,
+            IsAdmin = resp.Userissiteadmin,
+            UserId = resp.Userid
         };
     }
 
@@ -136,20 +136,20 @@ public class MoodleWebApi : IMoodle
 
     private void ThrowIfMoodleError(string responseString)
     {
-        MoodleWSErrorResponse wsErrorData = null!;
+        MoodleWsErrorResponse wsErrorData = null!;
         try
         {
-            wsErrorData = TryRead<MoodleWSErrorResponse>(responseString);
+            wsErrorData = TryRead<MoodleWsErrorResponse>(responseString);
         }
         catch (Exception e)
         {
             // ignored
         }
 
-        if (wsErrorData?.errorcode != null)
+        if (wsErrorData?.Errorcode != null)
             throw new LmsException
             {
-                LmsErrorCode = wsErrorData.errorcode
+                LmsErrorCode = wsErrorData.Errorcode
             };
     }
 
@@ -183,19 +183,19 @@ public class MoodleWebApi : IMoodle
 
 public class UserTokenResponse
 {
-    public string token { get; set; }
+    public string Token { get; set; }
 }
 
 public class UserDataResponse
 {
-    public string username { get; set; }
-    public bool userissiteadmin { get; set; }
-    public int userid { get; set; }
+    public string Username { get; set; }
+    public bool Userissiteadmin { get; set; }
+    public int Userid { get; set; }
 }
 
-public class MoodleWSErrorResponse
+public class MoodleWsErrorResponse
 {
-    public string errorcode { get; set; }
+    public string Errorcode { get; set; }
 }
 
 public class PostToMoodleOptions

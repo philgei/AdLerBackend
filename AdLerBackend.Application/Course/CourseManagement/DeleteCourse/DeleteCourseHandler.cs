@@ -25,17 +25,17 @@ public class DeleteCourseHandler : IRequestHandler<DeleteCourseCommand, bool>
             throw new ForbiddenAccessException("User is not Admin");
 
         // get course from db
-        var course = await _courseRepository.GetAsync(request.courseId);
+        var course = await _courseRepository.GetAsync(request.CourseId);
 
         // Delete from file System
-        _fileAccess.deleteCourse(new CourseDeleteDto
+        _fileAccess.DeleteCourse(new CourseDeleteDto
         {
             AuthorId = course.AuthorId,
             CourseName = course.Name
         });
 
         // Delete from db
-        await _courseRepository.DeleteAsync(request.courseId);
+        await _courseRepository.DeleteAsync(request.CourseId);
 
         return true;
     }

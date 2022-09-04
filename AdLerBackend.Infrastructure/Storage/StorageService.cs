@@ -7,7 +7,7 @@ namespace Infrastructure.Storage;
 
 public class StorageService : IFileAccess
 {
-    public List<string>? StoreH5PFilesForCourse(CourseStoreH5pDto courseToStoreH5P)
+    public List<string>? StoreH5PFilesForCourse(CourseStoreH5PDto courseToStoreH5P)
     {
         var workingDir = Path.Join("wwwroot", "courses", courseToStoreH5P.AuthorId.ToString(),
             courseToStoreH5P.CourseInforamtion.LearningWorld.Identifier.Value, "h5p");
@@ -24,7 +24,7 @@ public class StorageService : IFileAccess
         return h5PFilePaths;
     }
 
-    public string StoreDSLFileForCourse(StoreCourseDslDto courseToStoreH5P)
+    public string StoreDslFileForCourse(StoreCourseDslDto courseToStoreH5P)
     {
         courseToStoreH5P.DslFile.Position = 0;
         var workingDir = Path.Join("wwwroot", "courses", courseToStoreH5P.AuthorId.ToString(),
@@ -69,7 +69,7 @@ public class StorageService : IFileAccess
         return workingPath;
     }
 
-    public bool deleteCourse(CourseDeleteDto courseToDelete)
+    public bool DeleteCourse(CourseDeleteDto courseToDelete)
     {
         var workingDir = Path.Join("wwwroot", "courses", courseToDelete.AuthorId.ToString(),
             courseToDelete.CourseName);

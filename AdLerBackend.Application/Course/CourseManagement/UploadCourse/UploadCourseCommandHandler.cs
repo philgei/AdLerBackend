@@ -39,7 +39,7 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
 
         if (existsCourseForUser) throw new CourseCreationException("Course already exists in Database");
 
-        var dslLocation = _fileAccess.StoreDSLFileForCourse(new StoreCourseDslDto
+        var dslLocation = _fileAccess.StoreDslFileForCourse(new StoreCourseDslDto
         {
             AuthorId = userInformation.UserId,
             DslFile = request.DslFileStream,
@@ -67,7 +67,7 @@ public class UploadCourseCommandHandler : IRequestHandler<UploadCourseCommand, b
         if (courseInformation.LearningWorld.LearningElements.Any(x => x.ElementType == "h5p"))
         {
             var h5PFilesInBackup = _lmsBackupProcessor.GetH5PFilesFromBackup(backupFile);
-            storedH5PFilePaths = _fileAccess.StoreH5PFilesForCourse(new CourseStoreH5pDto
+            storedH5PFilePaths = _fileAccess.StoreH5PFilesForCourse(new CourseStoreH5PDto
             {
                 AuthorId = userData.UserId,
                 CourseInforamtion = courseInformation,

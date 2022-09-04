@@ -66,10 +66,10 @@ public class CoursesControllerTest
         // Arrange
         var mediatorMock = Substitute.For<IMediator>();
         var controller = new CoursesController(mediatorMock);
-        var baseH5pFile = Substitute.For<IFormFile>();
+        var baseH5PFile = Substitute.For<IFormFile>();
 
         // Act
-        await controller.UploadBaseH5P(baseH5pFile, "token");
+        await controller.UploadBaseH5P(baseH5PFile, "token");
 
         // Assert
         await mediatorMock.Received(1).Send(

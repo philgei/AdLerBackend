@@ -116,7 +116,7 @@ public class CoursesController : BaseApiController
     {
         return await Mediator.Send(new DeleteCourseCommand
         {
-            courseId = courseId,
+            CourseId = courseId,
             WebServiceToken = token
         });
     }
