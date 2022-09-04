@@ -11,6 +11,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoBogus" Version="2.13.1" />
+        <PackageReference Include="Bogus" Version="34.0.2" />
         <PackageReference Include="coverlet.msbuild" Version="3.1.2">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,6 +27,10 @@
 
     <ItemGroup>
         <ProjectReference Include="..\AdLerBackend.Application\AdLerBackend.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Course\CourseManagement\DeleteCourse" />
     </ItemGroup>
 
 </Project>
