@@ -63,7 +63,7 @@ public class GetCoursesForUserTest
     }
 
     [Test]
-    public async Task Handle_Invalid_CoursesInDbDontMatchWithMoodle_ThrowsException()
+    public Task Handle_Invalid_CoursesInDbDontMatchWithMoodle_ThrowsException()
     {
         // Arrange
 
@@ -95,5 +95,6 @@ public class GetCoursesForUserTest
 
         // Assert
         Assert.That(result?.Message, Contains.Substring("the number"));
+        return Task.CompletedTask;
     }
 }

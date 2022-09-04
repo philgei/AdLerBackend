@@ -113,7 +113,7 @@ public class GetCourseDetailTest
     }
 
     [Test]
-    public async Task Handle_CourseNotFound_ThrowsNotFound()
+    public Task Handle_CourseNotFound_ThrowsNotFound()
     {
         // Arrange
         var request = new GetCourseDetailCommand
@@ -131,10 +131,11 @@ public class GetCourseDetailTest
         // Act
         Assert.ThrowsAsync<NotFoundException>(async () =>
             await systemUnderTest.Handle(request, CancellationToken.None));
+        return Task.CompletedTask;
     }
 
     [Test]
-    public async Task Handle_CourseNotFoundInMoodle_ThrowsNotFound()
+    public Task Handle_CourseNotFoundInMoodle_ThrowsNotFound()
     {
         // Arrange
         var request = new GetCourseDetailCommand
@@ -174,10 +175,11 @@ public class GetCourseDetailTest
         // Act
         Assert.ThrowsAsync<NotFoundException>(async () =>
             await systemUnderTest.Handle(request, CancellationToken.None));
+        return Task.CompletedTask;
     }
 
     [Test]
-    public async Task Handle_H5PFilesNotFound_ThrowsNotFoundException()
+    public Task Handle_H5PFilesNotFound_ThrowsNotFoundException()
     {
         // Arrange
         var request = new GetCourseDetailCommand
@@ -253,5 +255,6 @@ public class GetCourseDetailTest
         // Act
         Assert.ThrowsAsync<NotFoundException>(async () =>
             await systemUnderTest.Handle(request, CancellationToken.None));
+        return Task.CompletedTask;
     }
 }

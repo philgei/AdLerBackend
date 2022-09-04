@@ -57,7 +57,7 @@ public class DeleteCourseTest
     }
 
     [Test]
-    public async Task Handle_UserNotAdmin_ShouldThorwException()
+    public Task Handle_UserNotAdmin_ShouldThorwException()
     {
         // Arrange
         var systemUnderTest = new DeleteCourseHandler(_moodle, _courseRepository, _fileAccess);
@@ -70,5 +70,6 @@ public class DeleteCourseTest
             CourseId = 1,
             WebServiceToken = "testToken"
         }, CancellationToken.None));
+        return Task.CompletedTask;
     }
 }

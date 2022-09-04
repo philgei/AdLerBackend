@@ -25,7 +25,7 @@ public class TestModelValidator : AbstractValidator<TestModel>
 public class ValidationBehaviourTest
 {
     [Test]
-    public async Task ValidationBehaviour_Valid_ShouldThrowWithErrors()
+    public Task ValidationBehaviour_Valid_ShouldThrowWithErrors()
     {
         // Arrange
         var systemUnderTest =
@@ -42,6 +42,7 @@ public class ValidationBehaviourTest
                     Test2 = 2
                 }, new CancellationToken(),
                 Substitute.For<RequestHandlerDelegate<string>>()));
+        return Task.CompletedTask;
     }
 
     [Test]

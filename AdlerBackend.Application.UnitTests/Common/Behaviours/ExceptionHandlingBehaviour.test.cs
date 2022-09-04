@@ -14,7 +14,7 @@ namespace Application.UnitTests.Common.Behaviours;
 public class ExceptionHandlingBehaviourTest
 {
     [Test]
-    public async Task ExceptionBehaviour_ValidPath_ShouldCreateTokenException()
+    public Task ExceptionBehaviour_ValidPath_ShouldCreateTokenException()
     {
         // Arrange
         var systemUnderTest =
@@ -27,10 +27,11 @@ public class ExceptionHandlingBehaviourTest
                     LmsErrorCode = "invalidtoken"
                 },
                 new RequestExceptionHandlerState<MoodleUserDataResponse>(), CancellationToken.None));
+        return Task.CompletedTask;
     }
 
     [Test]
-    public async Task ExceptionBehaviour_ValidPath_ShouldCreateLoginException()
+    public Task ExceptionBehaviour_ValidPath_ShouldCreateLoginException()
     {
         // Arrange
         var systemUnderTest =
@@ -43,10 +44,11 @@ public class ExceptionHandlingBehaviourTest
                     LmsErrorCode = "invalidlogin"
                 },
                 new RequestExceptionHandlerState<MoodleUserTokenResponse>(), CancellationToken.None));
+        return Task.CompletedTask;
     }
 
     [Test]
-    public async Task ExceptionBehaviour_Invalid_ShourldReturnInputException()
+    public Task ExceptionBehaviour_Invalid_ShourldReturnInputException()
     {
         // Arrange
         var systemUnderTest =
@@ -59,5 +61,6 @@ public class ExceptionHandlingBehaviourTest
                     LmsErrorCode = "invalidErrorCode"
                 },
                 new RequestExceptionHandlerState<MoodleUserTokenResponse>(), CancellationToken.None));
+        return Task.CompletedTask;
     }
 }

@@ -42,14 +42,14 @@ public class UploadCourseTest
             IsAdmin = true
         });
 
-        var fakedDSL = AutoFaker.Generate<DslFileDto>();
-        fakedDSL.LearningWorld.LearningElements[0] = new LearningElement
+        var fakedDsl = AutoFaker.Generate<DslFileDto>();
+        fakedDsl.LearningWorld.LearningElements[0] = new LearningElement
         {
             Id = 13337,
             ElementType = "h5p"
         };
 
-        _lmsBackupProcessor.GetLevelDescriptionFromBackup(Arg.Any<Stream>()).Returns(fakedDSL);
+        _lmsBackupProcessor.GetLevelDescriptionFromBackup(Arg.Any<Stream>()).Returns(fakedDsl);
 
         _courseRepository.ExistsCourseForAuthor(Arg.Any<int>(), Arg.Any<string>()).Returns(false);
 
@@ -72,7 +72,7 @@ public class UploadCourseTest
 
 
         // Act
-        var result = await systemUnderTest.Handle(new UploadCourseCommand
+        await systemUnderTest.Handle(new UploadCourseCommand
         {
             BackupFileStream = new MemoryStream(),
             DslFileStream = new MemoryStream(),
@@ -81,11 +81,11 @@ public class UploadCourseTest
 
         // Assert that AddAsync has been called with the correct entity
         await _courseRepository.Received(1)
-            .AddAsync(Arg.Is<CourseEntity>(x => x.Name == fakedDSL.LearningWorld.Identifier.Value));
+            .AddAsync(Arg.Is<CourseEntity>(x => x.Name == fakedDsl.LearningWorld.Identifier.Value));
     }
 
     [Test]
-    public async Task Handle_UnauthorizedUser_Throws()
+    public Task Handle_UnauthorizedUser_Throws()
     {
         // Arrange
         var systemUnderTest =
@@ -105,10 +105,11 @@ public class UploadCourseTest
                 DslFileStream = new MemoryStream(),
                 WebServiceToken = "testToken"
             }, CancellationToken.None));
+        return Task.CompletedTask;
     }
 
     [Test]
-    public async Task Handle_CourseExists_ThrowsException()
+    public Task Handle_CourseExists_ThrowsException()
     {
         // Arrange
         var systemUnderTest =
@@ -119,14 +120,14 @@ public class UploadCourseTest
             IsAdmin = true
         });
 
-        var fakedDSL = AutoFaker.Generate<DslFileDto>();
-        fakedDSL.LearningWorld.LearningElements[0] = new LearningElement
+        var fakedDsl = AutoFaker.Generate<DslFileDto>();
+        fakedDsl.LearningWorld.LearningElements[0] = new LearningElement
         {
             Id = 13337,
             ElementType = "h5p"
         };
 
-        _lmsBackupProcessor.GetLevelDescriptionFromBackup(Arg.Any<Stream>()).Returns(fakedDSL);
+        _lmsBackupProcessor.GetLevelDescriptionFromBackup(Arg.Any<Stream>()).Returns(fakedDsl);
 
         _courseRepository.ExistsCourseForAuthor(Arg.Any<int>(), Arg.Any<string>()).Returns(true);
 
@@ -139,6 +140,7 @@ public class UploadCourseTest
                 DslFileStream = new MemoryStream(),
                 WebServiceToken = "testToken"
             }, CancellationToken.None));
+        return Task.CompletedTask;
     }
 
 
@@ -154,9 +156,9 @@ public class UploadCourseTest
             IsAdmin = true
         });
 
-        var fakedDSL = AutoFaker.Generate<DslFileDto>();
+        var fakedDsl = AutoFaker.Generate<DslFileDto>();
 
-        _lmsBackupProcessor.GetLevelDescriptionFromBackup(Arg.Any<Stream>()).Returns(fakedDSL);
+        _lmsBackupProcessor.GetLevelDescriptionFromBackup(Arg.Any<Stream>()).Returns(fakedDsl);
 
         _courseRepository.ExistsCourseForAuthor(Arg.Any<int>(), Arg.Any<string>()).Returns(false);
 
@@ -180,6 +182,6 @@ public class UploadCourseTest
 
         // Assert that AddAsync has been called with the correct entity
         await _courseRepository.Received(1)
-            .AddAsync(Arg.Is<CourseEntity>(x => x.Name == fakedDSL.LearningWorld.Identifier.Value));
+            .AddAsync(Arg.Is<CourseEntity>(x => x.Name == fakedDsl.LearningWorld.Identifier.Value));
     }
 }

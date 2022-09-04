@@ -25,7 +25,7 @@ public class GetCourseForAuthorHandlerTest
     }
 
     [Test]
-    public async Task Handle_GiveUnauthorotisedUser_ShouldThrow()
+    public Task Handle_GiveUnauthorotisedUser_ShouldThrow()
     {
         // Arrange
         var request = new GetCoursesForAuthorCommand
@@ -53,6 +53,7 @@ public class GetCourseForAuthorHandlerTest
 
         // Assert
         Assert.That(exception?.Message, Is.EqualTo("You are not an admin"));
+        return Task.CompletedTask;
     }
 
     [Test]
