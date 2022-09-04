@@ -3,7 +3,7 @@ using FluentValidation.Results;
 
 namespace Application.UnitTests.Common.Exceptions;
 
-public class ValidationException_test
+public class ValidationExceptionTest
 {
     [Test]
     public void Constructor_WhenCalled_ShouldSetProperties()

@@ -11,7 +11,7 @@ using MediatR.Pipeline;
 
 namespace Application.UnitTests.Common.Behaviours;
 
-public class ExceptionHandlingBehaviour_test
+public class ExceptionHandlingBehaviourTest
 {
     [Test]
     public async Task ExceptionBehaviour_ValidPath_ShouldCreateTokenException()

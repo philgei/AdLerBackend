@@ -6,7 +6,7 @@ using NSubstitute;
 
 namespace Application.UnitTests.Moodle.Handlers;
 
-public class GerMoodleUserTokenHandler_test
+public class GerMoodleUserTokenHandlerTest
 {
     private IMoodle _moodleMock;
     private GetMoodleUserTokenHandler _systemUnderTest;
@@ -29,7 +29,7 @@ public class GerMoodleUserTokenHandler_test
         };
         _moodleMock.GetMoodleUserTokenAsync(request.UserName, request.Password).Returns(new MoodleUserTokenResponse
         {
-            moodleToken = "token"
+            MoodleToken = "token"
         });
 
         // Act
@@ -37,6 +37,6 @@ public class GerMoodleUserTokenHandler_test
 
         // Assert
         await _moodleMock.Received(1).GetMoodleUserTokenAsync(request.UserName, request.Password);
-        Assert.That("token", Is.EqualTo(result.moodleToken));
+        Assert.That("token", Is.EqualTo(result.MoodleToken));
     }
 }
