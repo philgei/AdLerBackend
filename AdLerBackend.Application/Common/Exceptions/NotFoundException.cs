@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace AdLerBackend.Application.Common.Exceptions;
+﻿namespace AdLerBackend.Application.Common.Exceptions;
 
 public class NotFoundException : Exception
 {
@@ -8,9 +6,6 @@ public class NotFoundException : Exception
     {
     }
 
-    protected NotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 
     public NotFoundException(string? message) : base(message)
     {
