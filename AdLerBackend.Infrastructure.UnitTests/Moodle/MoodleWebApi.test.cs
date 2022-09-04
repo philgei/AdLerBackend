@@ -102,7 +102,7 @@ public class MoodleWebApiTest
     }
 
     [Test]
-    public async Task GetMoodleToken_InvalidResponse_ReturnsException()
+    public Task GetMoodleToken_InvalidResponse_ReturnsException()
     {
         // Arrange
         _mockHttp.When("*")
@@ -112,10 +112,11 @@ public class MoodleWebApiTest
 
         Assert.ThrowsAsync<LmsException>(() =>
             _systemUnderTest.GetMoodleUserTokenAsync("moodleUser", "moodlePassword"));
+        return Task.CompletedTask;
     }
 
     [Test]
-    public async Task MoodleAPI_WSNotAvaliblale_ReturnsException()
+    public Task MoodleAPI_WSNotAvaliblale_ReturnsException()
     {
         // Arrange
         _mockHttp.When("*")
@@ -123,10 +124,11 @@ public class MoodleWebApiTest
 
         var exception = Assert.ThrowsAsync<LmsException>(async () =>
             await _systemUnderTest.GetMoodleUserTokenAsync("moodleUser", "moodlePassword"));
+        return Task.CompletedTask;
     }
 
     [Test]
-    public async Task MoodleAPI_WSNotReadAble_Throws()
+    public Task MoodleAPI_WSNotReadAble_Throws()
     {
         // Arrange
         _mockHttp.When("*")
@@ -139,6 +141,7 @@ public class MoodleWebApiTest
 
         // check exception message
         Assert.That(exception!.Message, Is.EqualTo("Das Ergebnis der Moodle Web Api konnte nicht gelesen werden"));
+        return Task.CompletedTask;
     }
 
     [Test]
@@ -163,7 +166,7 @@ public class MoodleWebApiTest
     }
 
     [Test]
-    public async Task GetMoodleUserData_InvalidResponseWrongToken_ThrowsCorrectException()
+    public Task GetMoodleUserData_InvalidResponseWrongToken_ThrowsCorrectException()
     {
         // Arrange
         _mockHttp.When("*")
@@ -176,5 +179,6 @@ public class MoodleWebApiTest
 
         // check exception message
         Assert.That(exception!.LmsErrorCode, Is.EqualTo("invalidtoken"));
+        return Task.CompletedTask;
     }
 }
