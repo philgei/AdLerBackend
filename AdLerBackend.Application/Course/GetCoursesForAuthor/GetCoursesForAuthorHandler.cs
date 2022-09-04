@@ -24,7 +24,7 @@ public class GetCoursesForAuthorHandler : IRequestHandler<GetCoursesForAuthorCom
         var userData = await _mediator.Send(new GetMoodleUserDataCommand
         {
             WebServiceToken = request.WebServiceToken
-        });
+        }, cancellationToken);
 
         if (!userData.IsAdmin) throw new ForbiddenAccessException("You are not an admin");
 
