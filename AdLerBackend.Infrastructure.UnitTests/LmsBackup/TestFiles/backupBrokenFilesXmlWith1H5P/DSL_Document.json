@@ -1,0 +1,33 @@
+{
+  "LearningWorld": {
+    "Identifier": {
+      "Type": "name",
+      "Value": "Welt1"
+    },
+    "LearningWorldContent": [],
+    "Topics": [],
+    "LearningSpaces": [],
+    "LearningElements": [
+      {
+        "Id": 1,
+        "Identifier": {
+          "Type": "FileName",
+          "Value": "a"
+        },
+        "ElementType": "h5p",
+        "LearningElementValue": null,
+        "Requirements": null
+      },
+      {
+        "Id": 2,
+        "Identifier": {
+          "Type": "FileName",
+          "Value": "DSL Dokument"
+        },
+        "ElementType": "json",
+        "LearningElementValue": null,
+        "Requirements": null
+      }
+    ]
+  }
+}

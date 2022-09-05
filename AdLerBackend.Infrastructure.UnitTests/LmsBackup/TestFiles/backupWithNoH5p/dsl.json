@@ -1,0 +1,38 @@
+{
+  "LearningWorld": {
+    "IdNumber": "74925b5b-8fed-4909-8be5-4accda055c76",
+    "Identifier": {
+      "Type": "name",
+      "Value": "Empty World"
+    },
+    "LearningWorldContent": [],
+    "Topics": [],
+    "LearningSpaces": [
+      {
+        "SpaceId": 0,
+        "LearningSpaceName": "Freie Lernelemente",
+        "Identifier": {
+          "Type": "name",
+          "Value": "Freie Lernelemente"
+        },
+        "LearningSpaceContent": [
+          1
+        ],
+        "Requirements": null
+      }
+    ],
+    "LearningElements": [
+      {
+        "Id": 1,
+        "Identifier": {
+          "Type": "FileName",
+          "Value": "DSL Dokument"
+        },
+        "ElementType": "json",
+        "LearningElementValue": null,
+        "LearningSpaceParentId": 0,
+        "Requirements": null
+      }
+    ]
+  }
+}

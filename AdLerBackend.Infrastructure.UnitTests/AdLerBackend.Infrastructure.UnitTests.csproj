@@ -20,6 +20,8 @@
         <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
         <PackageReference Include="coverlet.collector" Version="3.1.2" />
         <PackageReference Include="RichardSzalay.MockHttp" Version="6.0.0" />
+        <PackageReference Include="System.IO.Abstractions" Version="17.1.1" />
+        <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="17.1.1" />
     </ItemGroup>
 
     <ItemGroup>
