@@ -20,14 +20,9 @@ public class LmsBackupProcessor : ILmsBackupProcessor
 
         var filesDescription = DeserializeToObject<Files>(filesDescriptionStream);
 
-        List<H5PWorkingStorage> h5PHashes = new();
-        foreach (var file in filesDescription.File)
-            if (file.Component == "mod_h5pactivity" && file.Filename != ".")
-                h5PHashes.Add(new H5PWorkingStorage
-                {
-                    H5PFileName = file.Filename,
-                    H5PContentHash = file.Contenthash
-                });
+        var h5PHashes = (from file in filesDescription.File
+            where file.Component == "mod_h5pactivity" && file.Filename != "."
+            select new H5PWorkingStorage {H5PFileName = file.Filename, H5PContentHash = file.Contenthash}).ToList();
 
         // remove duplicates from h5pHashes by Contenthash since files are represented twice in the backup
         h5PHashes = h5PHashes.GroupBy(x => x.H5PContentHash).Select(x => x.First()).ToList();
