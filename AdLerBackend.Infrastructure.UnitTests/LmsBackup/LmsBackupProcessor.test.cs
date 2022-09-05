@@ -65,7 +65,7 @@ public class LmsBackupProcessorTest
     {
         // Arrange
         _backupFileStream =
-            new FileStream("../../../LmsBackup/TestFiles/backupBrokenWith1H5P/backup.mbz", FileMode.Open);
+            new FileStream("../../../LmsBackup/TestFiles/backupBrokenFilesXmlWith1H5P/backup.mbz", FileMode.Open);
         var systemUnderTest = new LmsBackupProcessor();
 
         // Act
