@@ -1,4 +1,5 @@
-﻿using AdLerBackend.Application.Common.Interfaces;
+﻿using System.IO.Abstractions;
+using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Infrastructure.LmsBackup;
 using AdLerBackend.Infrastructure.Moodle;
 using AdLerBackend.Infrastructure.Repositories;
@@ -25,6 +26,7 @@ public static class ConfigureServices
         services.AddSingleton<ISerialization, SerializationService>();
         services.AddScoped<ICourseRepository, CourseRepository>();
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddTransient<IFileSystem, FileSystem>();
         services.AddSingleton(httpClient);
 
         var connectionString = configuration.GetConnectionString("DefaultConnection");
