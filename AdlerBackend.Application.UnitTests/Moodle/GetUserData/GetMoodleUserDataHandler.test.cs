@@ -5,7 +5,7 @@ using NSubstitute;
 
 #pragma warning disable CS8618
 
-namespace Application.UnitTests.Moodle.GetUserData;
+namespace AdLerBackend.Application.UnitTests.Moodle.GetUserData;
 
 public class GetMoodleUserDataHandlerTest
 {

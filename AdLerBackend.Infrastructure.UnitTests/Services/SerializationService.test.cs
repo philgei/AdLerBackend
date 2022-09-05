@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using Infrastructure.Services;
+using AdLerBackend.Infrastructure.Services;
 
 namespace AdLerBackend.Infrastructure.UnitTests.Services;
 

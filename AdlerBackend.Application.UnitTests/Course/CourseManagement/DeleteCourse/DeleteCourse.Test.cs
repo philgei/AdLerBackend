@@ -2,12 +2,12 @@
 using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Course.CourseManagement.DeleteCourse;
-using Domain.Entities;
+using AdLerBackend.Domain.Entities;
 using NSubstitute;
 
 #pragma warning disable CS8618
 
-namespace Application.UnitTests.Course.CourseManagement.DeleteCourse;
+namespace AdLerBackend.Application.UnitTests.Course.CourseManagement.DeleteCourse;
 
 public class DeleteCourseTest
 {

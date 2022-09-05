@@ -1,7 +1,7 @@
 ﻿using AdLerBackend.Application.Moodle.GetMoodleToken;
 using FluentValidation.TestHelper;
 
-namespace Application.UnitTests.Moodle.Commands.GetMoodleToken;
+namespace AdLerBackend.Application.UnitTests.Moodle.GetMoodleToken;
 
 public class MoodleLoginCommandValidatorTest
 {

@@ -3,13 +3,13 @@ using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses.Course;
 using AdLerBackend.Application.Common.Responses.LMSAdapter;
 using AdLerBackend.Application.Course.GetCourseDetail;
+using AdLerBackend.Domain.Entities;
 using AutoBogus;
-using Domain.Entities;
 using NSubstitute;
 
 #pragma warning disable CS8618
 
-namespace Application.UnitTests.Course.GetCourseDetail;
+namespace AdLerBackend.Application.UnitTests.Course.GetCourseDetail;
 
 public class GetCourseDetailTest
 {

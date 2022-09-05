@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 #pragma warning disable CS1573
 
-namespace AdLerBackend.Controllers.Courses;
+namespace AdLerBackend.API.Controllers.Courses;
 
 /// <summary>
 ///     Manages all the Courses

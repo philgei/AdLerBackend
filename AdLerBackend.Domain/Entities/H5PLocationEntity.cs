@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities;
+﻿namespace AdLerBackend.Domain.Entities;
 
 public class H5PLocationEntity
 {

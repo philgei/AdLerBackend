@@ -1,15 +1,13 @@
 ﻿using AdLerBackend.Application.Common.Behaviours;
 using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Exceptions.LMSAdapter;
-using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
-using AdLerBackend.Application.Common.Responses.LMSAdapter;
 using AdLerBackend.Application.Moodle.GetMoodleToken;
 using AdLerBackend.Application.Moodle.GetUserData;
 using MediatR;
 using MediatR.Pipeline;
 
-namespace Application.UnitTests.Common.Behaviours;
+namespace AdLerBackend.Application.UnitTests.Common.Behaviours;
 
 public class ExceptionHandlingBehaviourTest
 {

@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Common;
+﻿using AdLerBackend.Domain.Entities.Common;
 
-namespace Domain.Entities;
+namespace AdLerBackend.Domain.Entities;
 
 public class CourseEntity : BaseEntity
 {

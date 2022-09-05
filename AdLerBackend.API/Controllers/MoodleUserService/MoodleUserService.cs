@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 #pragma warning disable CS1591
 
-namespace AdLerBackend.Controllers.MoodleUserService;
+namespace AdLerBackend.API.Controllers.MoodleUserService;
 
 public class MoodleLoginController : BaseApiController
 {

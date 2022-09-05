@@ -1,9 +1,9 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
-using Domain.Entities;
-using Infrastructure.Repositories.Common;
+using AdLerBackend.Domain.Entities;
+using AdLerBackend.Infrastructure.Repositories.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories.Courses;
+namespace AdLerBackend.Infrastructure.Repositories.Courses;
 
 public class CourseRepository : GenericRepository<CourseEntity>, ICourseRepository
 {

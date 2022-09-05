@@ -4,7 +4,7 @@ using MediatR;
 using NSubstitute;
 using ValidationException = AdLerBackend.Application.Common.Exceptions.ValidationException;
 
-namespace Application.UnitTests.Common.Behaviours;
+namespace AdLerBackend.Application.UnitTests.Common.Behaviours;
 
 public class TestModel : IRequest<string>
 {

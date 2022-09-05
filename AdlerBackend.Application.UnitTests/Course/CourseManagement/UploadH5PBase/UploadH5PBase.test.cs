@@ -4,7 +4,7 @@ using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Course.CourseManagement.UploadH5pBase;
 using NSubstitute;
 
-namespace Application.UnitTests.Course.CourseManagement.UploadH5PBase;
+namespace AdLerBackend.Application.UnitTests.Course.CourseManagement.UploadH5PBase;
 
 public class UploadH5PBaseTest
 {

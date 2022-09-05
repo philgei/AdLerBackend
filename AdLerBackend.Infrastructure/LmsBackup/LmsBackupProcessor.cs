@@ -8,7 +8,7 @@ using AdLerBackend.Application.Common.Interfaces;
 using ICSharpCode.SharpZipLib.GZip;
 using ICSharpCode.SharpZipLib.Tar;
 
-namespace Infrastructure.LmsBackupProcessor;
+namespace AdLerBackend.Infrastructure.LmsBackup;
 
 // TODO: Implement n Task-Queue for parallel processing of the backup files
 public class LmsBackupProcessor : ILmsBackupProcessor

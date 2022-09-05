@@ -3,7 +3,7 @@ using AdLerBackend.Application.Common.DTOs.Storage;
 using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
 
-namespace Infrastructure.Storage;
+namespace AdLerBackend.Infrastructure.Storage;
 
 public class StorageService : IFileAccess
 {

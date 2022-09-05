@@ -1,12 +1,12 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses.LMSAdapter;
 using AdLerBackend.Application.Course.GetCoursesForUser;
-using Domain.Entities;
+using AdLerBackend.Domain.Entities;
 using NSubstitute;
 
 #pragma warning disable CS8618
 
-namespace Application.UnitTests.Course.GetCoursesForUser;
+namespace AdLerBackend.Application.UnitTests.Course.GetCoursesForUser;
 
 public class GetCoursesForUserTest
 {

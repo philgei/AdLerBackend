@@ -5,14 +5,14 @@ using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Course.CourseManagement.UploadCourse;
 using AdLerBackend.Application.Moodle.GetUserData;
+using AdLerBackend.Domain.Entities;
 using AutoBogus;
-using Domain.Entities;
 using MediatR;
 using NSubstitute;
 
 #pragma warning disable CS8618
 
-namespace Application.UnitTests.Course.CourseManagement.UploadCourse;
+namespace AdLerBackend.Application.UnitTests.Course.CourseManagement.UploadCourse;
 
 public class UploadCourseTest
 {

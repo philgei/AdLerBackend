@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace AdLerBackend.Common.ProblemDetails;
+namespace AdLerBackend.API.Common.ProblemDetails;
 
 public class MoodleTokenProblemDetails : Microsoft.AspNetCore.Mvc.ProblemDetails
 {

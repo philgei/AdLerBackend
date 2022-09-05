@@ -1,9 +1,9 @@
-﻿using AdLerBackend.Application.Common.Exceptions;
-using AdLerBackend.Common.ProblemDetails;
+﻿using AdLerBackend.API.Common.ProblemDetails;
+using AdLerBackend.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace AdLerBackend.Filters;
+namespace AdLerBackend.API.Filters;
 
 public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
 {

@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.Common;
+﻿namespace AdLerBackend.Domain.Entities.Common;
 
 public class BaseEntity
 {

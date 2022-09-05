@@ -4,13 +4,13 @@ using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Common.Responses.Course;
 using AdLerBackend.Application.Course.GetCoursesForAuthor;
 using AdLerBackend.Application.Moodle.GetUserData;
-using Domain.Entities;
+using AdLerBackend.Domain.Entities;
 using MediatR;
 using NSubstitute;
 
 #pragma warning disable CS8618
 
-namespace Application.UnitTests.Course.GetCourseForAuthor;
+namespace AdLerBackend.Application.UnitTests.Course.GetCourseForAuthor;
 
 public class GetCourseForAuthorHandlerTest
 {

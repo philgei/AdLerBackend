@@ -1,7 +1,7 @@
-﻿using Domain.Entities;
+﻿using AdLerBackend.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories;
+namespace AdLerBackend.Infrastructure.Repositories;
 
 public class AdLerBackendDbContext : DbContext
 {

@@ -4,7 +4,7 @@ using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Common.Responses.LMSAdapter;
 
-namespace Infrastructure.Moodle;
+namespace AdLerBackend.Infrastructure.Moodle;
 
 public class MoodleWebApi : IMoodle
 {

@@ -1,15 +1,15 @@
-﻿using AdLerBackend.Application.Course.CourseManagement.DeleteCourse;
+﻿using AdLerBackend.API.Controllers.Courses;
+using AdLerBackend.Application.Course.CourseManagement.DeleteCourse;
 using AdLerBackend.Application.Course.CourseManagement.UploadCourse;
 using AdLerBackend.Application.Course.CourseManagement.UploadH5pBase;
 using AdLerBackend.Application.Course.GetCourseDetail;
 using AdLerBackend.Application.Course.GetCoursesForAuthor;
 using AdLerBackend.Application.Course.GetCoursesForUser;
-using AdLerBackend.Controllers.Courses;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using NSubstitute;
 
-namespace AdLerBackend.API.Test.Controllers.Courses;
+namespace AdLerBackend.API.UnitTests.Controllers.Courses;
 
 public class CoursesControllerTest
 {

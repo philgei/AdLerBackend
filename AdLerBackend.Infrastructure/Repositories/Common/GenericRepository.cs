@@ -1,7 +1,7 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories.Common;
+namespace AdLerBackend.Infrastructure.Repositories.Common;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {

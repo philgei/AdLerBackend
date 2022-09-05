@@ -1,13 +1,13 @@
-﻿using AdLerBackend.Application.Common.Exceptions;
-using AdLerBackend.Common.ProblemDetails;
-using AdLerBackend.Filters;
+﻿using AdLerBackend.API.Common.ProblemDetails;
+using AdLerBackend.API.Filters;
+using AdLerBackend.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
 
-namespace AdLerBackend.API.Test.Filters;
+namespace AdLerBackend.API.UnitTests.Filters;
 
 public class ApiExceptionFilterAttributeTest
 {

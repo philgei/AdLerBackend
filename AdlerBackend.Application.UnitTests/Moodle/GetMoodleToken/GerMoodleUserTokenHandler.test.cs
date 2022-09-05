@@ -1,10 +1,9 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
-using AdLerBackend.Application.Common.Responses.LMSAdapter;
 using AdLerBackend.Application.Moodle.GetMoodleToken;
 using NSubstitute;
 
-namespace Application.UnitTests.Moodle.Handlers;
+namespace AdLerBackend.Application.UnitTests.Moodle.GetMoodleToken;
 
 public class GerMoodleUserTokenHandlerTest
 {

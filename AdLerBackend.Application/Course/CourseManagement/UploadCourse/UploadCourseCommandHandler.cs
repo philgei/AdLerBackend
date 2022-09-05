@@ -4,7 +4,7 @@ using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Application.Common.Responses;
 using AdLerBackend.Application.Moodle.GetUserData;
-using Domain.Entities;
+using AdLerBackend.Domain.Entities;
 using MediatR;
 
 namespace AdLerBackend.Application.Course.CourseManagement.UploadCourse;

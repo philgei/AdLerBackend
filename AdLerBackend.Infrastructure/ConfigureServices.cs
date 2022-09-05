@@ -1,15 +1,16 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
-using Infrastructure.Moodle;
-using Infrastructure.Repositories;
-using Infrastructure.Repositories.Common;
-using Infrastructure.Repositories.Courses;
-using Infrastructure.Services;
-using Infrastructure.Storage;
+using AdLerBackend.Infrastructure.LmsBackup;
+using AdLerBackend.Infrastructure.Moodle;
+using AdLerBackend.Infrastructure.Repositories;
+using AdLerBackend.Infrastructure.Repositories.Common;
+using AdLerBackend.Infrastructure.Repositories.Courses;
+using AdLerBackend.Infrastructure.Services;
+using AdLerBackend.Infrastructure.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure;
+namespace AdLerBackend.Infrastructure;
 
 public static class ConfigureServices
 {
@@ -19,7 +20,7 @@ public static class ConfigureServices
         var httpClient = new HttpClient();
         // Add Moodle to DI
         services.AddSingleton<IMoodle, MoodleWebApi>();
-        services.AddSingleton<ILmsBackupProcessor, LmsBackupProcessor.LmsBackupProcessor>();
+        services.AddSingleton<ILmsBackupProcessor, LmsBackupProcessor>();
         services.AddScoped<IFileAccess, StorageService>();
         services.AddSingleton<ISerialization, SerializationService>();
         services.AddScoped<ICourseRepository, CourseRepository>();

@@ -1,12 +1,12 @@
-﻿using AdLerBackend.Application.Common.Exceptions;
+﻿using AdLerBackend.API.Controllers.MoodleUserService;
+using AdLerBackend.Application.Common.Exceptions;
 using AdLerBackend.Application.Moodle.GetMoodleToken;
 using AdLerBackend.Application.Moodle.GetUserData;
-using AdLerBackend.Controllers.MoodleUserService;
 using MediatR;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 
-namespace AdLerBackend.API.Test.Controllers.MoodleUserService;
+namespace AdLerBackend.API.UnitTests.Controllers.MoodleUserService;
 
 public class MoodleLoginControllerTest
 {

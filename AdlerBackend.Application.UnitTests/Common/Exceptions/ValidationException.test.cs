@@ -1,7 +1,7 @@
 ﻿using AdLerBackend.Application.Common.Exceptions;
 using FluentValidation.Results;
 
-namespace Application.UnitTests.Common.Exceptions;
+namespace AdLerBackend.Application.UnitTests.Common.Exceptions;
 
 public class ValidationExceptionTest
 {

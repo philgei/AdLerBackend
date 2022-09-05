@@ -2,7 +2,7 @@
 using AdLerBackend.Application.Common.Exceptions.LMSBAckupProcessor;
 using AdLerBackend.Application.Common.Interfaces;
 
-namespace Infrastructure.Services;
+namespace AdLerBackend.Infrastructure.Services;
 
 public class SerializationService : ISerialization
 {

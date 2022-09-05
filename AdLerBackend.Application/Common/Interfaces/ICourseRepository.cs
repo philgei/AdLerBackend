@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using AdLerBackend.Domain.Entities;
 
 namespace AdLerBackend.Application.Common.Interfaces;
 

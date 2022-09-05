@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using AdLerBackend.Application.Common.Exceptions.LMSAdapter;
 using AdLerBackend.Application.Common.Responses;
-using Infrastructure.Moodle;
+using AdLerBackend.Infrastructure.Moodle;
 using NSubstitute;
 using NSubstitute.Extensions;
 using RichardSzalay.MockHttp;

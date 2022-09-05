@@ -1,5 +1,7 @@
 ﻿using System.Xml.Serialization;
 
+namespace AdLerBackend.Infrastructure.LmsBackup;
+
 [XmlRoot(ElementName = "file")]
 public class File
 {
