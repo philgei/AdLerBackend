@@ -1,14 +1,12 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace AdLerBackend.Application.Common.Exceptions.LMSBAckupProcessor;
 
+// Exclude this file from test coverage because it is a simple wrapper around an exception type.
+[ExcludeFromCodeCoverage]
 public class LmsBackupProcessorException : Exception
 {
     public LmsBackupProcessorException()
-    {
-    }
-
-    protected LmsBackupProcessorException(SerializationInfo info, StreamingContext context) : base(info, context)
     {
     }
 

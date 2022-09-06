@@ -1,8 +1,11 @@
-﻿using AdLerBackend.Domain.Entities;
+﻿using System.Diagnostics.CodeAnalysis;
+using AdLerBackend.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdLerBackend.Infrastructure.Repositories;
 
+// Exclude this from code coverage as it is just a wrapper around the DbContext
+[ExcludeFromCodeCoverage]
 public class AdLerBackendDbContext : DbContext
 {
     public AdLerBackendDbContext(DbContextOptions options) : base(options)
