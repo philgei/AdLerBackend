@@ -22,7 +22,14 @@ public class GenericRepositoryTest : TestWithSqlite
             Id = 1,
             Name = "Test Course",
             AuthorId = 1,
-            DslLocation = "Test Dsl Location"
+            DslLocation = "Test Dsl Location",
+            H5PFilesInCourse = new List<H5PLocationEntity>
+            {
+                new()
+                {
+                    Path = "Test Path"
+                }
+            }
         };
         var repository = new GenericRepository<CourseEntity>(DbContext);
 
