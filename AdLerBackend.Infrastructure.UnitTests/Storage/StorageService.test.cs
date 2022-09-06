@@ -12,7 +12,14 @@ namespace AdLerBackend.Infrastructure.UnitTests.Storage;
 
 public class StorageServiceTest
 {
+    private FileStream _backupFileStream;
     private IFileSystem _fileSystem;
+
+    [OneTimeSetUp]
+    public void OneTimeSetup()
+    {
+        _backupFileStream = new FileStream("../../../Storage/TestFiles/FakeH5p.zip", FileMode.Open);
+    }
 
     [SetUp]
     public void Setup()
@@ -33,7 +40,7 @@ public class StorageServiceTest
             {
                 new()
                 {
-                    H5PFile = new FileStream("../../../Storage/TestFiles/FakeH5p.zip", FileMode.Open),
+                    H5PFile = _backupFileStream,
                     H5PFileName = "H5PName"
                 }
             }
@@ -119,7 +126,7 @@ public class StorageServiceTest
         // Arrange
         var storageService = new StorageService(_fileSystem);
 
-        var h5pStream = new FileStream("../../../Storage/TestFiles/FakeH5p.zip", FileMode.Open);
+        var h5pStream = _backupFileStream;
 
         // Act
         var h5pBaseLocation = storageService.StoreH5PBase(h5pStream);
