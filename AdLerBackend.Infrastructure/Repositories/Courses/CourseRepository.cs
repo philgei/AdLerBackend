@@ -31,18 +31,16 @@ public class CourseRepository : GenericRepository<CourseEntity>, ICourseReposito
         return await Context.Courses.Where(c => searchStrings.Contains(c.Name)).ToListAsync();
     }
 
-    public Task<CourseEntity> GetAsync(int? id)
-    {
-        if (id is null) return Task.FromResult<CourseEntity>(null);
-
-        // include h5pLocations in the query
-        return Task.FromResult(Context.Courses.Where(c => c.Id == id).Include(c => c.H5PFilesInCourse).First());
-    }
-
     public new async Task DeleteAsync(int id)
     {
         var entity = await GetAsync(id);
         Context.Remove(entity);
         await Context.SaveChangesAsync();
+    }
+
+    public Task<CourseEntity> GetAsync(int id)
+    {
+        // include h5pLocations in the query
+        return Task.FromResult(Context.Courses.Where(c => c.Id == id).Include(c => c.H5PFilesInCourse).First());
     }
 }
