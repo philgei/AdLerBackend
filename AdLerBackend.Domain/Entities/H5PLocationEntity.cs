@@ -1,8 +1,8 @@
-﻿namespace AdLerBackend.Domain.Entities;
+﻿using AdLerBackend.Domain.Entities.Common;
 
-public class H5PLocationEntity
+namespace AdLerBackend.Domain.Entities;
+
+public class H5PLocationEntity : BaseEntity
 {
-    // ReSharper disable once UnusedMember.Local
-    private int Id { get; set; }
     public string Path { get; set; }
 }
