@@ -95,10 +95,9 @@ public class StorageService : IFileAccess
         {
             if (_fileSystem.Path.EndsInDirectorySeparator(entry.FullName)) continue;
             using var inputStream = entry.Open();
+
             var filePath = _fileSystem.Path.Join(workingPath, entry.FullName);
             var dirName = _fileSystem.Path.GetDirectoryName(filePath);
-
-            if (dirName == null) throw new Exception("dirName is null");
 
             _fileSystem.Directory.CreateDirectory(dirName);
             using var unpackedFile = _fileSystem.File.OpenWrite(filePath);

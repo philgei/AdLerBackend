@@ -11,11 +11,6 @@ public class LmsBackupProcessorTest
     private FileStream _backupFileStream;
     private FileStream _dslFileStream;
 
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [Test]
     public void GetH5PFilesFromBackup_Valid_GetsH5PFiles()
     {
