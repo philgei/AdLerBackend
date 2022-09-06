@@ -9,4 +9,5 @@ public interface ICourseRepository : IGenericRepository<CourseEntity>
     Task<bool> ExistsCourseForAuthor(int authorId, string courseName);
 
     Task<IList<CourseEntity>> GetAllCoursesByStrings(List<string> searchStrings);
+    new Task<CourseEntity?> GetAsync(int id);
 }

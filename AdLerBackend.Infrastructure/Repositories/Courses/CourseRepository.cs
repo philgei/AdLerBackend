@@ -38,9 +38,15 @@ public class CourseRepository : GenericRepository<CourseEntity>, ICourseReposito
         await Context.SaveChangesAsync();
     }
 
-    public Task<CourseEntity> GetAsync(int id)
+    public new async Task<CourseEntity?> GetAsync(int id)
     {
+        //return Task.FromResult(Context.Courses.Where(c => c.Id == id).Include(c => c.H5PFilesInCourse).First());
         // include h5pLocations in the query
-        return Task.FromResult(Context.Courses.Where(c => c.Id == id).Include(c => c.H5PFilesInCourse).First());
+
+
+        // Get the course and include the h5pLocations
+        var course = await Context.Courses.Where(c => c.Id == id).Include(c => c.H5PFilesInCourse)
+            .FirstOrDefaultAsync();
+        return course;
     }
 }
