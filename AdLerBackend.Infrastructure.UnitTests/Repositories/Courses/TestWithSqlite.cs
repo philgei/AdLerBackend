@@ -26,4 +26,11 @@ public abstract class TestWithSqlite : IDisposable
     {
         _connection.Close();
     }
+
+    [TearDown]
+    public void TearDown()
+    {
+        // empty the database
+        DbContext.Courses.RemoveRange(DbContext.Courses);
+    }
 }

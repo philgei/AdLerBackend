@@ -6,13 +6,6 @@ namespace AdLerBackend.Infrastructure.UnitTests.Repositories.Common;
 
 public class GenericRepositoryTest : TestWithSqlite
 {
-    [TearDown]
-    public void TearDown()
-    {
-        // empty the database
-        DbContext.Courses.RemoveRange(DbContext.Courses);
-    }
-
     [Test]
     public async Task Add_Valid_AddsAEntityToDB()
     {
