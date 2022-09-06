@@ -7,7 +7,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
     protected readonly AdLerBackendDbContext Context;
 
-    protected GenericRepository(AdLerBackendDbContext dbContext)
+    public GenericRepository(AdLerBackendDbContext dbContext)
     {
         Context = dbContext;
     }
