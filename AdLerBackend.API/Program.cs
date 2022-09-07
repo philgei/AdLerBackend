@@ -2,25 +2,42 @@ using System.Reflection;
 using AdLerBackend.API.Filters;
 using AdLerBackend.Application;
 using AdLerBackend.Infrastructure;
-using Infrastructure;
 using Microsoft.Net.Http.Headers;
 
 
 // This is needed, because wwwroot directory must be present in the beginning to serve files from it
 Directory.CreateDirectory("wwwroot");
 
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Use Global AdLer Config File (Most likely coming from a docker volume)
+builder.Configuration.AddJsonFile("./config/config.json", true);
+
+// Add HTTPS support
+if (!builder.Environment.IsDevelopment())
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        if (builder.Configuration["useHttps"] == "True")
+            options.ListenAnyIP(int.Parse(builder.Configuration["httpsPort"]),
+                listenOptions =>
+                {
+                    listenOptions.UseHttps("./config/cert/AdLerBackend.pfx",
+                        builder.Configuration["httpsCertificatePassword"]);
+                });
+        else
+            options.ListenAnyIP(int.Parse(builder.Configuration["httpPort"]));
+    });
+
 
 builder.Services.AddControllers(
     options => { options.Filters.Add(new ApiExceptionFilterAttribute()); }
 );
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    // using System.Reflection;
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
@@ -53,11 +70,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("test");
 
-app.UseHttpsRedirection();
+// Disabled for now, because it is not needed
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-
-app.UseAuthorization();
 
 app.MapControllers();
 
