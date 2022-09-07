@@ -1,3 +1,4 @@
+AdLerBackend.API/config/*
 bin/
 obj/
 /packages/
@@ -5,4 +6,3 @@ riderModule.iml
 /_ReSharper.Caches/
 AdLerBackend.sln.DotSettings.user
 /AdLerBackend.API/wwwroot/
-AdLerBackend.API/config/
