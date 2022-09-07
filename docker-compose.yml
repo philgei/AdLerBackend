@@ -9,3 +9,6 @@ services:
       ASPNETCORE_ENVIRONMENT: "Production"
     volumes:
       - ./AdLerBackend.API/config:/app/config # Default location für config Datei
+#      - wwwroot:/app/wwwroot # 
+volumes:
+    wwwroot:
