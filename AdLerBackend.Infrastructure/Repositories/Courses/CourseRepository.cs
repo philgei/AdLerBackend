@@ -1,5 +1,6 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
 using AdLerBackend.Domain.Entities;
+using AdLerBackend.Infrastructure.Repositories.BaseContext;
 using AdLerBackend.Infrastructure.Repositories.Common;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,7 +8,7 @@ namespace AdLerBackend.Infrastructure.Repositories.Courses;
 
 public class CourseRepository : GenericRepository<CourseEntity>, ICourseRepository
 {
-    public CourseRepository(AdLerBackendDbContext dbContext) : base(dbContext)
+    public CourseRepository(BaseAdLerBackendDbContext dbContext) : base(dbContext)
     {
     }
 

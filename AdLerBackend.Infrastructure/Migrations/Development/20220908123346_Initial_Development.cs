@@ -2,9 +2,9 @@
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace AdLerBackend.Infrastructure.Migrations.Development
 {
-    public partial class Initial : Migration
+    public partial class Initial_Development : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,7 +24,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "H5PLocations",
+                name: "H5PLocationEntity",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -34,9 +34,9 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_H5PLocations", x => x.Id);
+                    table.PrimaryKey("PK_H5PLocationEntity", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_H5PLocations_Courses_CourseEntityId",
+                        name: "FK_H5PLocationEntity_Courses_CourseEntityId",
                         column: x => x.CourseEntityId,
                         principalTable: "Courses",
                         principalColumn: "Id",
@@ -44,15 +44,15 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_H5PLocations_CourseEntityId",
-                table: "H5PLocations",
+                name: "IX_H5PLocationEntity_CourseEntityId",
+                table: "H5PLocationEntity",
                 column: "CourseEntityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "H5PLocations");
+                name: "H5PLocationEntity");
 
             migrationBuilder.DropTable(
                 name: "Courses");

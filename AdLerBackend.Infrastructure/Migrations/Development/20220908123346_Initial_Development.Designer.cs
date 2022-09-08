@@ -4,16 +4,18 @@ using AdLerBackend.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace AdLerBackend.Infrastructure.Migrations.Development
 {
-    [DbContext(typeof(AdLerBackendDbContext))]
-    partial class AdLerBackendDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(DevelopmentContext))]
+    [Migration("20220908123346_Initial_Development")]
+    partial class Initial_Development
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Domain.Entities.CourseEntity", b =>
+            modelBuilder.Entity("AdLerBackend.Domain.Entities.CourseEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +48,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("Domain.Entities.H5PLocationEntity", b =>
+            modelBuilder.Entity("AdLerBackend.Domain.Entities.H5PLocationEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,18 +67,18 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("CourseEntityId");
 
-                    b.ToTable("H5PLocations");
+                    b.ToTable("H5PLocationEntity");
                 });
 
-            modelBuilder.Entity("Domain.Entities.H5PLocationEntity", b =>
+            modelBuilder.Entity("AdLerBackend.Domain.Entities.H5PLocationEntity", b =>
                 {
-                    b.HasOne("Domain.Entities.CourseEntity", null)
+                    b.HasOne("AdLerBackend.Domain.Entities.CourseEntity", null)
                         .WithMany("H5PFilesInCourse")
                         .HasForeignKey("CourseEntityId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Domain.Entities.CourseEntity", b =>
+            modelBuilder.Entity("AdLerBackend.Domain.Entities.CourseEntity", b =>
                 {
                     b.Navigation("H5PFilesInCourse");
                 });

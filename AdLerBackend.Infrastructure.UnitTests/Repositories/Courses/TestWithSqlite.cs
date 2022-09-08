@@ -1,4 +1,4 @@
-﻿using AdLerBackend.Infrastructure.Repositories;
+﻿using AdLerBackend.Infrastructure.Repositories.BaseContext;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,16 +9,16 @@ public abstract class TestWithSqlite : IDisposable
     private const string InMemoryConnectionString = "DataSource=:memory:";
     private readonly SqliteConnection _connection;
 
-    protected readonly AdLerBackendDbContext DbContext;
+    protected readonly BaseAdLerBackendDbContext DbContext;
 
     protected TestWithSqlite()
     {
         _connection = new SqliteConnection(InMemoryConnectionString);
         _connection.Open();
-        var options = new DbContextOptionsBuilder<AdLerBackendDbContext>()
+        var options = new DbContextOptionsBuilder<BaseAdLerBackendDbContext>()
             .UseSqlite(_connection)
             .Options;
-        DbContext = new AdLerBackendDbContext(options);
+        DbContext = new BaseAdLerBackendDbContext(options);
         DbContext.Database.EnsureCreated();
     }
 

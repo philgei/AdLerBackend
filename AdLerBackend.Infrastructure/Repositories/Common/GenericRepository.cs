@@ -1,13 +1,14 @@
 ﻿using AdLerBackend.Application.Common.Interfaces;
+using AdLerBackend.Infrastructure.Repositories.BaseContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdLerBackend.Infrastructure.Repositories.Common;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-    protected readonly AdLerBackendDbContext Context;
+    protected readonly BaseAdLerBackendDbContext Context;
 
-    public GenericRepository(AdLerBackendDbContext dbContext)
+    public GenericRepository(BaseAdLerBackendDbContext dbContext)
     {
         Context = dbContext;
     }

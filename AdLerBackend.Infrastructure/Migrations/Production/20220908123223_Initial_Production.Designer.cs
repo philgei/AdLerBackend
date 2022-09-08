@@ -9,76 +9,73 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace AdLerBackend.Infrastructure.Migrations.Production
 {
-    [DbContext(typeof(AdLerBackendDbContext))]
-    [Migration("20220818131247_Initial")]
-    partial class Initial
+    [DbContext(typeof(ProductionContext))]
+    [Migration("20220908123223_Initial_Production")]
+    partial class Initial_Production
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.8")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Domain.Entities.CourseEntity", b =>
+            modelBuilder.Entity("AdLerBackend.Domain.Entities.CourseEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<string>("DslLocation")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("Domain.Entities.H5PLocationEntity", b =>
+            modelBuilder.Entity("AdLerBackend.Domain.Entities.H5PLocationEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1L)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("CourseEntityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Path")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseEntityId");
 
-                    b.ToTable("H5PLocations");
+                    b.ToTable("H5PLocationEntity");
                 });
 
-            modelBuilder.Entity("Domain.Entities.H5PLocationEntity", b =>
+            modelBuilder.Entity("AdLerBackend.Domain.Entities.H5PLocationEntity", b =>
                 {
-                    b.HasOne("Domain.Entities.CourseEntity", null)
+                    b.HasOne("AdLerBackend.Domain.Entities.CourseEntity", null)
                         .WithMany("H5PFilesInCourse")
                         .HasForeignKey("CourseEntityId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Domain.Entities.CourseEntity", b =>
+            modelBuilder.Entity("AdLerBackend.Domain.Entities.CourseEntity", b =>
                 {
                     b.Navigation("H5PFilesInCourse");
                 });
