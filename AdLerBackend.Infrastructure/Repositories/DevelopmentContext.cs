@@ -16,6 +16,7 @@ public sealed class DevelopmentContext : BaseAdLerBackendDbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
+        // get password from environment variable
         options.UseSqlServer(_configuration.GetConnectionString("DevelopomentConnection"));
     }
 }

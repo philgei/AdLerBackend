@@ -16,7 +16,9 @@ public sealed class ProductionContext : BaseAdLerBackendDbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        options.UseMySql(_configuration.GetConnectionString("ProductionConnection"),
+        // Get password from environment variable
+        var password = _configuration["ASPNETCORE_DBPASSWORD"];
+        options.UseMySql(_configuration.GetConnectionString("ProductionConnection") + ";password=" + password,
             new MariaDbServerVersion(new Version(10, 9, 2)));
     }
 }

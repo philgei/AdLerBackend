@@ -1,5 +1,10 @@
 ﻿version: "3"
 services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: PASSWORDGOESHERE
   backend:
     build: .
     ports:
@@ -7,8 +12,9 @@ services:
       - "443:443"
     environment:
       ASPNETCORE_ENVIRONMENT: "Production"
+      ASPNETCORE_DBPASSWORD: "PASSWORDGOESHERE"
     volumes:
       - ./AdLerBackend.API/config:/app/config # Default location für config Datei
-#      - wwwroot:/app/wwwroot # 
+      - wwwroot:/app/wwwroot 
 volumes:
     wwwroot:
