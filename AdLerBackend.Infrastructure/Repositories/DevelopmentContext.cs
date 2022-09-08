@@ -4,13 +4,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace AdLerBackend.Infrastructure.Repositories;
 
-public class DevelopmentContext : BaseAdLerBackendDbContext
+public sealed class DevelopmentContext : BaseAdLerBackendDbContext
 {
     private readonly IConfiguration _configuration;
 
     public DevelopmentContext(DbContextOptions options, IConfiguration configuration) : base(options)
     {
         _configuration = configuration;
+        Database.EnsureCreated();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
